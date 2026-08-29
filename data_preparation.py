@@ -9,6 +9,9 @@ import io
 import imageio.v3 as iio
 import matplotlib.pyplot as plt
 from datetime import datetime
+
+from pandas.core.indexes import category
+
 now = datetime.now().strftime("%m%d_%H%M")
 
 nicki_badanych = ["abc", "Bear", "fghx", "jt", "mi2", "miguel", "mole", "Reshi", "sapling"]
@@ -22,13 +25,10 @@ csv_eventow = ["abc_EEGBasedVisualRecall_Events_Rep1_2026-05-27_11-04-56",
                "Reshi_EEGBasedVisualRecall_Events_Rep1_2026-05-28_09-40-36",
                "sapling_EEGBasedVisualRecall_Events_Rep1_2026-06-12_09-43-56"]
 reduction_methods = ["ratio", "logratio", "zlogratio", "mean", "zscore"]
+categories=["abstract","airplane","apple","banana","bird","boat","car","dog","person","train","zebra"]
 
 # Wybór obecnych badanych
 wybrani_badani = [0,5]
-
-obecnie_badani = [nicki_badanych[i] for i in wybrani_badani]
-NICK_BADANEGO = nicki_badanych[wybrani_badani[0]]
-CSV_EVENTY =    csv_eventow[wybrani_badani[0]]
 
 # Opcje edycji epok
 subtract_mean_baseline = False
@@ -45,11 +45,20 @@ image_channel = 14
 image_epoch = 14
 do_generate_single_image = True
 
+chosen_category = "zebra"
 do_generate_single_gif_chrono_order = False
 do_generate_single_gif_image_order = True
 do_generate_combo_gif = True
 
 # Zmienne globalne
+obecnie_badani = [nicki_badanych[i] for i in wybrani_badani]
+NICK_BADANEGO = nicki_badanych[wybrani_badani[0]]
+CSV_EVENTY =    csv_eventow[wybrani_badani[0]]
+try:
+    current_category = categories.index(chosen_category)
+except ValueError:
+    current_category = 0
+
 raw_data: mne.io.Raw
 epochs: mne.Epochs
 tfData_float32: np.float32
@@ -241,9 +250,9 @@ def create_epochs_from_ImageOn_events():
     #----------------------Filtracja eventu IMAGE_ON---------------------------------------------------
     imageOn_events = events[(events[:, 2] == 12)]
 #---------------------Porównanie Ilości znalezionych eventów z dziennikiem w CSV-------------------
-    events_csv = pd.read_csv(f"assets/{CSV_EVENTY}")
+    events_csv = pd.read_csv(f"assets/{CSV_EVENTY}.csv")
     image_events_csv = ( events_csv.query("event_code == 12").reset_index(drop=True) ) #przeszukanie csv za IMAGE_ON
-    print( f"Liczba IMAGE_ON w CSV: {len(image_events_csv)}")
+    print( f"Liczba IMAGE_ON w CSV: {len(image_events_csv)}.csv")
 
     assert len(imageOn_events) == len(image_events_csv), \
         "Liczba eventów IMAGE_ON w EEG i w CSV nie jest taka sama!"
@@ -356,18 +365,27 @@ def generate_single_channel_gif_in_chrono_order():
     print("GIF utworzony!")
 # GIF dla jednego knału z epok posortowanych według obrazka
 def generate_single_channel_gif_in_image_order():
+    global current_category
     y_image = epochs.metadata["image_id"]  # Klasyfikacja według pliku
-    sort_indek = np.argsort(y_image)
+    y_category = epochs.metadata["image_category"]	# Kategoria obrazka
 
-    nr_kanalu = 14
+    nr_kanalu = image_channel
     frames = []
 
-    for nrKlatki, nr_epoki in enumerate(sort_indek[120:1199]):
+    y_cat_np = y_category.to_numpy()
+    y_img_np = y_image.to_numpy()
+    sort_indek = np.argsort(y_img_np)
+
+    warunek_zm = y_cat_np[sort_indek[:-1]] != y_cat_np[sort_indek[1:]]
+    p_zmiany = np.where(warunek_zm)[0] + 1
+    granice = [0] + list(p_zmiany) + [len(sort_indek)]
+
+    for nrKlatki, nr_epoki in enumerate(sort_indek[granice[current_category]:granice[current_category+1]]):
         fig, ax = plt.subplots(figsize=(8, 6))
 
         single_spectrogram = tfData_float32[nr_epoki, nr_kanalu, :, :]
 
-        obecnyobraz = y_image[nr_epoki]
+        obecnyobraz = y_img_np[nr_epoki]
 
         ax.imshow(single_spectrogram, cmap="jet", aspect="auto", origin="lower")
         ax.set_title(f"Kanał: {raw_data.ch_names[nr_kanalu]} "
@@ -385,6 +403,7 @@ def generate_single_channel_gif_in_image_order():
     print("GIF utworzony!")
 #GIF dla elektrod F3, F4, C3, C4 O1, O2 dla posortoawnych obrazków
 def generate_combo_GIF_image_order():
+    global current_category
     y_category = epochs.metadata["image_category"]	# Kategoria obrazka
     y_image = epochs.metadata["image_id"]		# Klasyfikacja według pliku
 
@@ -399,11 +418,10 @@ def generate_combo_GIF_image_order():
     warunek_zm = y_cat_np[sort_indek[:-1]] != y_cat_np[sort_indek[1:]]
     p_zmiany = np.where(warunek_zm)[0] + 1
     granice = [0] + list(p_zmiany) + [len(sort_indek)]
+    #for i in range(0,len(granice)-1):
+      #  print(y_cat_np[sort_indek[granice[i]]] )
 
-    for i in range(0,len(granice)-1):
-        print(y_cat_np[sort_indek[granice[i]]] )
-    obKat = 10
-    for nrKlatki,nr_epoki in enumerate(sort_indek[granice[obKat]:granice[obKat+1]]):
+    for nrKlatki,nr_epoki in enumerate(sort_indek[granice[current_category]:granice[current_category+1]]):
         fig, ax = plt.subplots(3, 2, figsize=(8, 6))
 
         obecnyobraz= y_img_np[nr_epoki]
