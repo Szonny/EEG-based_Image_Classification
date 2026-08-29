@@ -21,30 +21,33 @@ csv_eventow = ["abc_EEGBasedVisualRecall_Events_Rep1_2026-05-27_11-04-56",
                "mole_EEGBasedVisualRecall_Events_Rep2_2026-05-22_11-27-28",
                "Reshi_EEGBasedVisualRecall_Events_Rep1_2026-05-28_09-40-36",
                "sapling_EEGBasedVisualRecall_Events_Rep1_2026-06-12_09-43-56"]
+reduction_methods = ["ratio", "logratio", "zlogratio", "mean", "zscore"]
 
-# Wybór obecnego badanego
-obecny_badany = 0
-NICK_BADANEGO = nicki_badanych[obecny_badany]
-CSV_EVENTY =    csv_eventow[obecny_badany]
+# Wybór obecnych badanych
+wybrani_badani = [0,5]
+
+obecnie_badani = [nicki_badanych[i] for i in wybrani_badani]
+NICK_BADANEGO = nicki_badanych[wybrani_badani[0]]
+CSV_EVENTY =    csv_eventow[wybrani_badani[0]]
 
 # Opcje edycji epok
 subtract_mean_baseline = False
 
 reduct_tfa_using_baseline = False
-reduction_methods = ["ratio", "logratio", "zlogratio", "mean", "zscore"]
 chosen_reduction_method = reduction_methods[2]
 
 # Opcje zapisu do .npy
 do_save_to_file = True
 
 # Opcje wizualizacji
+visualization_catalogue="vis"
 image_channel = 14
 image_epoch = 14
-do_generate_single_image = False
+do_generate_single_image = True
 
 do_generate_single_gif_chrono_order = False
-do_generate_single_gif_image_order = False
-do_generate_combo_gif = False
+do_generate_single_gif_image_order = True
+do_generate_combo_gif = True
 
 # Zmienne globalne
 raw_data: mne.io.Raw
@@ -296,7 +299,16 @@ def save_to_file(nick):
     print("Image y")
     print(y_image.head())
     #-----------------Zapis wyników do plików-------------------------------------------
-    np.save(f"data/{nick}_Dane32PrzetworzoneNoAVGNoCLIP.npy", tfData_float32)
+
+    sub_mean_base_text = "AVG"                              #Ustalanie nazwy pliku na podstawie wybranych opcji
+    reduct_text = ""
+    if subtract_mean_baseline:
+        sub_mean_base_text = "NoAVG"
+    if reduct_tfa_using_baseline:
+        reduct_text = chosen_reduction_method
+    #NOCLIP zawsze, clip daje zle efekty
+
+    np.save(f"data/{nick}_Dane32Przetworzone{sub_mean_base_text}{reduct_text}.npy", tfData_float32)
     np.save(f"data/{nick}_EtykietyDanych.npy", y_category)
     print("Utworzono Pliki")
 # Pojedynczy obrazek dla jednej epoki dla jednego kanału
@@ -315,7 +327,7 @@ def generate_single_epoche_image():
     ax.set_ylabel("Indeksy częstotliwości")
     fig.colorbar(im, label="Moc sygnału")
 
-    plt.savefig(f"{NICK_BADANEGO}_spektrogram_epoka_{image_epoch}.png", dpi=100, bbox_inches="tight")
+    plt.savefig(f"{visualization_catalogue}/{NICK_BADANEGO}_spektrogram_epoka_{image_epoch}.png", dpi=100, bbox_inches="tight")
     plt.show()
     plt.close()
     print("Obrazek PNG został zapisany!")
@@ -340,7 +352,7 @@ def generate_single_channel_gif_in_chrono_order():
         plt.close(fig)
 
     # duration=1000 sekudna na klatke
-    iio.imwrite(f"{NICK_BADANEGO}_animacja_epok_chrono.gif", frames, duration=250, loop=0)
+    iio.imwrite(f"{visualization_catalogue}/{NICK_BADANEGO}_animacja_epok_chrono.gif", frames, duration=250, loop=0)
     print("GIF utworzony!")
 # GIF dla jednego knału z epok posortowanych według obrazka
 def generate_single_channel_gif_in_image_order():
@@ -369,7 +381,7 @@ def generate_single_channel_gif_in_image_order():
         plt.close(fig)
 
     # duration=1000 sekudna na klatke
-    iio.imwrite(f"{NICK_BADANEGO}_animacja_epok.gif", frames, duration=400, loop=0)
+    iio.imwrite(f"{visualization_catalogue}/{NICK_BADANEGO}_animacja_epok.gif", frames, duration=400, loop=0)
     print("GIF utworzony!")
 #GIF dla elektrod F3, F4, C3, C4 O1, O2 dla posortoawnych obrazków
 def generate_combo_GIF_image_order():
@@ -419,27 +431,31 @@ def generate_combo_GIF_image_order():
         plt.close(fig)
 
     # duration=1000 sekudna na klatke
-    iio.imwrite(f"{NICK_BADANEGO}_animacja_epokKanalow_{now}.gif", frames, duration=600, loop=0)
+    iio.imwrite(f"{visualization_catalogue}/{NICK_BADANEGO}_animacja_epokKanalow_{now}.gif", frames, duration=600, loop=0)
     print("Piękny GIF utworzony!")
 
 
-load_data(NICK_BADANEGO)
-change_channel_names()
-change_channel_types()
-change_montage_and_reference()
-drop_unimportant_channels()
-filter_raw_data()
-delete_bad_channels()
-independent_component_anlysis()
-create_epochs_from_ImageOn_events()
-morlet_wavelet()
-if do_save_to_file:
-    save_to_file(NICK_BADANEGO)
-if do_generate_single_image:
-    generate_single_epoche_image()
-if do_generate_single_gif_chrono_order:
-    generate_single_channel_gif_in_chrono_order()
-if do_generate_single_gif_image_order:
-    generate_single_channel_gif_in_image_order()
-if do_generate_combo_gif:
-    generate_combo_GIF_image_order()
+for i in wybrani_badani:
+    NICK_BADANEGO = nicki_badanych[i]
+    CSV_EVENTY = csv_eventow[i]
+
+    load_data(NICK_BADANEGO)
+    change_channel_names()
+    change_channel_types()
+    change_montage_and_reference()
+    drop_unimportant_channels()
+    filter_raw_data()
+    delete_bad_channels()
+    independent_component_anlysis()
+    create_epochs_from_ImageOn_events()
+    morlet_wavelet()
+    if do_save_to_file:
+        save_to_file(NICK_BADANEGO)
+    if do_generate_single_image:
+        generate_single_epoche_image()
+    if do_generate_single_gif_chrono_order:
+        generate_single_channel_gif_in_chrono_order()
+    if do_generate_single_gif_image_order:
+        generate_single_channel_gif_in_image_order()
+    if do_generate_combo_gif:
+        generate_combo_GIF_image_order()
