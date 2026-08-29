@@ -5,8 +5,19 @@ import numpy as np
 import mne
 import sklearn
 
+nicki_badanych = ["abc", "Bear", "fghx", "jt", "mi2", "miguel", "mole", "Reshi", "sapling"]
 NICK_BADANEGO = "abc"
 CSV_EVENTY = "abc_EEGBasedVisualRecall_Events_Rep1_2026-05-27_11-04-56.csv"
+
+csv_eventow = ["abc_EEGBasedVisualRecall_Events_Rep1_2026-05-27_11-04-56",
+               "Bear_EEGBasedVisualRecall_Events_Rep1_2026-05-29_10-34-33",
+               "fghx_EEGBasedVisualRecall_Events_Rep1_2026-05-27_14-21-40",
+               "jt_EEGBasedVisualRecall_Events_Rep1_2026-06-10_10-07-50",
+               "MI2_EEGBasedVisualRecall_Events_Rep1_2026-06-18_11-42-39",
+               "miguel_EEGBasedVisualRecall_Events_Rep1_2026-06-11_09-42-59",
+               "mole_EEGBasedVisualRecall_Events_Rep2_2026-05-22_11-27-28",
+               "Reshi_EEGBasedVisualRecall_Events_Rep1_2026-05-28_09-40-36",
+               "sapling_EEGBasedVisualRecall_Events_Rep1_2026-06-12_09-43-56"]
 
 raw_data: mne.io.Raw
 epochs: mne.Epochs
@@ -67,7 +78,7 @@ def delete_bad_channels():
 # 1. Kanały z bardzo dużym udziałem Low_SNR oznaczamy jako "bad"
 # 2. Dla pozostałych kanałów tworzymy adnotacje czasowe BAD_*
 #    aby odrzucać tylko fragmenty nagrania o złej jakości
-    df_imp = pd.read_csv(f"data/{NICK_BADANEGO}_imp.csv", skiprows=6)
+    df_imp = pd.read_csv(f"assets/{NICK_BADANEGO}_imp.csv", skiprows=6)
 
     bad_channels = []
     annotations = []
