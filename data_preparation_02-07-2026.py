@@ -5,10 +5,13 @@ import numpy as np
 import mne
 import sklearn
 
-nicki_badanych = ["abc", "Bear", "fghx", "jt", "mi2", "miguel", "mole", "Reshi", "sapling"]
-NICK_BADANEGO = "abc"
-CSV_EVENTY = "abc_EEGBasedVisualRecall_Events_Rep1_2026-05-27_11-04-56.csv"
+import io
+import imageio.v3 as iio
+import matplotlib.pyplot as plt
+from datetime import datetime
+now = datetime.now().strftime("%m%d_%H%M")
 
+nicki_badanych = ["abc", "Bear", "fghx", "jt", "mi2", "miguel", "mole", "Reshi", "sapling"]
 csv_eventow = ["abc_EEGBasedVisualRecall_Events_Rep1_2026-05-27_11-04-56",
                "Bear_EEGBasedVisualRecall_Events_Rep1_2026-05-29_10-34-33",
                "fghx_EEGBasedVisualRecall_Events_Rep1_2026-05-27_14-21-40",
@@ -19,6 +22,31 @@ csv_eventow = ["abc_EEGBasedVisualRecall_Events_Rep1_2026-05-27_11-04-56",
                "Reshi_EEGBasedVisualRecall_Events_Rep1_2026-05-28_09-40-36",
                "sapling_EEGBasedVisualRecall_Events_Rep1_2026-06-12_09-43-56"]
 
+# Wybór obecnego badanego
+obecny_badany = 0
+NICK_BADANEGO = nicki_badanych[obecny_badany]
+CSV_EVENTY =    csv_eventow[obecny_badany]
+
+# Opcje edycji epok
+subtract_mean_baseline = False
+
+reduct_tfa_using_baseline = False
+reduction_methods = ["ratio", "logratio", "zlogratio", "mean", "zscore"]
+chosen_reduction_method = reduction_methods[2]
+
+# Opcje zapisu do .npy
+do_save_to_file = True
+
+# Opcje wizualizacji
+image_channel = 14
+image_epoch = 14
+do_generate_single_image = False
+
+do_generate_single_gif_chrono_order = False
+do_generate_single_gif_image_order = False
+do_generate_combo_gif = False
+
+# Zmienne globalne
 raw_data: mne.io.Raw
 epochs: mne.Epochs
 tfData_float32: np.float32
@@ -246,15 +274,18 @@ def morlet_wavelet():
     l_cykli = czestotliwosci/4
     tfa = epochs.compute_tfr(method="morlet", freqs=czestotliwosci, n_cycles=l_cykli,
                         decim=1, picks='eeg', return_itc=False)
-    #tfa.apply_baseline(baseline=(-0.3, -0.05), mode='zlogratio')			#redukcja sygnału względem funkcji na w odniesieniu do sygnału przed wydarzeniem
-    #ratio, logratio, zlogratio, mean, zscore
+
+    if reduct_tfa_using_baseline:       #redukcja sygnału względem funkcji na w odniesieniu do sygnału przed wydarzeniem
+        tfa.apply_baseline(baseline=(-0.3, -0.05), mode=chosen_reduction_method)
+
     tfData = tfa.crop(tmin=0.0, tmax=0.5).get_data()
     tfData_float32 = tfData.astype(np.float32)
 
-    print(tfData)
+    if subtract_mean_baseline:
+        srednia = np.mean(tfData_float32, axis=1, keepdims=True)			#LEKKIE POLEPSZENIE WYNIKOW
+        tfData_float32 = tfData_float32-srednia
 
-    #srednia = np.mean(tfData_float32, axis=1, keepdims=True)			#LEKKIE POLEPSZENIE WYNIKOW
-    #tfData_float32 = tfData_float32-srednia
+    print(tfData_float32)
 #-------------------Przygotowanie zmiennych do klasyfikacji--------------------------
 def save_to_file(nick):
     y_category = epochs.metadata["image_category"]	# Kategoria obrazka
@@ -268,6 +299,129 @@ def save_to_file(nick):
     np.save(f"data/{nick}_Dane32PrzetworzoneNoAVGNoCLIP.npy", tfData_float32)
     np.save(f"data/{nick}_EtykietyDanych.npy", y_category)
     print("Utworzono Pliki")
+# Pojedynczy obrazek dla jednej epoki dla jednego kanału
+def generate_single_epoche_image():
+    global tfData_float32
+    global image_epoch
+    global image_channel
+
+    jedenWynik = tfData_float32[image_epoch, image_channel, :, :]
+
+    fig, ax = plt.subplots(figsize=(8, 6))
+    im = ax.imshow(jedenWynik, cmap="jet", aspect="auto", origin="lower")
+
+    ax.set_title(f"Epoka {image_epoch}, Kanał {image_channel}")
+    ax.set_xlabel("Punkty czasu")
+    ax.set_ylabel("Indeksy częstotliwości")
+    fig.colorbar(im, label="Moc sygnału")
+
+    plt.savefig(f"{NICK_BADANEGO}_spektrogram_epoka_{image_epoch}.png", dpi=100, bbox_inches="tight")
+    plt.show()
+    plt.close()
+    print("Obrazek PNG został zapisany!")
+# GIF dla jednego kanału z róznych epok po kolei
+def generate_single_channel_gif_in_chrono_order():
+    global tfData_float32
+    nr_kanalu = 14          # GIF dla jednego kanału z róznych epok po kolei
+    frames = []
+
+    for nr_epoki in range(200):
+        fig, ax = plt.subplots(figsize=(8, 6))
+
+        single_spectrogram = tfData_float32[nr_epoki, nr_kanalu, :, :]
+        ax.imshow(single_spectrogram, cmap="jet", aspect="auto", origin="lower")
+        ax.set_title(f"Epoka: {nr_epoki}")
+
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png", bbox_inches="tight")
+        buf.seek(0)
+
+        frames.append(iio.imread(buf))
+        plt.close(fig)
+
+    # duration=1000 sekudna na klatke
+    iio.imwrite(f"{NICK_BADANEGO}_animacja_epok_chrono.gif", frames, duration=250, loop=0)
+    print("GIF utworzony!")
+# GIF dla jednego knału z epok posortowanych według obrazka
+def generate_single_channel_gif_in_image_order():
+    y_image = epochs.metadata["image_id"]  # Klasyfikacja według pliku
+    sort_indek = np.argsort(y_image)
+
+    nr_kanalu = 14
+    frames = []
+
+    for nrKlatki, nr_epoki in enumerate(sort_indek[120:1199]):
+        fig, ax = plt.subplots(figsize=(8, 6))
+
+        single_spectrogram = tfData_float32[nr_epoki, nr_kanalu, :, :]
+
+        obecnyobraz = y_image[nr_epoki]
+
+        ax.imshow(single_spectrogram, cmap="jet", aspect="auto", origin="lower")
+        ax.set_title(f"Kanał: {raw_data.ch_names[nr_kanalu]} "
+                     f"Epoka: {nr_epoki} Obraz {obecnyobraz}")
+
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png", bbox_inches="tight")
+        buf.seek(0)
+
+        frames.append(iio.imread(buf))
+        plt.close(fig)
+
+    # duration=1000 sekudna na klatke
+    iio.imwrite(f"{NICK_BADANEGO}_animacja_epok.gif", frames, duration=400, loop=0)
+    print("GIF utworzony!")
+#GIF dla elektrod F3, F4, C3, C4 O1, O2 dla posortoawnych obrazków
+def generate_combo_GIF_image_order():
+    y_category = epochs.metadata["image_category"]	# Kategoria obrazka
+    y_image = epochs.metadata["image_id"]		# Klasyfikacja według pliku
+
+    y_cat_np = y_category.to_numpy()
+    y_img_np = y_image.to_numpy()
+    sort_indek = np.argsort(y_img_np)
+
+    frames = []
+    kanalyL = [2,1,14]
+    kanalyP = [4,5,15]
+
+    warunek_zm = y_cat_np[sort_indek[:-1]] != y_cat_np[sort_indek[1:]]
+    p_zmiany = np.where(warunek_zm)[0] + 1
+    granice = [0] + list(p_zmiany) + [len(sort_indek)]
+
+    for i in range(0,len(granice)-1):
+        print(y_cat_np[sort_indek[granice[i]]] )
+    obKat = 10
+    for nrKlatki,nr_epoki in enumerate(sort_indek[granice[obKat]:granice[obKat+1]]):
+        fig, ax = plt.subplots(3, 2, figsize=(8, 6))
+
+        obecnyobraz= y_img_np[nr_epoki]
+
+        for idy, nr_kanalu in enumerate(kanalyL):
+            single_spectrogram = tfData_float32[nr_epoki, nr_kanalu, :, :]
+
+            ax[idy,0].imshow(single_spectrogram, cmap="jet", aspect="auto", origin="lower")
+            ax[idy,0].set_title(f"Kanał: {raw_data.ch_names[nr_kanalu]} ")
+
+        for idy, nr_kanalu in enumerate(kanalyP):
+            single_spectrogram = tfData_float32[nr_epoki, nr_kanalu, :, :]
+
+            ax[idy,1].imshow(single_spectrogram, cmap="jet", aspect="auto", origin="lower")
+            ax[idy,1].set_title(f"Kanał: {raw_data.ch_names[nr_kanalu]}")
+
+        fig.suptitle(f"Obraz {obecnyobraz}", fontsize=10, fontweight='bold')
+        ax[2,1].set_xlabel("Czas")
+        ax[1,0].set_ylabel("Częstotliwość")
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png", dpi=100)
+        buf.seek(0)
+
+        frames.append(iio.imread(buf))
+        plt.close(fig)
+
+    # duration=1000 sekudna na klatke
+    iio.imwrite(f"{NICK_BADANEGO}_animacja_epokKanalow_{now}.gif", frames, duration=600, loop=0)
+    print("Piękny GIF utworzony!")
+
 
 load_data(NICK_BADANEGO)
 change_channel_names()
@@ -279,4 +433,13 @@ delete_bad_channels()
 independent_component_anlysis()
 create_epochs_from_ImageOn_events()
 morlet_wavelet()
-save_to_file(NICK_BADANEGO)
+if do_save_to_file:
+    save_to_file(NICK_BADANEGO)
+if do_generate_single_image:
+    generate_single_epoche_image()
+if do_generate_single_gif_chrono_order:
+    generate_single_channel_gif_in_chrono_order()
+if do_generate_single_gif_image_order:
+    generate_single_channel_gif_in_image_order()
+if do_generate_combo_gif:
+    generate_combo_GIF_image_order()
