@@ -28,7 +28,7 @@ reduction_methods = ["ratio", "logratio", "zlogratio", "mean", "zscore"]
 categories=["abstract","airplane","apple","banana","bird","boat","car","dog","person","train","zebra"]
 
 # Wybór obecnych badanych
-wybrani_badani = [0,5]
+wybrani_badani = [6,7,8]
 
 # Opcje edycji epok
 subtract_mean_baseline = False
@@ -337,7 +337,7 @@ def generate_single_epoche_image():
     fig.colorbar(im, label="Moc sygnału")
 
     plt.savefig(f"{visualization_catalogue}/{NICK_BADANEGO}_spektrogram_epoka_{image_epoch}.png", dpi=100, bbox_inches="tight")
-    plt.show()
+#    plt.show()
     plt.close()
     print("Obrazek PNG został zapisany!")
 # GIF dla jednego kanału z róznych epok po kolei
