@@ -10,7 +10,7 @@ poczatki_przedzialow = [0] * (len(nicki_badanych) + 1)
 suma_dlugosci = 0
 
 for it in range(0, len(nicki_badanych)):
-    tablica = np.load(f"data/{nicki_badanych[it]}{obecny_typ_pliku}")
+    tablica = np.load(f"data/{nicki_badanych[it]}{obecny_typ_pliku}", allow_pickle=True)
     poczatki_przedzialow[it] = suma_dlugosci
     suma_dlugosci += len(tablica)
 poczatki_przedzialow[len(nicki_badanych)] = suma_dlugosci
@@ -34,8 +34,8 @@ for nr_pliku_wynikowego in range(0,len(nicki_badanych)): #dla każdego pliku wyn
     wynikowe_etykiety = [""] * dlugosc_wynikowych
 
     for i in range(0, len(nicki_badanych)): #dla kazdego pliku
-        tablica = np.load(f"data/{nicki_badanych[i]}{obecny_typ_pliku}")
-        etykiety = np.load(f"data/{nicki_badanych[i]}{nazwy_plikow_etykiet}")
+        tablica = np.load(f"data/{nicki_badanych[i]}{obecny_typ_pliku}", allow_pickle=True)
+        etykiety = np.load(f"data/{nicki_badanych[i]}{nazwy_plikow_etykiet}", allow_pickle=True)
 
         for j in range(0 , dlugosc_wynikowych):   #znajdz indeksy odpowiadajace plikowi
             if indeksy[j+rozwazany_indeks] >= poczatki_przedzialow[i] and indeksy[j+rozwazany_indeks] < poczatki_przedzialow[i+1]:
@@ -44,8 +44,8 @@ for nr_pliku_wynikowego in range(0,len(nicki_badanych)): #dla każdego pliku wyn
 
     rozwazany_indeks += (dlugosc_wynikowych-1)
 
-    np.save(f"data/plikWynikowy{nr_pliku_wynikowego}{nazwy_plikow}",wynikowy_tensor)
-    np.save(f"data/Etykiety{nr_pliku_wynikowego}{nazwy_plikow_etykiet}",wynikowe_etykiety)
+    np.save(f"data2/plikWynikowy{nr_pliku_wynikowego}{obecny_typ_pliku}",wynikowy_tensor)
+    np.save(f"data2/Etykiety{nr_pliku_wynikowego}{nazwy_plikow_etykiet}",wynikowe_etykiety)
 #--------------------Reszta-danych----------------------------------------
 if ((suma_dlugosci)%(len(nicki_badanych)))>0:
     wynikowy_tensor = [0] * ((suma_dlugosci)%(len(nicki_badanych)))
@@ -61,5 +61,5 @@ if ((suma_dlugosci)%(len(nicki_badanych)))>0:
                 wynikowy_tensor[j] = tablica[indeksy[j + rozwazany_indeks] - poczatki_przedzialow[i]]
                 wynikowe_etykiety[j] = etykiety[indeksy[j + rozwazany_indeks] - poczatki_przedzialow[i]]
 
-    np.save(f"data/plikWynikowy_remains{nazwy_plikow}", wynikowy_tensor)
-    np.save(f"data/Etykiety_remains{nazwy_plikow_etykiet}", wynikowe_etykiety)
+    np.save(f"data2/plikWynikowy_remains{obecny_typ_pliku}", wynikowy_tensor)
+    np.save(f"data2/Etykiety_remains{nazwy_plikow_etykiet}", wynikowe_etykiety)
