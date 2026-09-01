@@ -15,51 +15,72 @@ for it in range(0, len(nicki_badanych)):
     suma_dlugosci += len(tablica)
 poczatki_przedzialow[len(nicki_badanych)] = suma_dlugosci
 #--------------------Tworzenie nowych indeksow-------------
-def f_mieszajaca(maks):
-    return np.random.randint(maks)
-
-indeksy = [-1] * suma_dlugosci
-for i in range(0, suma_dlugosci):
-    nowy_indeks = f_mieszajaca(suma_dlugosci)
-    while indeksy[nowy_indeks] != -1:
-        nowy_indeks = nowy_indeks + 1
-        nowy_indeks = nowy_indeks % suma_dlugosci
-    indeksy[nowy_indeks] = i
-#--------------------Zapisywanie do plików wynikowych--------
+indeksy = np.arange(0, suma_dlugosci)
+np.random.shuffle(indeksy)
+#--------------------Zapisywanie do plików tymczasowych--------
 rozwazany_indeks = 0
 dlugosc_wynikowych = int((suma_dlugosci)/(len(nicki_badanych)))
+ilosc_wynikowych = len(nicki_badanych)
 
-for nr_pliku_wynikowego in range(0,len(nicki_badanych)): #dla każdego pliku wynikowego
-    wynikowy_tensor = [0] * dlugosc_wynikowych
-    wynikowe_etykiety = [""] * dlugosc_wynikowych
+for nr_zrodla in range(0,len(nicki_badanych)):              #dla każdego zrodla
+    zrodlo = np.load(f"data/{nicki_badanych[nr_zrodla]}{obecny_typ_pliku}", allow_pickle=True)
+    etykiety = np.load(f"data/{nicki_badanych[nr_zrodla]}{nazwy_plikow_etykiet}", allow_pickle=True)
 
-    for i in range(0, len(nicki_badanych)): #dla kazdego pliku
-        tablica = np.load(f"data/{nicki_badanych[i]}{obecny_typ_pliku}", allow_pickle=True)
-        etykiety = np.load(f"data/{nicki_badanych[i]}{nazwy_plikow_etykiet}", allow_pickle=True)
+    for nr_wynikowego in range(0, ilosc_wynikowych):              #dla kazdego pliku wynikowego
+        dane = []
+        paczka_etykiet = []
 
-        for j in range(0 , dlugosc_wynikowych):   #znajdz indeksy odpowiadajace plikowi
-            if indeksy[j+rozwazany_indeks] >= poczatki_przedzialow[i] and indeksy[j+rozwazany_indeks] < poczatki_przedzialow[i+1]:
-                wynikowy_tensor[j] = tablica[indeksy[j+rozwazany_indeks]-poczatki_przedzialow[i]]
-                wynikowe_etykiety[j] = etykiety[indeksy[j+rozwazany_indeks]-poczatki_przedzialow[i]]
+        for i in range(dlugosc_wynikowych*nr_wynikowego , dlugosc_wynikowych*(nr_wynikowego+1)):         #dla kazdego elementu w wynikowym
+            if indeksy[i] >= poczatki_przedzialow[nr_zrodla] and indeksy[i]<poczatki_przedzialow[nr_zrodla+1]:      #jesli element jest z obecnie wczytanego zrodla
+                dane.append(zrodlo[indeksy[i] - poczatki_przedzialow[nr_zrodla]])                                   #to go zapisz
+                paczka_etykiet.append(etykiety[indeksy[i] - poczatki_przedzialow[nr_zrodla]])
+        if len(dane) > 0:
+            np.save(f"data2/tymczasowy_z{nr_zrodla}-w{nr_wynikowego}.npy", dane)
+            np.save(f"data2/tymczasowyET_z{nr_zrodla}-w{nr_wynikowego}.npy", paczka_etykiet)
 
-    rozwazany_indeks += (dlugosc_wynikowych-1)
+    if suma_dlugosci % (len(nicki_badanych)) > 0 and dlugosc_wynikowych*(ilosc_wynikowych)< suma_dlugosci:    #Resztki
+        dane = []
+        paczka_etykiet = []
+        for i in range(dlugosc_wynikowych*(ilosc_wynikowych) , suma_dlugosci):
+            if indeksy[i] >= poczatki_przedzialow[nr_zrodla] and indeksy[i]<poczatki_przedzialow[nr_zrodla+1]:
+                dane.append(zrodlo[indeksy[i]- poczatki_przedzialow[nr_zrodla]])
+                paczka_etykiet.append(etykiety[indeksy[i]- poczatki_przedzialow[nr_zrodla]])
+        if len(dane) > 0:
+            np.save(f"data2/tymczasowy_z{nr_zrodla}-r.npy", dane)
+            np.save(f"data2/tymczasowyET_z{nr_zrodla}-r.npy", paczka_etykiet)
+#--------------------Zapisywanie do plików wynikowych--------
 
-    np.save(f"data2/plikWynikowy{nr_pliku_wynikowego}{obecny_typ_pliku}",wynikowy_tensor)
-    np.save(f"data2/Etykiety{nr_pliku_wynikowego}{nazwy_plikow_etykiet}",wynikowe_etykiety)
-#--------------------Reszta-danych----------------------------------------
-if ((suma_dlugosci)%(len(nicki_badanych)))>0:
-    wynikowy_tensor = [0] * ((suma_dlugosci)%(len(nicki_badanych)))
-    wynikowe_etykiety = [""] * ((suma_dlugosci)%(len(nicki_badanych)))
+for nr_wynikowego in range(0, ilosc_wynikowych):
+    dane = []
+    et=[]
+    for fragment in range(0, len(nicki_badanych)):
+        zrodlo = np.load(f"data2/tymczasowy_z{fragment}-w{nr_wynikowego}.npy")
+        etykiety = np.load(f"data2/tymczasowyET_z{fragment}-w{nr_wynikowego}.npy")
+        dane.append(zrodlo)
+        et.append(etykiety)
+    dane = np.concatenate(dane, axis=0)
+    et = np.concatenate(et, axis = 0)
 
-    for i in range(0, len(nicki_badanych)):  # dla kazdego pliku
-        tablica = np.load(f"data/{nicki_badanych[i]}{obecny_typ_pliku}")
-        etykiety = np.load(f"data/{nicki_badanych[i]}{nazwy_plikow_etykiet}")
+    miniindeksy = np.arange(0,len(dane))
+    np.random.shuffle(miniindeksy)
 
-        for j in range(0, (suma_dlugosci)%(len(nicki_badanych))):  # znajdz indeksy odpowiadajace plikowi
-            if indeksy[j + rozwazany_indeks] >= poczatki_przedzialow[i] and indeksy[j + rozwazany_indeks] < \
-                    poczatki_przedzialow[i + 1]:
-                wynikowy_tensor[j] = tablica[indeksy[j + rozwazany_indeks] - poczatki_przedzialow[i]]
-                wynikowe_etykiety[j] = etykiety[indeksy[j + rozwazany_indeks] - poczatki_przedzialow[i]]
+    dane = dane[miniindeksy]
+    et = et[miniindeksy]
 
-    np.save(f"data2/plikWynikowy_remains{obecny_typ_pliku}", wynikowy_tensor)
-    np.save(f"data2/Etykiety_remains{nazwy_plikow_etykiet}", wynikowe_etykiety)
+    np.save(f"data2/plikWynikowy{nr_wynikowego}_Dane32PrzetworzoneAVG.npy", dane)
+    np.save(f"data2/plikWynikowyET{nr_wynikowego}_Dane32PrzetworzoneAVG.npy", et)
+
+if suma_dlugosci % (len(nicki_badanych)) > 0:
+    dane = []
+    et=[]
+    for nr_wynikowego in range(0, ilosc_wynikowych):
+        zrodlo = np.load(f"data2/tymczasowy_z{nr_wynikowego}-r.npy")
+        etykiety = np.load(f"data2/tymczasowyET_z{nr_wynikowego}-r.npy")
+        dane.append(zrodlo)
+        et.append(etykiety)
+    dane = np.concatenate(dane, axis = 0)
+    et = np.concatenate(et, axis = 0)
+    np.save(f"data2/plikWynikowy{ilosc_wynikowych}_Dane32PrzetworzoneAVG.npy",dane)
+    np.save(f"data2/plikWynikowyET{ilosc_wynikowych}_Dane32PrzetworzoneAVG.npy", et)
+
+
