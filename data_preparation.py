@@ -28,9 +28,11 @@ reduction_methods = ["ratio", "logratio", "zlogratio", "mean", "zscore"]
 categories=["abstract","airplane","apple","banana","bird","boat","car","dog","person","train","zebra"]
 
 # Wybór obecnych badanych
-wybrani_badani = [6,7,8]
+wybrani_badani = [0]
 
 # Opcje edycji epok
+do_morlet = True #Czy dane po TFA czy surowe?
+morlet_log_scale = False
 subtract_mean_baseline = False
 
 reduct_tfa_using_baseline = False
@@ -43,12 +45,12 @@ do_save_to_file = True
 visualization_catalogue="vis"
 image_channel = 14
 image_epoch = 14
-do_generate_single_image = True
+do_generate_single_image = False
 
 chosen_category = "zebra"
 do_generate_single_gif_chrono_order = False
-do_generate_single_gif_image_order = True
-do_generate_combo_gif = True
+do_generate_single_gif_image_order = False
+do_generate_combo_gif = False
 
 # Zmienne globalne
 obecnie_badani = [nicki_badanych[i] for i in wybrani_badani]
@@ -62,6 +64,12 @@ except ValueError:
 raw_data: mne.io.Raw
 epochs: mne.Epochs
 tfData_float32: np.float32
+
+if not do_morlet:
+    do_generate_single_image = False
+    do_generate_single_gif_chrono_order = False
+    do_generate_single_gif_image_order = False
+    do_generate_combo_gif = False
 
 #---------------------------------------------Wczytywanie danych--------------------------
 def load_data(nick):
@@ -282,20 +290,31 @@ def morlet_wavelet():
     global epochs
     global tfData_float32
 
-    czestotliwosci = np.arange(4,40, 1)
-    l_cykli = czestotliwosci/4
-    tfa = epochs.compute_tfr(method="morlet", freqs=czestotliwosci, n_cycles=l_cykli,
-                        decim=1, picks='eeg', return_itc=False)
+    if(do_morlet):
+        czestotliwosci = np.arange(4,40, 1)
+        l_cykli = czestotliwosci/4
+        tfa = epochs.compute_tfr(method="morlet", freqs=czestotliwosci, n_cycles=l_cykli,
+                            decim=1, picks='eeg', return_itc=False, average=False)
 
-    if reduct_tfa_using_baseline:       #redukcja sygnału względem funkcji na w odniesieniu do sygnału przed wydarzeniem
-        tfa.apply_baseline(baseline=(-0.3, -0.05), mode=chosen_reduction_method)
+        if reduct_tfa_using_baseline:       #redukcja sygnału względem funkcji na w odniesieniu do sygnału przed wydarzeniem
+            tfa.apply_baseline(baseline=(-0.3, -0.05), mode=chosen_reduction_method)
 
-    tfData = tfa.crop(tmin=0.0, tmax=0.5).get_data()
-    tfData_float32 = tfData.astype(np.float32)
+        if morlet_log_scale:
+            #tfa.apply_log_transform()
+            tfData = tfa.crop(tmin=0.0, tmax=0.5).get_data()
+            tfData = 10 * np.log10(tfData + 1e-10)
+            tfData_float32 = tfData.astype(np.float32)
+        else:
+            tfData = tfa.crop(tmin=0.0, tmax=0.5).get_data()
+            tfData_float32 = tfData.astype(np.float32)
 
-    if subtract_mean_baseline:
-        srednia = np.mean(tfData_float32, axis=1, keepdims=True)			#LEKKIE POLEPSZENIE WYNIKOW
-        tfData_float32 = tfData_float32-srednia
+        if subtract_mean_baseline:
+            srednia = np.mean(tfData_float32, axis=1, keepdims=True)			#LEKKIE POLEPSZENIE WYNIKOW
+            tfData_float32 = tfData_float32-srednia
+    else:
+        tfData = epochs.copy().crop(tmin=0.0, tmax=0.5).get_data(picks='eeg')
+        tfData_float32 = tfData.astype(np.float32)
+        tfData_float32 = np.expand_dims(tfData_float32, axis = -1)
 
     print(tfData_float32)
 #-------------------Przygotowanie zmiennych do klasyfikacji--------------------------
