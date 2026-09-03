@@ -130,7 +130,7 @@ def przemieszaj_dane():
 
         if do_morlet:
             sr_format = srednia_kanalowa.reshape(1,-1,1,1) #Średnie dla kanałów
-            suma_kwadratow_roznic += np.sum((dane - sr_format) ** 2)
+            suma_kwadratow_roznic += np.sum((dane - sr_format) ** 2,  axis=(0,2,3))
 
         for indeks in range(0,dlugosc_wynikowych):
             for elZ100 in range(0,100):
@@ -166,12 +166,13 @@ def przemieszaj_dane():
 
         parametry.append(sr_format)
         parametry.append(std_format)
-        np.save(f"paramerty_{przyrostek_wynikowy}", parametry)
+        np.save(f"data2/paramerty_{przyrostek_wynikowy}", parametry)
 
 przyrostek_wynikowy = przyrostki[1]
-nicki_badanych = PRZYROSTKI_PLIKOW[0:7]
+#nicki_badanych = PRZYROSTKI_PLIKOW[0:7]
+nicki_badanych = [PRZYROSTKI_PLIKOW[0]]
 przemieszaj_dane()
 
-przyrostek_wynikowy = przyrostki[2]
-nicki_badanych = PRZYROSTKI_PLIKOW[7:]
-przemieszaj_dane()
+#przyrostek_wynikowy = przyrostki[2]
+#nicki_badanych = PRZYROSTKI_PLIKOW[7:]
+#przemieszaj_dane()
