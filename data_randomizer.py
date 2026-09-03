@@ -9,16 +9,26 @@ przyrostki = ["","TRAIN","TEST","VALIDATE"]
 przyrostek_wynikowy = przyrostki[0]
 obecny_typ_pliku = nazwy_plikow[0]
 
+do_morlet=True
+
 def przemieszaj_dane():
     poczatki_przedzialow = [0] * (len(nicki_badanych) + 1)
     #--------------------Liczenie sumy dlugosci----------------
     suma_dlugosci = 0
+    suma_z_kanalow = np.zeros(21, dtype=np.float32)
+    srednia_kanalowa = np.zeros(21, dtype=np.float32)
+    suma_il_el_miedzykan = 0 #suma elementów we wszystkich oobrazkach (kanały-warstwy)
 
     for it in range(0, len(nicki_badanych)):
         tablica = np.load(f"data/{nicki_badanych[it]}{obecny_typ_pliku}", allow_pickle=True)
         poczatki_przedzialow[it] = suma_dlugosci
         suma_dlugosci += len(tablica)
-    poczatki_przedzialow[len(nicki_badanych)] = suma_dlugosci
+        if do_morlet:
+            suma_z_kanalow += np.sum(tablica, axis=(0,2,3))
+            suma_il_el_miedzykan += tablica.shape[0]*tablica.shape[2]*tablica.shape[3]
+        poczatki_przedzialow[len(nicki_badanych)] = suma_dlugosci
+    if do_morlet and suma_il_el_miedzykan > 0:
+        srednia_kanalowa = suma_z_kanalow / suma_il_el_miedzykan
     #--------------------Tworzenie nowych indeksow-------------
     indeksy = np.arange(0, suma_dlugosci)
     np.random.shuffle(indeksy)
@@ -65,10 +75,14 @@ def przemieszaj_dane():
         dane = []
         et=[]
         for fragment in range(0, len(nicki_badanych)):
+            p_zrd = f"data2/tymczasowy_z{fragment}-w{nr_wynikowego}.npy"
+            p_et = f"data2/tymczasowyET_z{fragment}-w{nr_wynikowego}.npy"
             zrodlo = np.load(f"data2/tymczasowy_z{fragment}-w{nr_wynikowego}.npy")
             etykiety = np.load(f"data2/tymczasowyET_z{fragment}-w{nr_wynikowego}.npy")
             dane.append(zrodlo)
             et.append(etykiety)
+            os.remove(p_zrd)
+            os.remove(p_et)
         dane = np.concatenate(dane, axis=0)
         et = np.concatenate(et, axis = 0)
 
@@ -86,10 +100,14 @@ def przemieszaj_dane():
         et=[]
         for nr_wynikowego in range(0, ilosc_wynikowych):
             if os.path.exists(f"data2/tymczasowy_z{nr_wynikowego}-r.npy"):
-                zrodlo =    np.load(f"data2/tymczasowy_z{nr_wynikowego}-r.npy", allow_pickle=True)
-                etykiety =  np.load(f"data2/tymczasowyET_z{nr_wynikowego}-r.npy", allow_pickle=True)
+                p_zrd= f"data2/tymczasowy_z{nr_wynikowego}-r.npy"
+                p_et = f"data2/tymczasowyET_z{nr_wynikowego}-r.npy"
+                zrodlo =    np.load(p_zrd, allow_pickle=True)
+                etykiety =  np.load(p_et, allow_pickle=True)
                 dane.append(zrodlo)
                 et.append(etykiety)
+                #os.remove(p_zrd)
+                #os.remove(p_et)
         dane = np.concatenate(dane, axis = 0)
         et = np.concatenate(et, axis = 0)
         np.save(f"data2/plikWynikowy{ilosc_wynikowych}_{przyrostek_wynikowy}{obecny_typ_pliku}",dane)
@@ -104,9 +122,16 @@ def przemieszaj_dane():
     etykiety100 = etykiety[0:100]
     znalezione = [False] * 100
 
+    suma_kwadratow_roznic = np.zeros(21, dtype=np.float32)
+
     for nr_wynikowego in range(0, ilosc_wynikowych):
         dane = np.load(f"data2/plikWynikowy{nr_wynikowego}_{przyrostek_wynikowy}{obecny_typ_pliku}")
         etykiety = np.load(f"data2/plikWynikowyET{nr_wynikowego}_{przyrostek_wynikowy}{obecny_typ_pliku}")
+
+        if do_morlet:
+            sr_format = srednia_kanalowa.reshape(1,-1,1,1) #Średnie dla kanałów
+            suma_kwadratow_roznic += np.sum((dane - sr_format) ** 2)
+
         for indeks in range(0,dlugosc_wynikowych):
             for elZ100 in range(0,100):
                 if np.array_equal(dane[indeks], pierwsze100[elZ100]) and np.array_equal(etykiety100[elZ100], etykiety[indeks]):
@@ -117,6 +142,11 @@ def przemieszaj_dane():
         dane = np.load(f"data2/plikWynikowy{ilosc_wynikowych}_{przyrostek_wynikowy}{obecny_typ_pliku}")
         etykiety = np.load(f"data2/plikWynikowyET{ilosc_wynikowych}_{przyrostek_wynikowy}{obecny_typ_pliku}")
         rozmiar_reszty = suma_dlugosci-(ilosc_wynikowych*dlugosc_wynikowych)
+
+        if do_morlet:
+            sr_format = srednia_kanalowa.reshape(1,-1,1,1) #Średnie dla kanałów
+            suma_kwadratow_roznic += np.sum((dane - sr_format) ** 2, axis=(0,2,3))
+
         for indeks in range(0,rozmiar_reszty):
             for elZ100 in range(0,100):
                 if np.array_equal(dane[indeks], pierwsze100[elZ100]) and np.array_equal(etykiety100[elZ100], etykiety[indeks]):
@@ -127,6 +157,16 @@ def przemieszaj_dane():
     else:
         print(f"BLAD. Niezgodnosc etykiet z grupy testowej lub brak niektorych elementow! Znaleziono zgodnych: {znalezione}")
 
+    if do_morlet:
+        odchylenie_std = np.sqrt(suma_kwadratow_roznic/suma_il_el_miedzykan)
+        parametry = []
+
+        sr_format = srednia_kanalowa.reshape(1, -1, 1, 1)
+        std_format = odchylenie_std.reshape(1, -1, 1, 1)
+
+        parametry.append(sr_format)
+        parametry.append(std_format)
+        np.save(f"paramerty_{przyrostek_wynikowy}", parametry)
 
 przyrostek_wynikowy = przyrostki[1]
 nicki_badanych = PRZYROSTKI_PLIKOW[0:7]
