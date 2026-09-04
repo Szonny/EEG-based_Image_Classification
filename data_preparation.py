@@ -31,7 +31,7 @@ categories=["abstract","airplane","apple","banana","bird","boat","car","dog","pe
 wybrani_badani = [0]
 
 # Opcje edycji epok
-do_morlet = True #Czy dane po TFA czy surowe?
+do_morlet = True    #Czy dane po TFA czy surowe?
 morlet_log_scale = True
 subtract_mean_baseline = False
 
@@ -64,12 +64,6 @@ except ValueError:
 raw_data: mne.io.Raw
 epochs: mne.Epochs
 tfData_float32: np.float32
-
-if not do_morlet:
-    do_generate_single_image = False
-    do_generate_single_gif_chrono_order = False
-    do_generate_single_gif_image_order = False
-    do_generate_combo_gif = False
 
 #---------------------------------------------Wczytywanie danych--------------------------
 def load_data(nick):
@@ -334,10 +328,11 @@ def save_to_file(nick):
         sub_mean_base_text = "NoAVG"
     if reduct_tfa_using_baseline:
         reduct_text = chosen_reduction_method
-    #NOCLIP zawsze, clip daje zle efekty
+    if not do_morlet:
+        reduct_text = "RAW"
 
     np.save(f"data/{nick}_Dane32Przetworzone{sub_mean_base_text}{reduct_text}.npy", tfData_float32)
-    np.save(f"data/{nick}_EtykietyDanych.npy", y_category)
+    np.save(f"data/{nick}_EtykietyDanych.npy{sub_mean_base_text}{reduct_text}.npy", y_category)
     print("Utworzono Pliki")
 # Pojedynczy obrazek dla jednej epoki dla jednego kanału
 def generate_single_epoche_image():
@@ -471,28 +466,56 @@ def generate_combo_GIF_image_order():
     iio.imwrite(f"{visualization_catalogue}/{NICK_BADANEGO}_animacja_epokKanalow_{now}.gif", frames, duration=600, loop=0)
     print("Piękny GIF utworzony!")
 
+def generuj_pliki(lista_nr_badanych=[0], do_TFA=True, morlet_log=True, subtract_mean=False, reduct_tfa_baseline = False, red_method=2):
+    global wybrani_badani, do_generate_single_image, do_generate_single_gif_chrono_order, do_generate_single_gif_image_order, do_generate_combo_gif
+    global do_morlet, NICK_BADANEGO, CSV_EVENTY
+    global morlet_log_scale
+    global subtract_mean_baseline
+    global reduct_tfa_using_baseline
+    global chosen_reduction_method
 
-for i in wybrani_badani:
-    NICK_BADANEGO = nicki_badanych[i]
-    CSV_EVENTY = csv_eventow[i]
+    # Wybór obecnych badanych
+    wybrani_badani = lista_nr_badanych
 
-    load_data(NICK_BADANEGO)
-    change_channel_names()
-    change_channel_types()
-    change_montage_and_reference()
-    drop_unimportant_channels()
-    filter_raw_data()
-    delete_bad_channels()
-    independent_component_anlysis()
-    create_epochs_from_ImageOn_events()
-    morlet_wavelet()
-    if do_save_to_file:
-        save_to_file(NICK_BADANEGO)
-    if do_generate_single_image:
-        generate_single_epoche_image()
-    if do_generate_single_gif_chrono_order:
-        generate_single_channel_gif_in_chrono_order()
-    if do_generate_single_gif_image_order:
-        generate_single_channel_gif_in_image_order()
-    if do_generate_combo_gif:
-        generate_combo_GIF_image_order()
+    # Opcje edycji epok
+    do_morlet = do_TFA  # Czy dane po TFA czy surowe?
+    morlet_log_scale = morlet_log
+    subtract_mean_baseline = subtract_mean
+
+    reduct_tfa_using_baseline = reduct_tfa_baseline
+    chosen_reduction_method = reduction_methods[red_method]
+
+    if not do_morlet:
+        do_generate_single_image = False
+        do_generate_single_gif_chrono_order = False
+        do_generate_single_gif_image_order = False
+        do_generate_combo_gif = False
+
+
+    for i in wybrani_badani:
+        NICK_BADANEGO = nicki_badanych[i]
+        CSV_EVENTY = csv_eventow[i]
+
+        load_data(NICK_BADANEGO)
+        change_channel_names()
+        change_channel_types()
+        change_montage_and_reference()
+        drop_unimportant_channels()
+        filter_raw_data()
+        delete_bad_channels()
+        independent_component_anlysis()
+        create_epochs_from_ImageOn_events()
+        morlet_wavelet()
+        if do_save_to_file:
+            save_to_file(NICK_BADANEGO)
+        if do_generate_single_image:
+            generate_single_epoche_image()
+        if do_generate_single_gif_chrono_order:
+            generate_single_channel_gif_in_chrono_order()
+        if do_generate_single_gif_image_order:
+            generate_single_channel_gif_in_image_order()
+        if do_generate_combo_gif:
+            generate_combo_GIF_image_order()
+
+if __name__ == "__main__":
+    generuj_pliki()
