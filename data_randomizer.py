@@ -138,7 +138,8 @@ def przemieszaj_dane():
                     znalezione[elZ100] = True
 
     #REEEEESZZTTTYYYY
-    if os.path.exists(f"data2/plikWynikowy{ilosc_wynikowych}_{przyrostek_wynikowy}{obecny_typ_pliku}"):
+    if (os.path.exists(f"data2/plikWynikowy{ilosc_wynikowych}_{przyrostek_wynikowy}{obecny_typ_pliku}") and
+            suma_dlugosci % (len(nicki_badanych)) > 0 and dlugosc_wynikowych*(ilosc_wynikowych)< suma_dlugosci):
         dane = np.load(f"data2/plikWynikowy{ilosc_wynikowych}_{przyrostek_wynikowy}{obecny_typ_pliku}")
         etykiety = np.load(f"data2/plikWynikowyET{ilosc_wynikowych}_{przyrostek_wynikowy}{obecny_typ_pliku}")
         rozmiar_reszty = suma_dlugosci-(ilosc_wynikowych*dlugosc_wynikowych)
@@ -167,6 +168,15 @@ def przemieszaj_dane():
         parametry.append(sr_format)
         parametry.append(std_format)
         np.save(f"data2/paramerty_{przyrostek_wynikowy}", parametry)
+        #-------------------Normalizacja (jeli zażadano TFA)------------------------------------------------
+        il_plikow = ilosc_wynikowych
+        if suma_dlugosci % (len(nicki_badanych)) > 0:
+            il_plikow += 1
+        for nr_wynikowego in range(0, il_plikow):
+            dane = np.load(f"data2/plikWynikowy{nr_wynikowego}_{przyrostek_wynikowy}{obecny_typ_pliku}")
+            dane = (dane-sr_format)/std_format
+            dane = np.transpose(dane, (0, 2, 3, 1))
+            np.save(f"data2/plikWynikowy{nr_wynikowego}_{przyrostek_wynikowy}{obecny_typ_pliku}",dane)
 
 przyrostek_wynikowy = przyrostki[1]
 #nicki_badanych = PRZYROSTKI_PLIKOW[0:7]

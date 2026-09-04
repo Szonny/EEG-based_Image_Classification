@@ -32,7 +32,7 @@ wybrani_badani = [0]
 
 # Opcje edycji epok
 do_morlet = True #Czy dane po TFA czy surowe?
-morlet_log_scale = False
+morlet_log_scale = True
 subtract_mean_baseline = False
 
 reduct_tfa_using_baseline = False
