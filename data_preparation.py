@@ -332,7 +332,7 @@ def save_to_file(nick):
         reduct_text = "RAW"
 
     np.save(f"data/{nick}_Dane32Przetworzone{sub_mean_base_text}{reduct_text}.npy", tfData_float32)
-    np.save(f"data/{nick}_EtykietyDanych.npy{sub_mean_base_text}{reduct_text}.npy", y_category)
+    np.save(f"data/{nick}_EtykietyDanych{sub_mean_base_text}{reduct_text}.npy", y_category)
     print("Utworzono Pliki")
 # Pojedynczy obrazek dla jednej epoki dla jednego kanału
 def generate_single_epoche_image():
@@ -473,6 +473,15 @@ def generuj_pliki(lista_nr_badanych=[0], do_TFA=True, morlet_log=True, subtract_
     global subtract_mean_baseline
     global reduct_tfa_using_baseline
     global chosen_reduction_method
+
+    for nick in nicki_badanych
+        if not os.path.exists(f"assets/{nick}_raw.edf"):
+            print(f"Nie znaleziono pliku EDF: {nick}_raw.edf")
+        if not os.path.exists(f"assets/{nick}_imp.csv"):
+            print(f"Nie znaleziono pliku CSV: {nick}_imp.csv")
+    
+    if not os.path.exists("data"):
+        os.mkdir("data")
 
     # Wybór obecnych badanych
     wybrani_badani = lista_nr_badanych
