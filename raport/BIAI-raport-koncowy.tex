@@ -111,9 +111,29 @@
 	
 	\section{Przygotowanie danych}
 	
-	Miejsce na opis naszego pipelinu przygotowującego dane do wrzucenia ich potem modelowi. Skupiłabym się tu na tym finalnym i ewentualnie dopisała, jak ten pipeline zmieniał się na przestrzeni semestru.
+	Przygotowanie danych zrealizowano w~postaci potoku przetwarzania (ang.~\textit{pipeline}), złożonego z~szeregu funkcji wykonywanych w~ustalonej kolejności. Każda z~nich odpowiadała za pojedynczy etap obróbki sygnału -- od wczytania surowego zapisu, przez porządkowanie i~czyszczenie danych, aż po podział na próby i~zapis w~postaci gotowej do wykorzystania przez model.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{assets/data_preparation_pipeline.png}
+		\caption{Ogólny schemat potoku przygotowującego dane do nauki sieci neuronowej.}
+		\label{fig:data_preparation_pipeline}
+	\end{figure}
+	
+	 Poniżej opisano finalną postać potoku oraz wskazano w~jaki sposób zmieniał się on w~trakcie realizacji projektu.
 	
 	\subsection{Wczytanie surowych danych}
+	
+	Pierwszym etapem było wczytanie surowego zapisu EEG. Dane każdego badanego przechowywane były w~pliku w~formacie EDF (ang.~\textit{European Data Format}), będącym standardem stosowanym do zapisu sygnałów biomedycznych.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{assets/raw_data.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za wczytanie surowych danych do programu.}
+		\label{fig:raw_data}
+	\end{figure}
+	
+	Do ich odczytu wykorzystano funkcję \texttt{read\_raw\_edf()} z~biblioteki MNE. Sygnał wczytano od~razu w~całości do pamięci operacyjnej (parametr \texttt{preload=True}), co było konieczne, aby możliwe było jego późniejsze filtrowanie i ~modyfikacja. Włączono również automatyczne rozpoznawanie typów kanałów na podstawie ich nazw (parametr \texttt{infer\_types=True}). Po wczytaniu wyświetlono podstawowe informacje o~nagraniu -- m.in.~liczbę i~nazwy kanałów oraz częstotliwość próbkowania -- w~celu wstępnej weryfikacji poprawności odczytanych danych.
 	
 	\subsection{Mapowanie kanałów}
 	
@@ -145,7 +165,7 @@
 		\label{fig:channel_mapping}
 	\end{figure}
 	
-	Na początku wyświetlono bieżące nazwy kanałów, aby sprawdzić ich postać przed rozpoczęciem dalszego przetwarzania. Następnie ujednolicono nazwy poprzez usunięcie fragmentów znajdujących się po znaku \texttt{-}. W tym celu wykorzystano funkcję \texttt{split()}, która pozwoliła pozostawić pierwszą część każdej nazwy. Przykładowo, \texttt{Fp1-REF} zostało zmienione na \texttt{Fp1}. W przypadku kanałów zawierających dwukropek, np. \texttt{X1:} lub \texttt{Ax:}, znak ten pozostawał częścią nazwy.
+	Na początku ujednolicono nazwy kanałów poprzez usunięcie fragmentów znajdujących się po znaku \texttt{-}. W tym celu wykorzystano funkcję \texttt{split()}, która pozwoliła pozostawić pierwszą część każdej nazwy. Przykładowo, \texttt{Fp1-REF} zostało zmienione na \texttt{Fp1}. W przypadku kanałów zawierających dwukropek, np. \texttt{X1:} lub \texttt{Ax:}, znak ten pozostawał częścią nazwy.
 	
 	Następnie każdemu kanałowi przypisano odpowiedni typ. Elektrody EEG oznaczono jako \texttt{eeg}, kanały pomocnicze -- wejścia analogowe \texttt{X1}-\texttt{X3} oraz elektrodę trybu wspólnego \texttt{CM} -- jako \texttt{misc}, a kanały ze znacznikami zdarzeń (\texttt{Trigger}, \texttt{Event}) jako \texttt{stim}. Kanały zawierające pomiary impedancji (o nazwach rozpoczynających się od \texttt{Imp}) usunięto, ponieważ nie niosą informacji przydatnej w dalszej analizie.
 	
@@ -154,7 +174,7 @@
 	Po uporządkowaniu kanałów przypisano do danych montaż \texttt{standard\_1020}. Wykorzystano w tym celu funkcję \texttt{make\_standard\_montage()}, a następnie \texttt{set\_montage()}. Montaż zawiera informacje o przestrzennym położeniu elektrod, dzięki czemu nazwy kanałów, mogły zostać powiązane z ich pozycjami na głowie. Parametr \texttt{on\_missing='ignore'} pozwolił na pominięcie kanałów, dla których nie znaleziono odpowiedniej pozycji w standardzie 10-20, bez zgłaszania błędu.
 	
 	Poprawność przypisania montażu sprawdzono za pomocą funkcji \texttt{plot\_sensors(
-	\\kind='topomap', show\_names=True)}. Wynik przedstawiono na rys.~\ref{fig:standard_10-20_map}.
+	\\kind='topomap', show\_names=True)}. Fragment ten nie znalazł się funkcji, ponieważ służył typowo do sprawdzenia, czy mapowanie kanałów przebiegło pomyślnie. Wynik przedstawiono na rys.~\ref{fig:standard_10-20_map}.
 	
 	\begin{figure}[H]
 		\centering
@@ -164,6 +184,9 @@
 	\end{figure}
 	
 	Na wykresie elektrody EEG zostały rozmieszczone zgodnie ze standardem 10--20. Widoczna jest symetria układu względem linii środkowej głowy oraz podział elektrod na lewą i prawą stronę. Kanały pomocnicze nie są przedstawione jako elektrody na mapie, ponieważ nie mają przypisanych pozycji w zastosowanym montażu. Uzyskany wynik potwierdził poprawność przypisania nazw elektrod do standardowych pozycji przestrzennych. Przygotowane w ten sposób dane mogły zostać wykorzystane w kolejnych etapach analizy.
+	
+	Ostatnim krokiem tej części przygotowania danych było ustalenie sposobu referencji sygnału. Wartości rejestrowane na poszczególnych elektrodach mają charakter względny, dlatego wymagają odniesienia do wspólnego punktu. Jako referencję przyjęto uśrednienie sygnału z~elektrod usznych A1 i~A2, co jest jednym z~typowych
+	rozwiązań stosowanych w~badaniach EEG. Operację tę wykonano funkcją \texttt{set\_eeg\_reference(ref\_channels=['A1', 'A2'])}.
 	
 	\subsection{Ciąg dalszy :pp}
 	
