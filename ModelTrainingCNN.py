@@ -148,7 +148,7 @@ def szkol_model(dane_wieloplikowe=False, pierwsze_szkolenie=True):
     model.add(layers.BatchNormalization())#  #
     model.add(layers.Activation('relu'))
     model.add(layers.MaxPooling2D((2,3)))
-    model.add(layers.Dropout(0.2)) # (anti-overfitting)
+    model.add(layers.Dropout(0.6)) # (anti-overfitting)
     model.add(layers.DepthwiseConv2D(64, (3,3), activation=None, depth_multiplier=2, padding='same'))
     model.add(layers.BatchNormalization())#  #
     model.add(layers.Activation('relu'))
@@ -159,13 +159,13 @@ def szkol_model(dane_wieloplikowe=False, pierwsze_szkolenie=True):
 
     model.add(layers.Flatten())
       #model.add(layers.GlobalAveragePooling2D())
-    model.add(layers.Dense(128, activation=None))
-      #model.add(layers.BatchNormalization())
+    model.add(layers.Dense(64, activation=None))
+    model.add(layers.BatchNormalization())
     model.add(layers.Activation('relu'))
-    model.add(layers.Dropout(0.3)) # (anti-overfitting)
+    model.add(layers.Dropout(0.75)) # (anti-overfitting)
     model.add(layers.Dense(l_klas, activation='softmax'))
 
-    optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
 
     model.compile(optimizer = optimizer , loss = 'sparse_categorical_crossentropy' ,
                   metrics = ['accuracy'],#, metrics.Precision(), metrics.Recall(), metrics.AUC()],
@@ -277,26 +277,26 @@ def zapisz_koncowy_model():
         os.mkdir("data2/"+folder_wynikowy)
     model.save(dataSourcePath + "/" + folder_wynikowy + "/ModelCNN" + now + ".keras")
 
-#wczytaj_dane(0, czy_testowy=False)
-#szkol_model(dane_wieloplikowe=True,pierwsze_szkolenie=True)
+wczytaj_dane(0, czy_testowy=False)
+szkol_model(dane_wieloplikowe=True,pierwsze_szkolenie=True)
 
-for i in range(1, 2):
+for i in range(1, ilosc_plikow_treningowych):
     wczytaj_dane(i)
     szkol_model(dane_wieloplikowe=True,pierwsze_szkolenie=False)
 
-#wczytaj_dane(przebieg_testowy, czy_testowy=True)
-#testuj_model()
+wczytaj_dane(przebieg_testowy, czy_testowy=True)
+testuj_model()
 
-#for i in range(0, ilosc_plikow_treningowych):
-#    wczytaj_dane(i)
-#    szkol_model(dane_wieloplikowe=True,pierwsze_szkolenie=False)
+for i in range(0, ilosc_plikow_treningowych):
+    wczytaj_dane(i)
+    szkol_model(dane_wieloplikowe=True,pierwsze_szkolenie=False)
  
-#wczytaj_dane(przebieg_testowy, czy_testowy=True)
-#testuj_model()
+wczytaj_dane(przebieg_testowy, czy_testowy=True)
+testuj_model()
  
-#for i in range(0, ilosc_plikow_treningowych):
-#    wczytaj_dane(i)
-#    szkol_model(dane_wieloplikowe=True,pierwsze_szkolenie=False)
+for i in range(0, ilosc_plikow_treningowych):
+    wczytaj_dane(i)
+    szkol_model(dane_wieloplikowe=True,pierwsze_szkolenie=False)
 
 wczytaj_dane(przebieg_testowy, czy_testowy=True)
 testuj_model()

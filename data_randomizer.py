@@ -196,7 +196,18 @@ def przemieszaj_dane(nicki_badanych, przyrostek_wynikowy):
         il_plikow += 1
     for nr_wynikowego in range(0, il_plikow):
         dane = np.load(f"data2/plikWynikowy{nr_wynikowego}_{przyrostek_wynikowy}{zarostek}")
+        
+        if przyrostek_wynikowy == "TRAIN":
+            print("Paczka Treningowa, normalizuje...")
+            dane = (dane-sr_format)/std_format
+        else:
+            print("Paczka Testowa, normalizuje parametrami z danych treningowych.")
+            if os.path.exists(f"data2/parametry_TRAIN{czy_us_srednia}{obecna_metoda_red}.npy"):
+                parametry=np.load(f"data2/parametry_TRAIN{czy_us_srednia}{obecna_metoda_red}.npy")
+                sr_format = parametry[0]
+                std_format = parametry[1]
         dane = (dane-sr_format)/std_format
+        
         dane = np.transpose(dane, (0, 2, 3, 1))
         np.save(f"data2/plikWynikowy{nr_wynikowego}_{przyrostek_wynikowy}{zarostek}",dane)
         print(f"Dane znormalizowane i zapisane w data2/plikWynikowy{nr_wynikowego}_{przyrostek_wynikowy}{zarostek}")
