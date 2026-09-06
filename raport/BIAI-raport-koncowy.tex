@@ -121,6 +121,34 @@
 	\end{figure}
 	
 	 Poniżej opisano finalną postać potoku oraz wskazano w~jaki sposób zmieniał się on w~trakcie realizacji projektu.
+	 
+	\subsection{Parametry skryptu}
+	
+	Na początku skryptu zgromadzono wszystkie parametry sterujące przebiegiem przetwarzania. Takie rozwiązanie pozwalało uruchamiać potok w~różnych wariantach -- m.in.~dla wybranych badanych czy z~różnymi metodami
+	normalizacji -- bez konieczności ingerencji w~dalszą część kodu.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{assets/variables.png}
+		\caption{Parametry skryptu.}
+		\label{fig:variables}
+	\end{figure}
+	
+	Podstawę stanowiły listy opisujące dostępne dane. W~zmiennej \texttt{nicki\_badanych} zapisano identyfikatory (pseudonimy) poszczególnych uczestników, natomiast w~\texttt{csv\_eventow} -- odpowiadające im nazwy
+	plików ze zdarzeniami. Obie listy miały tę samą kolejność, dzięki czemu danego badanego oraz jego plik zdarzeń wskazywano tym samym indeksem. Ponadto w~zmiennej \texttt{categories} przechowywano jedenaście kategorii
+	obrazów wykorzystanych w~badaniu, a~w~\texttt{reduction\_methods} -- dostępne metody normalizacji sygnału względem linii bazowej (m.in.~\textit{logratio} czy \textit{zscore}). Pomocniczo wyznaczano również znacznik czasu (\texttt{now}), wykorzystywany przy nazywaniu plików wynikowych.
+	
+	Zmienna \texttt{wybrani\_badani} określała, którzy uczestnicy mają zostać przetworzeni w~danym uruchomieniu; wskazywano ich poprzez indeksy na wcześniejszych listach. Na etapie dopracowywania potoku ograniczano się
+	zwykle do jednego badanego, co skracało czas obliczeń.
+	
+	Kolejna grupa parametrów odpowiadała za sposób przygotowania epok. Flaga \texttt{do\_morlet} decydowała o~tym, czy dane poddawane były analizie czasowo-częstotliwościowej, czy przekazywane w~postaci surowej. Parametr
+	\texttt{morlet\_log\_scale} włączał przeliczenie mocy na skalę logarytmiczną, \texttt{subtract\_mean\_baseline} -- odjęcie średniej liczonej pomiędzy kanałami, a~\texttt{reduct\_tfa\_using\_baseline} wraz z~parametrem
+	\texttt{chosen\_reduction\_method} określały, czy i~w~jaki sposób sygnał odnoszony był do linii bazowej. Osobna flaga \texttt{do\_save\_to\_file} decydowała o~zapisaniu przygotowanych danych do plików.
+	
+	Wydzielono również ustawienia dotyczące wizualizacji, służące wyłącznie do podglądu danych na etapie eksploracji. Zmienne \texttt{image\_channel}, \texttt{image\_epoch} oraz \texttt{chosen\_category} wskazywały, który kanał, którą epokę i~którą kategorię obrazu przedstawić, natomiast zestaw flag \texttt{do\_generate\_...} pozwalał włączać poszczególne rodzaje ilustracji (pojedynczy obraz oraz animacje w~różnym porządku). Katalog docelowy dla tych plików określała zmienna \texttt{visualization\_catalogue}.
+	
+	Na koniec, na podstawie powyższych ustawień, wyznaczano zmienne pomocnicze wykorzystywane w~dalszej części kodu -- m.in.~listę wybranych uczestników (\texttt{obecnie\_badani}) oraz pseudonim i~plik zdarzeń pierwszego z~nich
+	(\texttt{NICK\_BADANEGO}, \texttt{CSV\_EVENTY}). Zadeklarowano także zmienne globalne przechowujące kolejne postacie danych -- surowy zapis (\texttt{raw\_data}), sygnał podzielony na epoki (\texttt{epochs}) oraz przetworzoną reprezentację liczbową (\texttt{tfData\_float32}) -- które były współdzielone i~modyfikowane przez poszczególne funkcje potoku.
 	
 	\subsection{Wczytanie surowych danych}
 	
@@ -188,7 +216,192 @@
 	Ostatnim krokiem tej części przygotowania danych było ustalenie sposobu referencji sygnału. Wartości rejestrowane na poszczególnych elektrodach mają charakter względny, dlatego wymagają odniesienia do wspólnego punktu. Jako referencję przyjęto uśrednienie sygnału z~elektrod usznych A1 i~A2, co jest jednym z~typowych
 	rozwiązań stosowanych w~badaniach EEG. Operację tę wykonano funkcją \texttt{set\_eeg\_reference(ref\_channels=['A1', 'A2'])}.
 	
-	\subsection{Ciąg dalszy :pp}
+	\subsection{Filtrowanie sygnału}
+	
+	Zarejestrowany sygnał EEG zawiera nie tylko aktywność mózgu, lecz również zakłócenia pochodzące z~otoczenia oraz artefakty techniczne. 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{assets/signal_filtering.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za filtrowanie sygnału.}
+		\label{fig:signal_filtering}
+	\end{figure}
+	
+	W~celu ich ograniczenia zastosowano dwa filtry. Najpierw użyto filtra zaporowego (ang.~\textit{notch filter}) o~częstotliwości 50~Hz, usuwającego zakłócenia pochodzące z~sieci energetycznej (w~Europie napięcie zmienne ma częstotliwość 50~Hz). Następnie zastosowano filtr pasmowoprzepustowy, przepuszczający składowe z~zakresu od~1 do~40~Hz. Dolna granica pozwoliła usunąć bardzo wolne wahania syhnału (dryf), natomiast górna -- wysokoczęstotliwościowe zakłócenia, w~tym część artefaktów mięśniowych. Pozostawione pasmo obejmuje zakres istotny z~punktu widzenia analizowanej aktywności kory wzrokowej.
+	
+	\subsection{Wykrywanie i~oznaczanie kanałów o~niskiej jakości}
+	
+	Podczas rejestracji jakość sygnału na poszczególnych elektrodach może się różnić, m.in.~ze względu na niedostateczny kontakt elektrody ze skórą. Informacje o~jakości połączenia zapisane były w~osobnym pliku, zawierającym dla kolejnych chwil czasowych oznaczenia stanu każdego kanału. Na tej podstawie zastosowano dwustopniowy mechanizm oceny.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{assets/bad_quality_channels_detection.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za wykrywanie i~oznaczanie kanałów o~niskiej jakości.}
+		\label{fig:bad_quality_channels_detection}
+	\end{figure}
+	
+	Kanały, dla których udział próbek o~niskiej jakości przekraczał ustalony próg (50\%), uznawano za trwale uszkodzone i~oznaczano jako złe (ang.~\textit{bad}). Były one pomijane w~dalszych obliczeniach. W~przypadku kanałów, które jedynie chwilowo traciły jakość, tworzono natomiast adnotacje czasowe obejmujące wyłącznie problematyczne fragmenty zapisu. Sąsiadujące ze sobą wadliwe odcinki łączono przy tym w~jeden przedział, aby uniknąć nadmiernego rozdrobnienia adnotacji. Oznaczone w~ten sposób fragmenty wykorzystano na późniejszym etapie do automatycznego odrzucania wadliwych prób.
+	
+	\subsection{Analiza składowych niezależnych (ICA)}
+	
+	Kolejnym krokiem czyszczenia sygnału było usunięcie artefaktów za pomocą analizy składowych niezależnych (ang.~\textit{Independent Component Analysis}, ICA). Metoda ta rozkłada zarejestrowany sygnał na zbiór składowych, z~których część odpowiada aktywności mózgu, a~część -- zakłóceniom, takim jak mruganie, ruchy gałek ocznych czy napięcie mięśni. Usunięcie składowych będących artefaktami pozwala oczyścić sygnał przy zachowaniu właściwej aktywności.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{assets/ICA.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za analizę składowych niezależnych (ICA).}
+		\label{fig:ICA}
+	\end{figure}
+	
+	Model ICA dopasowano do danych, przyjmując liczbę składowych odpowiadającą zachowaniu 99\% wariancji sygnału odniesienia (EOG). Dodatkowo podjęto próbę automatycznego wykrycia składowych o~charakterze mięśniowym. Wskazane składoweoznaczono jako niepożądane i~odtworzono sygnał z~ich pominięciem. W~zastosowanym rozwiązaniu identyfikacja składowych przebiegała automatycznie; w~docelowym postępowaniu wskazana byłaby dodatkowo ich wizualna weryfikacja.
+	
+	\subsection{Podział sygnału na epoki}
+	
+	Do dalszej analizy konieczne było wyodrębnienie z~ciągłego zapisu fragmentów odpowiadających prezentacji poszczególnych obrazów. 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{assets/epochs.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za podział sygnału na epoki.}
+		\label{fig:epochs}
+	\end{figure}
+	
+	W~tym celu na podstawie kanału \texttt{Trigger} odczytano zdarzenia zarejestrowane podczas badania, a~następnie wybrano spośród nich te oznaczone kodem odpowiadającym pojawieniu się obrazu (\texttt{IMAGE\_ON}). Liczbę tak wyznaczonych zdarzeń porównano z~liczbą obrazów zapisaną w~pliku ze zdarzeniami; zgodność obu wartości stanowiła zabezpieczenie przed niespójnością danych, a~w~przypadku jej braku przetwarzanie było przerywane.
+	
+	Dla każdego zdarzenia utworzono epokę, czyli wycinek sygnału obejmujący okno od~0,35~s przed pojawieniem się obrazu do~0,5~s po nim. Fragment poprzedzający bodziec wykorzystano jako linię bazową (ang.~\texttt{baseline}), względem której korygowano sygnał, co pozwalało ograniczyć wpływ różnic w~poziomie sygnału pomiędzy próbami. Do każdej epoki dołączono również informacje opisowe (metadane), takie jak numer serii, numer próby oraz kategoria i~nazwa prezentowanego obrazu, dzięki czemu możliwe było powiązanie sygnału z~konkretnym bodźcem. Na tym etapie odrzucono także epoki pokrywające się z~wcześniej oznaczonymi wadliwymi fragmentami zapisu.
+	
+	\subsection{Analiza czasowo-częstotliwościowa}
+	
+	Przygotowane epoki poddano analizie czasowo-częstotliwościowej (ang.~\textit{time--frequency analysis}), która pozwala prześledzić, jak moc sygnału w~poszczególnych pasmach częstotliwości zmienia się w~czasie. 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{assets/morlet_wavelet.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za analizę czasowo-częstotliwościową epok.}
+		\label{fig:morlet_wavelet}
+	\end{figure}
+	
+	Wykorzystano w~tym celu transformatę falkową z~zastosowaniem falki Morleta, wyznaczając reprezentację sygnału dla częstotliwości z~zakresu od~4 do~40~Hz. Liczbę cykli falki uzależniono od~częstotliwości, co stanowi kompromis pomiędzy rozdzielczością czasową a~częstotliwościową. Istotne było przy tym zachowanie osobnej reprezentacji dla każdej epoki, aby każdemu obrazowi odpowiadał odrębny przykład uczący.
+	
+	Uzyskaną reprezentację ograniczono do okna od~0 do~0,5~s, odpowiadającego prezentacji obrazu. Wartości mocy przeliczono następnie na skalę logarytmiczną (decybele), co pozwoliło wyrównać znaczne różnice wartości pomiędzy pasami i~uzyskać rozkład korzystniejszy z~punktu widzenia uczenia sieci neuronowej. Dodatkowo przewidziano opcjonalne odniesienie sygnału do linii bazowej sprzed bodźca oraz odjęcie średniej wartości liczbowej pomiędzy kanałami, co w~przeprowadzonych próbach nieznacznie poprawiało wyniki.
+	
+	Niezależnie od~powyższego przygotowano również wariant, w~którym pomijano analizę czasowo-częstotliwościową, a~modelowi przekazywano bezpośrednio przefiltrowany sygnał z~epok (dane surowe). Umożliwiało to porównanie skuteczności modelu na danych przekształconych oraz nieprzekształconych.
+	
+	\subsection{Zapis przygotowanych danych}
+	
+	Ostatnim etapem był zapis przygotowanych danych do plików w~formacie \texttt{.npy}, umożliwiającym ich szybkie wczytanie na etapie uczenia modelu.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{assets/save_data_to_files.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za zapis przygotowanych danych.}
+		\label{fig:save_data_to_files}
+	\end{figure}
+	
+	Osobno zapisywano tablicę~przetworzonym sygnałem oraz tablicę z~etykietami kategorii obrazów. W~nazwach plików uwzględniono zastosowany wariant przetwarzania (m.in.~dane przekształcone lub surowe), dzięki czemu poszczególne wersje zbioru danych nie nadpisywały się wzajemnie i~mogły być ze sobą porównywane.
+	
+	\subsection{Wizualizacja danych}
+	
+	W~celu jakościowej oceny przygotowanych danych przewidziano zestaw funkcji pomocniczych, generujących wizualizacje przetworzonego sygnału. Nie stanowiły one części właściwego potoku przekazywanego modelowi, lecz służyły jedynie do podglądu i~weryfikacji poprawności kolejnych etapów. Każda z~funkcji przedstawiała spektrogramy poszczególnych epok w~postaci obrazów (map czasowo-częstotliwościowych) i~zapisywała je jako animacje w~formacie GIF, w~katalogu wskazanym zmienną \texttt{visualization\_catalogue}.
+	
+	Pierwsza z~funkcji przedstawiała spektrogramy pojedynczego kanału dla kolejnych epok w~porządku chronologicznym, czyli w~kolejności ich rejestracji podczas badania. Pozwalało to prześledzić, jak zmienia się sygnał na wybranej elektrodzie w~trakcie eksperymentu.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{assets/save_data_to_files.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za zapis przygotowanych danych.}
+		\label{fig:save_data_to_files}
+	\end{figure}
+	
+	Druga funkcja porządkowała epoki nie według czasu, lecz według prezentowanego obrazu i~jego kategorii. Epoki sortowano na podstawie identyfikatora obrazu, a~następnie wyznaczano granice pomiędzy kolejnymi kategoriami, dzięki czemu możliwe było wyświetlenie spektrogramów odpowiadających jednej, wybranej kategorii (określonej zmienną \texttt{chosen\_category}). Umożliwiało to porównanie sygnału rejestrowanego dla obrazów należących do tej samej klasy. 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{assets/save_data_to_files.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za zapis przygotowanych danych.}
+		\label{fig:save_data_to_files}
+	\end{figure}
+	
+	Trzecia funkcja rozszerzała powyższe podejście na sześć elektrod jednocześnie, prezentowanych w~układzie odpowiadającym ich położeniu na głowie. W~jednym kadrze zestawiano elektrody z~lewej (F3, C3, O1) oraz prawej
+	(F4, C4, O2) półkuli, w~tym najistotniejsze dla analizy elektrody potyliczne O1 i~O2. Podobnie jak poprzednio, epoki porządkowano według kategorii obrazu, a~wynik zapisywano jako pojedynczą animację.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{assets/save_data_to_files.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za zapis przygotowanych danych.}
+		\label{fig:save_data_to_files}
+	\end{figure}
+	
+	\subsection{Parametryzacja potoku}
+	
+	Całość przetwarzania spięto w~jedną funkcję sterującą, przyjmującą jako argumenty najważniejsze ustawienia potoku (m.in.~wybór badanych, zastosowanie analizy czasowo-częstotliwościowej czy sposób normalizacji).
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{assets/generate_files.png}
+		\caption{Funkcja sterująca, dzięki której można wyzwalać potok z różnymi parametrami.}
+		\label{fig:generate_files}
+	\end{figure}
+	
+	Rozwiązanie to pozwalało wygodnie generować różne warianty zbioru danych bez konieczności ingerencji w~kod, co ułatwiało systematyczne porównywanie wpływu poszczególnych ustawień na wyniki. W~początkowej wersji projektu potok miał postać pojedynczego, liniowego skryptu; parametryzację wprowadzono na późniejszym etapie, gdy pojawiła się potrzeba prowadzenia wielu eksperymentów.
+	
+	\subsection{Mieszanie i~podział danych}
+	
+	Pliki przygotowane dla poszczególnych badanych łączono następnie w~jeden
+	zbiór, który mieszano i~dzielono na części wykorzystywane podczas uczenia.
+	
+	Podziału dokonano w~sposób rozłączny względem uczestników: część ucząca
+	obejmowała siedmiu badanych, a~część testowa -- dwóch pozostałych. Dzięki
+	temu model oceniano na danych osób, których nagrania nie były wykorzystywane
+	podczas treningu. Przewidziano również osobną funkcję przygotowującą zbiór
+	walidacyjny.
+	
+	Ze względu na znaczny rozmiar danych, przekraczający pojemność pamięci
+	operacyjnej, mieszanie przeprowadzono dwuetapowo, bez wczytywania całości
+	naraz. Najpierw wyznaczano losową kolejność wszystkich prób, a~następnie dane
+	rozdrabniano, zapisując je do plików tymczasowych zgodnie z~tą kolejnością.
+	W~drugim etapie fragmenty te scalano z~powrotem w~kilku plikach wynikowych,
+	dodatkowo tasując zawartość każdego z~nich. Podział na wiele mniejszych plików
+	ułatwiał późniejsze wczytywanie danych partiami.
+	
+	Poprawność operacji weryfikowano, sprawdzając, czy ustalona próbka prób
+	pochodzących z~danych wejściowych -- wraz z~przypisanymi im etykietami --
+	odnalazła się w~plikach wynikowych. Pozwalało to wykryć ewentualne zagubienie
+	lub niezgodność danych powstałe podczas mieszania.
+	
+	Na koniec dane poddawano normalizacji. Dla każdego kanału wyznaczano średnią
+	oraz odchylenie standardowe, a~następnie standaryzowano wartości, odejmując
+	średnią i~dzieląc przez odchylenie standardowe. Wyznaczone parametry
+	zapisywano osobno, aby możliwe było ich późniejsze wykorzystanie. Ostatnim
+	krokiem była zmiana kolejności wymiarów tablicy na układ oczekiwany przez
+	model, z~kanałami umieszczonymi jako ostatni wymiar.
+	
+	\subsection{Uruchomienie potoku i~generowanie zbioru danych}
+	
+	Całościowe wygenerowanie zbioru danych realizowano za pomocą osobnego skryptu
+	sterującego, który spinał dwa etapy: przygotowanie danych (opisany wyżej
+	potok, wywoływany funkcją \texttt{generuj\_pliki}) oraz ich późniejsze
+	wymieszanie i~przygotowanie postaci wynikowej (funkcja
+	\texttt{generuj\_wynikowe} z~osobnego modułu). Ustawienia wybrane w~skrypcie
+	(m.in.~zastosowanie analizy czasowo-częstotliwościowej oraz metoda
+	normalizacji) przekazywano do obu etapów, dzięki czemu pozostawały one ze
+	sobą spójne. Takie rozwiązanie pozwalało uruchomić cały proces -- od surowego
+	zapisu EEG aż po gotowy zbiór -- jednym poleceniem.
+	
+	Skrypt przewidywał dwa tryby działania, przełączane flagą. W~trybie
+	podstawowym generowano pojedynczy wariant zbioru danych: dla wszystkich
+	dziewięciu badanych wykonywano przygotowanie danych z~ustalonymi parametrami,
+	a~następnie mieszano wynik. Tryb ten wykorzystywano podczas bieżącej pracy,
+	gdy potrzebna była jedna konkretna wersja danych.
+	
+	Drugi tryb służył do hurtowego wygenerowania wielu wariantów zbioru naraz.
+	Kolejno wywoływano w~nim przygotowanie i~mieszanie danych dla różnych ustawień
+	normalizacji -- m.in.~z~odejmowaniem średniej pomiędzy kanałami oraz dla
+	poszczególnych metod odniesienia do linii bazowej (\textit{ratio},
+	\textit{logratio}, \textit{zlogratio}, \textit{mean} oraz \textit{zscore}).
+	Pozwalało to przygotować komplet danych do porównania wpływu poszczególnych
+	metod na wyniki, przy czym -- ze względu na liczbę wariantów -- powstający
+	zbiór osiągał znaczny rozmiar (rzędu ponad 100~GB).
 	
 	\section{Klasyfikacja obrazów}
 	

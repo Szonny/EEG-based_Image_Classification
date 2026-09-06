@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.8)  6 SEP 2026 00:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.8)  6 SEP 2026 21:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -531,7 +531,17 @@ File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count295
 \l__pdf_internal_box=\box60
 )
-(./BIAI-raport-koncowy.aux)
+(./BIAI-raport-koncowy.aux
+
+LaTeX Warning: Label `fig:save_data_to_files' multiply defined.
+
+
+LaTeX Warning: Label `fig:save_data_to_files' multiply defined.
+
+
+LaTeX Warning: Label `fig:save_data_to_files' multiply defined.
+
+)
 \openout1 = `BIAI-raport-koncowy.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
@@ -568,8 +578,7 @@ LaTeX Info: Redefining \showhyphens on input line 22.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
-
-(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+ (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
@@ -726,116 +735,425 @@ no w jaki spo-sób zmie-niaª si¦
  []
 
 
-Overfull \hbox (41.29172pt too wide) in paragraph at lines 127--128
+Overfull \hbox (2.56718pt too wide) in paragraph at lines 127--129
+\T1/cmr/m/n/14.4 (-20) Na po-cz¡tku skryptu zgro-ma-dzono wszyst-kie pa-ra-me-t
+ry ste-ru-j¡ce prze-bie-giem
+ []
+
+<assets/variables.png, id=40, 665.48625pt x 759.83875pt>
+File: assets/variables.png Graphic file (type png)
+<use assets/variables.png>
+Package pdftex.def Info: assets/variables.png  used on input line 132.
+(pdftex.def)             Requested size: 448.13095pt x 511.67482pt.
+[5 <./assets/data_preparation_pipeline.png>]
+Overfull \hbox (16.76506pt too wide) in paragraph at lines 137--140
+[]\T1/cmr/m/n/14.4 (-20) Podstaw¦ sta-no-wiªy li-sty opi-su-j¡ce do-st¦pne dane
+. W zmien-nej \T1/cmtt/m/n/14.4 nicki_-badanych
+ []
+
+
+Overfull \hbox (14.28581pt too wide) in paragraph at lines 137--140
+\T1/cmr/m/n/14.4 (-20) znacz-nik czasu (\T1/cmtt/m/n/14.4 now\T1/cmr/m/n/14.4 (
+-20) ), wy-ko-rzy-sty-wany przy na-zy-wa-niu pli-ków wy-ni-ko-wych. 
+ []
+
+[6 <./assets/variables.png>]
+Overfull \hbox (18.62918pt too wide) in paragraph at lines 141--143
+[]\T1/cmr/m/n/14.4 (-20) Zmienna \T1/cmtt/m/n/14.4 wybrani_-badani \T1/cmr/m/n/
+14.4 (-20) okre-±laªa, któ-rzy uczest-nicy maj¡ zo-sta¢ prze-two-rzeni
+ []
+
+
+Overfull \hbox (121.89688pt too wide) in paragraph at lines 144--147
+\T1/cmtt/m/n/14.4 morlet_-log_-scale \T1/cmr/m/n/14.4 (-20) wª¡-czaª prze-li-cz
+e-nie mocy na skal¦ lo-ga-ryt-miczn¡, \T1/cmtt/m/n/14.4 subtract_-mean_-baselin
+e
+ []
+
+
+Overfull \hbox (8.81664pt too wide) in paragraph at lines 144--147
+\T1/cmr/m/n/14.4 (-20) -- od-j¦-cie ±red-niej li-czo-nej po-mi¦-dzy ka-na-ªami,
+ a \T1/cmtt/m/n/14.4 reduct_-tfa_-using_-baseline
+ []
+
+
+Overfull \hbox (13.18579pt too wide) in paragraph at lines 148--149
+\T1/cmr/m/n/14.4 (-20) pod-gl¡du da-nych na eta-pie eks-plo-ra-cji. Zmienne \T1
+/cmtt/m/n/14.4 image_-channel\T1/cmr/m/n/14.4 (-20) , \T1/cmtt/m/n/14.4 image_-
+epoch
+ []
+
+
+Overfull \hbox (3.10179pt too wide) in paragraph at lines 148--149
+\T1/cmr/m/n/14.4 (-20) oraz \T1/cmtt/m/n/14.4 chosen_-category \T1/cmr/m/n/14.4
+ (-20) wska-zy-waªy, który ka-naª, któr¡ epok¦ i któr¡ ka-te-go-ri¦
+ []
+
+
+Overfull \hbox (9.3717pt too wide) in paragraph at lines 148--149
+\T1/cmr/m/n/14.4 (-20) ob-razu przed-sta-wi¢, na-to-miast ze-staw flag \T1/cmtt
+/m/n/14.4 do_-generate_-... \T1/cmr/m/n/14.4 (-20) po-zwa-laª wª¡-cza¢
+ []
+
+
+Overfull \hbox (119.47572pt too wide) in paragraph at lines 148--149
+\T1/cmr/m/n/14.4 (-20) po-rz¡dku). Ka-ta-log do-ce-lowy dla tych pli-ków okre-±
+laªa zmienna \T1/cmtt/m/n/14.4 visualization_-catalogue\T1/cmr/m/n/14.4 (-20) .
+ 
+ []
+
+
+Overfull \hbox (14.86015pt too wide) in paragraph at lines 150--152
+[]\T1/cmr/m/n/14.4 (-20) Na ko-niec, na pod-sta-wie po-wy»-szych usta-wie«, wy-
+zna-czano zmienne po-moc-ni-cze
+ []
+
+
+Overfull \hbox (43.33186pt too wide) in paragraph at lines 150--152
+\T1/cmr/m/n/14.4 (-20) (\T1/cmtt/m/n/14.4 obecnie_-badani\T1/cmr/m/n/14.4 (-20)
+ ) oraz pseu-do-nim i plik zda-rze« pierw-szego z nich (\T1/cmtt/m/n/14.4 NICK_
+-BADANEGO\T1/cmr/m/n/14.4 (-20) ,
+ []
+
+
+Overfull \hbox (18.6618pt too wide) in paragraph at lines 150--152
+\T1/cmr/m/n/14.4 (-20) które byªy wspóª-dzie-lone i mo-dy-fi-ko-wane przez po-s
+zcze-gólne funk-cje po-toku. 
+ []
+
+
+Overfull \hbox (41.29172pt too wide) in paragraph at lines 155--156
 \T1/cmr/m/it/14.4 (-20) For-mat\T1/cmr/m/n/14.4 (-20) ), b¦-d¡-cym stan-dar-dem
  sto-so-wa-nym do za-pisu sy-gna-ªów bio-me-dycz-nych. 
  []
 
-<assets/raw_data.png, id=40, 1220.56pt x 248.93pt>
+[7]
+<assets/raw_data.png, id=60, 1220.56pt x 248.93pt>
 File: assets/raw_data.png Graphic file (type png)
 <use assets/raw_data.png>
-Package pdftex.def Info: assets/raw_data.png  used on input line 131.
+Package pdftex.def Info: assets/raw_data.png  used on input line 159.
 (pdftex.def)             Requested size: 448.13095pt x 91.39615pt.
-[5 <./assets/data_preparation_pipeline.png>]
-Overfull \hbox (10.30049pt too wide) in paragraph at lines 136--137
+
+Overfull \hbox (10.30049pt too wide) in paragraph at lines 164--165
 \T1/cmtt/m/n/14.4 preload=True\T1/cmr/m/n/14.4 (-20) ), co byªo ko-nieczne, aby
  mo»-liwe byªo jego pó¹-niej-sze fil-tro-wa-nie
  []
 
 
-Overfull \hbox (2.73177pt too wide) in paragraph at lines 136--137
+Overfull \hbox (2.73177pt too wide) in paragraph at lines 164--165
 \T1/cmr/m/n/14.4 (-20) ka-na-ªów na pod-sta-wie ich nazw (pa-ra-metr \T1/cmtt/m
 /n/14.4 infer_-types=True\T1/cmr/m/n/14.4 (-20) ). Po wczy-ta-niu
  []
 
 
-Overfull \hbox (44.81908pt too wide) in paragraph at lines 142--143
+Overfull \hbox (44.81908pt too wide) in paragraph at lines 170--171
 \T1/cmr/m/n/14.4 (-20) od-st¦-pach sta-no-wi¡-cych okoªo 10% lub 20% od-le-gªo-
 ±ci po-mi¦-dzy cha-rak-te-ry-stycz-nymi
  []
 
-[6 <./assets/raw_data.png>]
-Overfull \hbox (12.64128pt too wide) in paragraph at lines 159--160
+[8 <./assets/raw_data.png>]
+Overfull \hbox (12.64128pt too wide) in paragraph at lines 187--188
 []\T1/cmr/m/n/14.4 (-20) Przygotowanie ka-na-ªów prze-bie-gaªo w kilku kro-kach
 , któ-rych kod przed-sta-wiono
  []
 
-<assets/channel_mapping.png, id=57, 811.03pt x 573.14125pt>
+<assets/channel_mapping.png, id=70, 811.03pt x 573.14125pt>
 File: assets/channel_mapping.png Graphic file (type png)
 <use assets/channel_mapping.png>
-Package pdftex.def Info: assets/channel_mapping.png  used on input line 163.
+Package pdftex.def Info: assets/channel_mapping.png  used on input line 191.
 (pdftex.def)             Requested size: 448.13095pt x 316.68915pt.
-[7{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-Overfull \hbox (1.75935pt too wide) in paragraph at lines 170--171
+[9{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+Overfull \hbox (1.75935pt too wide) in paragraph at lines 198--199
 \T1/cmr/m/n/14.4 (-20) na-zwach roz-po-czy-na-j¡-cych si¦ od \T1/cmtt/m/n/14.4 
 Imp\T1/cmr/m/n/14.4 (-20) ) usu-ni¦to, po-nie-wa» nie nios¡ in-for-ma-cji
  []
 
 
-Overfull \hbox (21.18956pt too wide) in paragraph at lines 172--173
+Overfull \hbox (21.18956pt too wide) in paragraph at lines 200--201
 []\T1/cmr/m/n/14.4 (-20) Podziaª ka-na-ªów na po-szcze-gólne typy byª istotny p
 od-czas dal-szego prze-twa-rza-nia
  []
 
 
-Overfull \hbox (12.4495pt too wide) in paragraph at lines 172--173
+Overfull \hbox (12.4495pt too wide) in paragraph at lines 200--201
 \T1/cmr/m/n/14.4 (-20) ICA, do-my±l-nie obej-muj¡ wy-ª¡cz-nie ka-naªy typu \T1/
 cmtt/m/n/14.4 eeg\T1/cmr/m/n/14.4 (-20) . Ka-naªy \T1/cmtt/m/n/14.4 misc \T1/cm
 r/m/n/14.4 (-20) prze-cho-wuj¡
  []
 
 
-Overfull \hbox (1.077pt too wide) in paragraph at lines 172--173
+Overfull \hbox (1.077pt too wide) in paragraph at lines 200--201
 \T1/cmr/m/n/14.4 (-20) do-dat-kowe in-for-ma-cje, które nie s¡ trak-to-wane jak
  sy-gnaª mó-zgowy, na-to-miast
  []
 
-[8 <./assets/channel_mapping.png>]
-Overfull \hbox (7.02965pt too wide) in paragraph at lines 174--175
+[10 <./assets/channel_mapping.png>]
+Overfull \hbox (7.02965pt too wide) in paragraph at lines 202--203
 \T1/cmr/m/n/14.4 (-20) elek-trod, dzi¦ki czemu na-zwy ka-na-ªów, mo-gªy zo-sta¢
  po-wi¡-zane z ich po-zy-cjami
  []
 
 
-Overfull \hbox (21.16951pt too wide) in paragraph at lines 176--178
+Overfull \hbox (21.16951pt too wide) in paragraph at lines 204--206
 []\T1/cmr/m/n/14.4 (-20) Poprawno±¢ przy-pi-sa-nia mon-ta»u spraw-dzono za po-m
 oc¡ funk-cji \T1/cmtt/m/n/14.4 plot_-sensors( 
  []
 
-<assets/standard_10-20_map.png, id=72, 653.44125pt x 622.325pt>
+<assets/standard_10-20_map.png, id=84, 653.44125pt x 622.325pt>
 File: assets/standard_10-20_map.png Graphic file (type png)
 <use assets/standard_10-20_map.png>
-Package pdftex.def Info: assets/standard_10-20_map.png  used on input line 181.
+Package pdftex.def Info: assets/standard_10-20_map.png  used on input line 209.
 
 (pdftex.def)             Requested size: 403.31511pt x 384.10925pt.
-[9]
-Overfull \hbox (33.60486pt too wide) in paragraph at lines 186--187
+[11]
+Overfull \hbox (33.60486pt too wide) in paragraph at lines 214--215
 \T1/cmr/m/n/14.4 (-20) przy-pi-sa-nia nazw elek-trod do stan-dar-do-wych po-zy-
 cji prze-strzen-nych. Przy-go-to-wane
  []
 
 
-Overfull \hbox (9.03227pt too wide) in paragraph at lines 186--187
+Overfull \hbox (9.03227pt too wide) in paragraph at lines 214--215
 \T1/cmr/m/n/14.4 (-20) w ten spo-sób dane mo-gªy zo-sta¢ wy-ko-rzy-stane w ko-l
 ej-nych eta-pach ana-lizy. 
  []
 
-[10 <./assets/standard_10-20_map.png>] [11] (./BIAI-raport-koncowy.aux)
+[12 <./assets/standard_10-20_map.png>]
+<assets/signal_filtering.png, id=94, 797.98125pt x 105.39375pt>
+File: assets/signal_filtering.png Graphic file (type png)
+<use assets/signal_filtering.png>
+Package pdftex.def Info: assets/signal_filtering.png  used on input line 225.
+(pdftex.def)             Requested size: 448.13095pt x 59.18733pt.
+
+Overfull \hbox (4.25392pt too wide) in paragraph at lines 230--231
+\T1/cmr/m/n/14.4 (-20) po-cho-dz¡ce z sieci ener-ge-tycz-nej (w Eu-ro-pie na-pi
+¦-cie zmienne ma cz¦-sto-tli-wo±¢
+ []
+
+<assets/bad_quality_channels_detection.png, id=95, 745.78625pt x 1124.2pt>
+File: assets/bad_quality_channels_detection.png Graphic file (type png)
+<use assets/bad_quality_channels_detection.png>
+Package pdftex.def Info: assets/bad_quality_channels_detection.png  used on inp
+ut line 238.
+(pdftex.def)             Requested size: 403.31511pt x 607.95097pt.
+[13 <./assets/signal_filtering.png>]
+Overfull \vbox (11.45096pt too high) has occurred while \output is active []
+
+
+[14 <./assets/bad_quality_channels_detection.png>]
+<assets/ICA.png, id=111, 1244.65pt x 946.53625pt>
+File: assets/ICA.png Graphic file (type png)
+<use assets/ICA.png>
+Package pdftex.def Info: assets/ICA.png  used on input line 251.
+(pdftex.def)             Requested size: 313.69029pt x 238.5544pt.
+
+Overfull \hbox (19.65494pt too wide) in paragraph at lines 256--257
+[]\T1/cmr/m/n/14.4 (-20) Model ICA do-pa-so-wano do da-nych, przyj-mu-j¡c liczb
+¦ skªa-do-wych od-po-wia-da-j¡c¡
+ []
+
+
+Overfull \hbox (20.72089pt too wide) in paragraph at lines 256--257
+\T1/cmr/m/n/14.4 (-20) po-mi-ni¦-ciem. W za-sto-so-wa-nym roz-wi¡-za-niu iden-t
+y-fi-ka-cja skªa-do-wych prze-bie-gaªa
+ []
+
+[15 <./assets/ICA.png>]
+<assets/epochs.png, id=119, 1812.7725pt x 1075.01625pt>
+File: assets/epochs.png Graphic file (type png)
+<use assets/epochs.png>
+Package pdftex.def Info: assets/epochs.png  used on input line 264.
+(pdftex.def)             Requested size: 448.13095pt x 265.75159pt.
+
+Overfull \hbox (2.2481pt too wide) in paragraph at lines 269--270
+[]\T1/cmr/m/n/14.4 (-20) W tym celu na pod-sta-wie ka-naªu \T1/cmtt/m/n/14.4 Tr
+igger \T1/cmr/m/n/14.4 (-20) od-czy-tano zda-rze-nia za-re-je-stro-wane
+ []
+
+
+Overfull \hbox (2.80644pt too wide) in paragraph at lines 269--270
+\T1/cmr/m/n/14.4 (-20) od-po-wia-da-j¡-cym po-ja-wie-niu si¦ ob-razu (\T1/cmtt/
+m/n/14.4 IMAGE_-ON\T1/cmr/m/n/14.4 (-20) ). Liczb¦ tak wy-zna-czo-nych
+ []
+
+[16 <./assets/epochs.png>]
+Overfull \hbox (14.27304pt too wide) in paragraph at lines 271--272
+\T1/cmr/m/n/14.4 (-20) ka-te-go-ria i na-zwa pre-zen-to-wa-nego ob-razu, dzi¦ki
+ czemu mo»-liwe byªo po-wi¡-za-nie
+ []
+
+
+Overfull \hbox (0.32509pt too wide) in paragraph at lines 271--272
+\T1/cmr/m/n/14.4 (-20) po-kry-wa-j¡ce si¦ z wcze-±niej ozna-czo-nymi wa-dli-wym
+i frag-men-tami za-pisu. 
+ []
+
+
+Overfull \hbox (50.96323pt too wide) in paragraph at lines 275--276
+\T1/cmr/m/n/14.4 (-20) Przygotowane epoki pod-dano ana-li-zie czasowo-cz¦stotli
+wo±ciowej (ang. \T1/cmr/m/it/14.4 (-20) time--frequency
+ []
+
+<assets/morlet_wavelet.png, id=127, 1356.06625pt x 792.9625pt>
+File: assets/morlet_wavelet.png Graphic file (type png)
+<use assets/morlet_wavelet.png>
+Package pdftex.def Info: assets/morlet_wavelet.png  used on input line 279.
+(pdftex.def)             Requested size: 448.13095pt x 262.04141pt.
+[17 <./assets/morlet_wavelet.png>]
+Overfull \hbox (10.69247pt too wide) in paragraph at lines 286--287
+\T1/cmr/m/n/14.4 (-20) pre-zen-ta-cji ob-razu. War-to-±ci mocy prze-li-czono na
+-st¦p-nie na skal¦ lo-ga-ryt-miczn¡
+ []
+
+
+Overfull \hbox (3.48787pt too wide) in paragraph at lines 288--289
+[]\T1/cmr/m/n/14.4 (-20) Niezale»nie od po-wy»-szego przy-go-to-wano rów-nie» w
+a-riant, w któ-rym po-mi-jano
+ []
+
+
+Overfull \hbox (12.32289pt too wide) in paragraph at lines 288--289
+\T1/cmr/m/n/14.4 (-20) sku-tecz-no-±ci mo-delu na da-nych prze-ksztaª-co-nych o
+raz nie-prze-ksztaª-co-nych. 
+ []
+
+<assets/save_data_to_files.png, id=135, 1209.51875pt x 561.09625pt>
+File: assets/save_data_to_files.png Graphic file (type png)
+<use assets/save_data_to_files.png>
+Package pdftex.def Info: assets/save_data_to_files.png  used on input line 296.
+
+(pdftex.def)             Requested size: 358.50612pt x 166.30963pt.
+
+Overfull \hbox (0.29214pt too wide) in paragraph at lines 301--302
+[]\T1/cmr/m/n/14.4 (-20) Osobno za-pi-sy-wano ta-blic¦ prze-two-rzo-nym sy-gna-
+ªem oraz ta-blic¦ z ety-kie-tami
+ []
+
+
+Overfull \hbox (17.44896pt too wide) in paragraph at lines 301--302
+\T1/cmr/m/n/14.4 (-20) prze-twa-rza-nia (m.in. dane prze-ksztaª-cone lub su-row
+e), dzi¦ki czemu po-szcze-gólne
+ []
+
+[18 <./assets/save_data_to_files.png>]
+Overfull \hbox (32.97171pt too wide) in paragraph at lines 305--306
+\T1/cmr/m/n/14.4 (-20) w for-ma-cie GIF, w ka-ta-logu wska-za-nym zmienn¡ \T1/c
+mtt/m/n/14.4 visualization_-catalogue\T1/cmr/m/n/14.4 (-20) . 
+ []
+
+File: assets/save_data_to_files.png Graphic file (type png)
+<use assets/save_data_to_files.png>
+Package pdftex.def Info: assets/save_data_to_files.png  used on input line 311.
+
+(pdftex.def)             Requested size: 358.50612pt x 166.30963pt.
+
+Overfull \hbox (18.73187pt too wide) in paragraph at lines 316--317
+[]\T1/cmr/m/n/14.4 (-20) Druga funk-cja po-rz¡d-ko-waªa epoki nie we-dªug czasu
+, lecz we-dªug pre-zen-to-wa-nego
+ []
+
+[19]
+File: assets/save_data_to_files.png Graphic file (type png)
+<use assets/save_data_to_files.png>
+Package pdftex.def Info: assets/save_data_to_files.png  used on input line 320.
+
+(pdftex.def)             Requested size: 358.50612pt x 166.30963pt.
+
+Overfull \hbox (14.03758pt too wide) in paragraph at lines 325--327
+\T1/cmr/m/n/14.4 (-20) pre-zen-to-wa-nych w ukªa-dzie od-po-wia-da-j¡-cym ich p
+o-ªo-»e-niu na gªo-wie. W jed-nym
+ []
+
+File: assets/save_data_to_files.png Graphic file (type png)
+<use assets/save_data_to_files.png>
+Package pdftex.def Info: assets/save_data_to_files.png  used on input line 330.
+
+(pdftex.def)             Requested size: 358.50612pt x 166.30963pt.
+
+Overfull \hbox (23.41531pt too wide) in paragraph at lines 337--338
+\T1/cmr/m/n/14.4 (-20) ar-gu-menty naj-wa»-niej-sze usta-wie-nia po-toku (m.in.
+ wy-bór ba-da-nych, za-sto-so-wa-nie
+ []
+
+[20]
+<assets/generate_files.png, id=156, 1274.7625pt x 1190.4475pt>
+File: assets/generate_files.png Graphic file (type png)
+<use assets/generate_files.png>
+Package pdftex.def Info: assets/generate_files.png  used on input line 341.
+(pdftex.def)             Requested size: 403.31511pt x 376.62778pt.
+
+Overfull \hbox (24.0914pt too wide) in paragraph at lines 346--347
+\T1/cmr/m/n/14.4 (-20) po-tok miaª po-sta¢ po-je-dyn-czego, li-nio-wego skryptu
+; pa-ra-me-try-za-cj¦ wpro-wa-dzono
+ []
+
+
+Overfull \hbox (65.41838pt too wide) in paragraph at lines 346--347
+\T1/cmr/m/n/14.4 (-20) na pó¹-niej-szym eta-pie, gdy po-ja-wiªa si¦ po-trzeba p
+ro-wa-dze-nia wielu eks-pe-ry-men-tów. 
+ []
+
+
+Overfull \hbox (10.95514pt too wide) in paragraph at lines 350--352
+\T1/cmr/m/n/14.4 (-20) zbiór, który mie-szano i dzie-lono na cz¦-±ci wy-ko-rzy-
+sty-wane pod-czas ucze-nia. 
+ []
+
+[21 <./assets/generate_files.png>]
+Overfull \hbox (17.12761pt too wide) in paragraph at lines 353--358
+\T1/cmr/m/n/14.4 (-20) temu mo-del oce-niano na da-nych osób, któ-rych na-gra-n
+ia nie byªy wy-ko-rzy-sty-wane
+ []
+
+
+Overfull \hbox (0.4867pt too wide) in paragraph at lines 359--366
+\T1/cmr/m/n/14.4 (-20) ope-ra-cyj-nej, mie-sza-nie prze-pro-wa-dzono dwu-eta-po
+wo, bez wczy-ty-wa-nia ca-ªo-±ci
+ []
+
+
+Overfull \hbox (0.31703pt too wide) in paragraph at lines 372--378
+\T1/cmr/m/n/14.4 (-20) pa-ra-me-try za-pi-sy-wano osobno, aby mo»-liwe byªo ich
+ pó¹-niej-sze wy-ko-rzy-sta-nie.
+ []
+
+
+Overfull \hbox (17.73105pt too wide) in paragraph at lines 372--378
+\T1/cmr/m/n/14.4 (-20) Ostat-nim kro-kiem byªa zmiana ko-lej-no-±ci wy-mia-rów 
+ta-blicy na ukªad ocze-ki-wany
+ []
+
+
+Overfull \hbox (8.70522pt too wide) in paragraph at lines 381--390
+\T1/cmr/m/n/14.4 (-20) do obu eta-pów, dzi¦ki czemu po-zo-sta-waªy one ze sob¡ 
+spójne. Ta-kie roz-wi¡-za-nie
+ []
+
+[22]
+Overfull \hbox (34.62311pt too wide) in paragraph at lines 391--396
+[]\T1/cmr/m/n/14.4 (-20) Skrypt prze-wi-dy-waª dwa tryby dzia-ªa-nia, prze-ª¡-c
+zane flag¡. W try-bie pod-sta-wo-wym
+ []
+
+[23] (./BIAI-raport-koncowy.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `BIAI-raport-koncowy.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 18372 strings out of 474222
- 320305 string characters out of 5748734
- 1930975 words of memory out of 5000000
- 40274 multiletter control sequences out of 15000+600000
- 571960 words of font info for 108 fonts, out of 8000000 for 9000
+ 18505 strings out of 474222
+ 322973 string characters out of 5748734
+ 1931975 words of memory out of 5000000
+ 40348 multiletter control sequences out of 15000+600000
+ 572821 words of font info for 121 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 108i,7n,107p,10941b,535s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,8n,107p,10941b,493s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
 r/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/
 type1/public/cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-supe
@@ -843,10 +1161,10 @@ r/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr
 /share/texmf/fonts/type1/public/cm-super/sfsx1200.pfb></usr/share/texmf/fonts/t
 ype1/public/cm-super/sfti1440.pfb></usr/share/texmf/fonts/type1/public/cm-super
 /sftt1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1440.pfb>
-Output written on BIAI-raport-koncowy.pdf (11 pages, 381120 bytes).
+Output written on BIAI-raport-koncowy.pdf (23 pages, 1311428 bytes).
 PDF statistics:
- 191 PDF objects out of 1000 (max. 8388607)
- 150 compressed objects within 2 object streams
- 32 named destinations out of 1000 (max. 500000)
- 27797 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 316 PDF objects out of 1000 (max. 8388607)
+ 246 compressed objects within 3 object streams
+ 65 named destinations out of 1000 (max. 500000)
+ 27917 words of extra memory for PDF output out of 29859 (max. 10000000)
 
