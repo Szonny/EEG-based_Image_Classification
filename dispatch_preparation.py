@@ -7,7 +7,7 @@ from data_preparation import generuj_pliki
 from data_randomizer import generuj_wynikowe
 
 do_tfa_morlet = True
-jedenstrzal = False
+jedenstrzal = True
 
 if jedenstrzal:
     print("###########################################")

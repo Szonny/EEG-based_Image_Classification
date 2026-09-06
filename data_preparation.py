@@ -9,6 +9,7 @@ import io
 import imageio.v3 as iio
 import matplotlib.pyplot as plt
 from datetime import datetime
+import os
 
 from pandas.core.indexes import category
 
@@ -474,7 +475,7 @@ def generuj_pliki(lista_nr_badanych=[0], do_TFA=True, morlet_log=True, subtract_
     global reduct_tfa_using_baseline
     global chosen_reduction_method
 
-    for nick in nicki_badanych
+    for nick in nicki_badanych:
         if not os.path.exists(f"assets/{nick}_raw.edf"):
             print(f"Nie znaleziono pliku EDF: {nick}_raw.edf")
         if not os.path.exists(f"assets/{nick}_imp.csv"):

@@ -178,7 +178,7 @@ def przemieszaj_dane(nicki_badanych, przyrostek_wynikowy):
     if sum(znalezione) == 100:
         print(f"Udalo sie utworzyc pliki. Znaleziono grupe testowa w wynikowych! Plik data2/plikWynikowy_{przyrostek_wynikowy}{zarostek} poprawny. Przystepuje do normalizacji danych")
     else:
-        print(f"BLAD. Niezgodnosc etykiet z grupy testowej lub brak niektorych elementow! Znaleziono zgodnych: {znalezione}")
+        print(f"BLAD. Niezgodnosc etykiet z grupy testowej lub brak niektorych elementow! Znaleziono zgodnych: {sum(znalezione)}")
 
 
     odchylenie_std = np.sqrt(suma_kwadratow_roznic/suma_il_el_miedzykan)
