@@ -538,10 +538,209 @@
 	
 	\section{Rekonstrukcja obrazów}
 	
-	\textcolor{red}{Jak ją zrobiliśmy i co wyszło.}
+	Drugim celem projektu była próba rekonstrukcji obrazów na podstawie sygnału
+	EEG -- odtworzenia tego, co widział badany, wyłącznie z~zapisu jego aktywności
+	mózgowej. Zadanie to jest trudniejsze od~klasyfikacji, ponieważ wymaga
+	odtworzenia znacznie bogatszej informacji niż sama etykieta kategorii.
+	Zrealizowano je dwoma komplementarnymi sposobami: przez bezpośrednią
+	rekonstrukcję pikseli (autoenkoder) oraz przez identyfikację obrazu spośród
+	zbioru kandydatów (ang.~\textit{retrieval}). W~obu wykorzystano dane surowe
+	oraz enkoder o~architekturze zgodnej z~siecią EEGNet.
+	
+	\subsection{Rekonstrukcja pikselowa (autoenkoder)}
+	
+	Pierwsze podejście oparto na autoenkoderze złożonym z~dwóch części. Enkoder --
+	korpus sieci EEGNet pozbawiony warstwy klasyfikującej -- mapował sygnał na
+	wektor cech (ang.~\textit{latent}). Dekoder rozwijał ten wektor z~powrotem do
+	obrazu RGB za pomocą splotów transponowanych (ang.~\textit{transposed
+		convolution}), stopniowo zwiększając rozdzielczość aż do rozmiaru 64 na~64
+	piksele. Model uczono metodą regresji do pikseli, minimalizując błąd
+	średniokwadratowy (ang.~\textit{mean squared error}, MSE) pomiędzy obrazem
+	odtworzonym a~rzeczywistym bodźcem.
+
+	%\begin{lstlisting}[language=Python, caption={Dekoder oraz zlozenie autoenkodera (wariant pikselowy).}, label=lst:dekoder]
+	%	# Dekoder: wektor cech (latent) -> obraz RGB przez sploty transponowane
+	%	x = Dense(8*8*64, activation="elu")(latent)
+	%	x = Reshape((8, 8, 64))(x)
+	%	x = Conv2DTranspose(32, 3, strides=2, padding="same", activation="elu")(x)  # 16x16
+	%	x = Conv2DTranspose(16, 3, strides=2, padding="same", activation="elu")(x)  # 32x32
+	%	x = Conv2DTranspose(16, 3, strides=2, padding="same", activation="elu")(x)  # 64x64
+	%	obraz = Conv2D(3, 3, padding="same", activation="sigmoid")(x)               # piksele [0,1]
+		
+	%	# Autoenkoder = dekoder(enkoder(sygnal)); uczony jako regresja do pikseli
+	%	autoenkoder = Model(wejscie, dekoder(enkoder(wejscie)))
+	%	autoenkoder.compile(optimizer=Adam(1e-3), loss="mse")
+	%\end{lstlisting}
+	
+	Uzyskane rekonstrukcje okazały się niemal identyczne dla wszystkich prób --
+	model odtwarzał rozmytą, uśrednioną plamę barwną, niezależnie od~wejścia
+	(rys.~\ref{fig:rekonstrukcja-mgla}). Jest to charakterystyczne zachowanie przy
+	stracie MSE w~sytuacji, gdy z~wejścia nie da się jednoznacznie odtworzyć celu:
+	matematycznie najkorzystniej jest wówczas zwracać uśredniony obraz całego
+	zbioru, ponieważ minimalizuje to średni błąd. Wynik ten oznacza, że sygnał nie
+	zawiera informacji wystarczającej do wiernego, pikselowego odtworzenia
+	pojedynczego obrazu.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{assets/reconstruction.png}
+		\caption{Rekonstrukcja pikselowa: obraz prawdziwy (góra) oraz rekonstrukcja
+			z~EEG (dół). Odtworzenia są niemal identyczne dla różnych prób --
+			model zbiega do uśrednionego obrazu zbioru.}
+		\label{fig:rekonstrukcja-mgla}
+	\end{figure}
+	
+	\subsection{Identyfikacja obrazów (retrieval)}
+	
+	Drugie podejście omijało konieczność generowania pikseli. Zamiast odtwarzać
+	obraz, uczono enkoder odwzorowywać sygnał EEG na wektor cech (ang.~\textit{embedding})
+	w~tej samej przestrzeni, w~której opisano obrazy. Embeddingi obrazów wyznaczono
+	pretrenowaną siecią rozpoznającą obrazy (MobileNetV2), dzięki czemu obrazy
+	wizualnie podobne miały zbliżone wektory. Enkoder EEG uczył się celować
+	w~embedding obrazu oglądanego podczas danej próby, a~jako funkcję straty
+	wykorzystano podobieństwo kosinusowe (ang.~\textit{cosine similarity}).
+	
+	%\begin{lstlisting}[language=Python, caption={Enkoder EEG konczacy sie embeddingiem; uczenie podobienstwem kosinusowym.}, label=lst:embedding]
+	%	# Enkoder EEG konczy sie wektorem cech znormalizowanym do dlugosci 1
+	%	x = Dense(embed_dim)(x)
+	%	osadzenie = Lambda(lambda t: tf.math.l2_normalize(t, axis=1))(x)
+	%	model = Model(wejscie, osadzenie)
+	%	model.compile(optimizer=Adam(1e-3), loss=CosineSimilarity(axis=1))
+	%\end{lstlisting}
+	
+	Rekonstrukcję rozumiano tu jako identyfikację. Dla próby testowej wyznaczano
+	jej embedding, a~następnie porównywano go z~embeddingami wszystkich
+	obrazów-kandydatów, wybierając najbliższe (ang.~\textit{nearest neighbour}).
+	Nie jest to zatem klasyfikacja po jedenastu kategoriach, lecz wyszukiwanie
+	konkretnego obrazu spośród 220 możliwych.
+	
+	%\begin{lstlisting}[language=Python, caption={Wyszukiwanie najblizszego obrazu oraz identyfikacja n-way.}, label=lst:retrieval]
+	%	# Podobienstwo embeddingu z EEG do wszystkich obrazow-kandydatow
+	%	sims = pred @ emb_obrazow.T            # (proby, obrazy)
+	%	ranking = np.argsort(-sims, axis=1)    # obrazy od najblizszego
+		
+	%	# Identyfikacja n-way: czy poprawny obraz wygrywa z k-1 losowymi rozpraszaczami
+	%	trafienie = sims[i, poprawny] > sims[i, rozpraszacze].max()
+	%\end{lstlisting}
+	
+	Skuteczność oceniano dwiema miarami. Wskaźniki \textit{top-1} oraz \textit{top-5}
+	sprawdzały, czy właściwy obraz znalazł się na~pierwszym miejscu lub w~pierwszej
+	piątce rankingu spośród wszystkich 220 obrazów. Identyfikacja \textit{n-way}
+	(dla 2, 5 oraz 10) sprawdzała, czy właściwy obraz wygrywał z~$k-1$ losowo
+	dobranymi rozpraszaczami, co odpowiada zgadywaniu spośród $k$ obrazów. Ocenę
+	powtórzono również z~pominięciem kategorii \textit{abstract}, aby sprawdzić,
+	czy skuteczność nie wynika wyłącznie z~łatwo odróżnialnej grafiki
+	geometrycznej. Przykładowe wyniki wyszukiwania przedstawiono na
+	rys.~\ref{fig:retrieval}.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{assets/retrieval.png}
+		\caption{Identyfikacja: obraz-zapytanie (pierwsza kolumna) oraz pięć
+			najbliższych obrazów wg~embeddingu z~EEG. Dla grafiki
+			\textit{abstract} wszystkie dopasowania są poprawne; wśród zdjęć
+			powtarzają się natomiast pojedyncze obrazy (tzw.~węzły).}
+		\label{fig:retrieval}
+	\end{figure}
+	
+	\subsection{Wyniki i~wnioski}
+	
+	Wyniki zestawiono w~tabeli~\ref{tab:retrieval}. Wszystkie miary znalazły się
+	wyraźnie powyżej poziomu losowego -- przykładowo identyfikacja 2-way osiągnęła
+	ok.~61\%, a~10-way ok.~19\% (wobec odpowiednio 50\% i~10\% dla przypadku).
+	Co~istotne, przewaga nad poziomem losowym utrzymała się także po wykluczeniu
+	kategorii \textit{abstract} (2-way ok.~56\%, 10-way ok.~15\%), choć była wtedy
+	mniejsza. Oznacza to, że sygnał niesie informację nie tylko o~łatwym
+	rozróżnieniu grafiki od~zdjęć, lecz -- w~ograniczonym stopniu -- także
+	o~samych zdjęciach.
+	
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{lccc}
+			\hline
+			Miara & Wszystkie kategorie & Tylko zdjęcia & Poziom losowy \\
+			\hline
+			top-1  & 0,97\% & 0,85\% & ok.~0,5\% \\
+			top-5  & 5,45\% & 4,45\% & ok.~2,3\% \\
+			2-way  & 61,1\% & 56,4\% & 50\% \\
+			5-way  & 31,5\% & 26,7\% & 20\% \\
+			10-way & 18,8\% & 14,8\% & 10\% \\
+			\hline
+		\end{tabular}
+		\caption{Skuteczność identyfikacji obrazów z~EEG dla wszystkich kategorii
+			oraz z~pominięciem kategorii \textit{abstract}.}
+		\label{tab:retrieval}
+	\end{table}
+	
+	Analiza jakościowa (rys.~\ref{fig:retrieval}) ujawniła jednocześnie zjawisko
+	tzw.~węzłów (ang.~\textit{hub}): kilka obrazów (m.in.~przedstawiających psy)
+	pojawiało się jako najbliższy sąsiad wielu różnych zapytań. Świadczy to, że
+	mimo statystycznej przewagi nad~poziomem losowym pojedyncze dopasowania
+	pozostawały zaszumione, a~embeddingi zdjęć skłonne były do~zbijania się
+	w~niewielkim obszarze przestrzeni cech.
+	
+	Podsumowując, rekonstrukcja pikselowa pojedynczej próby EEG okazała się
+	niemożliwa -- model odtwarzał jedynie uśredniony obraz zbioru. Identyfikacja
+	wykazała natomiast, że w~sygnale obecna jest słaba, lecz statystycznie istotna
+	informacja o~oglądanym obrazie, sięgająca poza samo rozróżnienie grafiki
+	geometrycznej. Wyniki obu podejść są spójne z~rezultatami klasyfikacji:
+	informacja o~obrazie w~sygnale EEG istnieje, jest jednak zbyt słaba do
+	dokładnego, jednostkowego odtworzenia.
 	
 	\section{Podsumowanie projektu - uwagi i wnioski}
 	
-	\textcolor{red}{Jaka wyszła nam zgodność, co może być tego przyczyną i ewentualnie inne cenne uwagi.}
+	\subsection{Wnioski}
+	
+	Najważniejszym wnioskiem jest to, że sygnał EEG niesie pewną, powtarzalną
+	informację o~oglądanym obrazie. Świadczy o~tym spójność trzech niezależnych
+	eksperymentów: celność klasyfikacji utrzymywała się powyżej poziomu losowego,
+	podobnie jak identyfikacja obrazów w~zadaniu rekonstrukcji. Informacja ta jest
+	jednak słaba -- nie pozwala na~precyzyjne wskazanie ani odtworzenie konkretnego
+	obrazu.
+	
+	Kluczowym czynnikiem ograniczającym skuteczność okazała się zmienność
+	międzyosobowa. Przy podziale danych rozłącznym względem badanych (ocenie na
+	osobach nieobecnych podczas treningu) skuteczność spadała niemal do~poziomu
+	losowego, natomiast przy podziale mieszanym wyraźnie go przewyższała. Oznacza
+	to, że modele uczyły się wzorców w~dużej mierze specyficznych dla
+	poszczególnych osób -- dwie różne osoby reagują na~ten sam obraz odmiennie, co
+	utrudnia zbudowanie modelu uniwersalnego.
+	
+	Porównanie architektur i~reprezentacji wskazuje ponadto, że ograniczeniem nie
+	jest sam model, lecz ilość informacji zawarta w~sygnale. Sieci działające na
+	surowym sygnale nie potrafiły dopasować się do~danych treningowych powyżej
+	ok.~22\%, a~zwiększanie ich pojemności nie poprawiało wyniku, co wskazuje na
+	niedouczenie wynikające z~danych. Dodatkowo reprezentacja
+	czasowo-częstotliwościowa oraz sygnał surowy dały porównywalne rezultaty, mimo
+	znacznych różnic w~architekturze.
+	
+	Najlepiej rozpoznawaną kategorią był \textit{abstract} -- prosta grafika
+	geometryczna, wizualnie skrajnie odmienna od~zdjęć -- a~w~dalszej kolejności
+	\textit{person}. Pozostałe kategorie rozróżniano znacznie słabiej. Sugeruje to,
+	że sygnał odzwierciedla przede wszystkim ogólne, niskopoziomowe cechy bodźca,
+	a~nie jego szczegółową treść.
+	
+	\subsection{Uwagi i~możliwe kierunki dalszych prac}
+	
+	Pojedyncza próba EEG cechuje się niskim stosunkiem sygnału do~szumu. Ponieważ
+	każdy obraz prezentowano sześciokrotnie, uśrednienie powtórzeń tego samego
+	bodźca mogłoby istotnie poprawić jakość sygnału -- kosztem liczby przykładów
+	uczących -- i~jest naturalnym kierunkiem dalszych prób. W~kontekście zmienności
+	międzyosobowej obiecujące byłyby natomiast modele uczone lub dostrajane
+	indywidualnie dla każdej osoby, a~także zwiększenie liczby badanych.
+	
+	Kilka elementów potoku również pozostawia pole do~usprawnień. Na~etapie
+	czyszczenia sygnału składowe artefaktowe (ICA) wykrywano automatycznie -- ich
+	ręczna weryfikacja mogłaby poprawić jakość danych. Zbiory uczący i~testowy
+	normalizowano niezależnie; w~docelowym postępowaniu warto normalizować zbiór
+	testowy statystykami wyznaczonymi na~zbiorze uczącym, aby uniknąć podglądania
+	danych testowych. W~zadaniu rekonstrukcji rozważyć można z~kolei inne funkcje
+	straty (np.~perceptualną) oraz metody ograniczające zjawisko węzłów
+	w~przestrzeni cech.
+	
+	Mimo umiarkowanych wyników liczbowych projekt pozwolił przejść pełną ścieżkę
+	badawczą -- od~surowego sygnału EEG po~ocenę modeli -- oraz wyciągnąć czytelne
+	wnioski na~temat możliwości i~ograniczeń dekodowania obrazów z~aktywności
+	mózgu.
 	
 \end{document}

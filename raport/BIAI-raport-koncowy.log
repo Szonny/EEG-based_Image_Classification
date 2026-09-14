@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.8)  14 SEP 2026 20:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.8)  14 SEP 2026 21:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1237,7 +1237,101 @@ Overfull \hbox (7.24452pt too wide) in paragraph at lines 530--538
 zie za-warta w sa-mym sy-gnale. 
  []
 
-[26] [27] (./BIAI-raport-koncowy.aux)
+
+Overfull \hbox (2.25157pt too wide) in paragraph at lines 541--549
+\T1/cmr/m/n/14.4 (-20) wy-maga od-two-rze-nia znacz-nie bo-gat-szej in-for-ma-c
+ji ni» sama ety-kieta ka-te-go-rii.
+ []
+
+[26]
+Overfull \hbox (3.87306pt too wide) in paragraph at lines 552--560
+\T1/cmr/m/n/14.4 (-20) Pierwsze po-dej-±cie oparto na au-to-en-ko-de-rze zªo-»o
+-nym z dwóch cz¦-±ci. En-ko-der
+ []
+
+
+Overfull \hbox (60.02069pt too wide) in paragraph at lines 552--560
+\T1/cmr/m/n/14.4 (-20) pik-sele. Mo-del uczono me-tod¡ re-gre-sji do pik-seli, 
+mi-ni-ma-li-zu-j¡c bª¡d ±red-nio-kwa-dra-towy
+ []
+
+
+Overfull \hbox (18.8657pt too wide) in paragraph at lines 552--560
+\T1/cmr/m/n/14.4 (-20) (ang. \T1/cmr/m/it/14.4 (-20) mean squ-ared er-ror\T1/cm
+r/m/n/14.4 (-20) , MSE) po-mi¦-dzy ob-ra-zem od-two-rzo-nym a rze-czy-wi-stym
+ []
+
+
+Overfull \hbox (0.74373pt too wide) in paragraph at lines 575--583
+\T1/cmr/m/n/14.4 (-20) naj-ko-rzyst-niej jest wów-czas zwra-ca¢ u±red-niony ob-
+raz ca-ªego zbioru, po-nie-wa»
+ []
+
+
+Overfull \hbox (1.6006pt too wide) in paragraph at lines 575--583
+\T1/cmr/m/n/14.4 (-20) in-for-ma-cji wy-star-cza-j¡-cej do wier-nego, pik-se-lo
+-wego od-two-rze-nia po-je-dyn-czego
+ []
+
+<assets/reconstruction.png, id=198, 1606.0pt x 441.65pt>
+File: assets/reconstruction.png Graphic file (type png)
+<use assets/reconstruction.png>
+Package pdftex.def Info: assets/reconstruction.png  used on input line 586.
+(pdftex.def)             Requested size: 448.13095pt x 123.23659pt.
+[27]
+Overfull \hbox (31.69228pt too wide) in paragraph at lines 595--602
+\T1/cmr/m/n/14.4 (-20) ob-raz, uczono en-ko-der od-wzo-ro-wy-wa¢ sy-gnaª EEG na
+ wek-tor cech (ang. \T1/cmr/m/it/14.4 (-20) em-bed-ding\T1/cmr/m/n/14.4 (-20) )
+
+ []
+
+
+Overfull \hbox (4.9906pt too wide) in paragraph at lines 611--616
+[]\T1/cmr/m/n/14.4 (-20) Rekonstrukcj¦ ro-zu-miano tu jako iden-ty-fi-ka-cj¦. D
+la próby te-sto-wej wy-zna-czano
+ []
+
+
+Overfull \hbox (9.00067pt too wide) in paragraph at lines 626--635
+[]\T1/cmr/m/n/14.4 (-20) Skuteczno±¢ oce-niano dwiema mia-rami. Wska¹-niki \T1/
+cmr/m/it/14.4 (-20) top-1 \T1/cmr/m/n/14.4 (-20) oraz \T1/cmr/m/it/14.4 (-20) t
+op-5 \T1/cmr/m/n/14.4 (-20) spraw-dzaªy,
+ []
+
+
+Overfull \hbox (13.31853pt too wide) in paragraph at lines 626--635
+\T1/cmr/m/n/14.4 (-20) czy sku-tecz-no±¢ nie wy-nika wy-ª¡cz-nie z ªa-two od-ró
+»-nial-nej gra-fiki geo-me-trycz-nej.
+ []
+
+<assets/retrieval.png, id=207, 1027.84pt x 869.2475pt>
+File: assets/retrieval.png Graphic file (type png)
+<use assets/retrieval.png>
+Package pdftex.def Info: assets/retrieval.png  used on input line 638.
+(pdftex.def)             Requested size: 448.13095pt x 378.98175pt.
+[28 <./assets/reconstruction.png>]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[29 <./assets/retrieval.png>]
+Overfull \hbox (12.26424pt too wide) in paragraph at lines 694--700
+\T1/cmr/m/n/14.4 (-20) eks-pe-ry-men-tów: cel-no±¢ kla-sy-fi-ka-cji utrzy-my-wa
+ªa si¦ po-wy-»ej po-ziomu lo-so-wego,
+ []
+
+[30]
+Overfull \hbox (5.78166pt too wide) in paragraph at lines 732--740
+\T1/cmr/m/n/14.4 (-20) aby unik-n¡¢ pod-gl¡-da-nia da-nych te-sto-wych. W za-da
+-niu re-kon-struk-cji roz-wa-»y¢
+ []
+
+
+Overfull \hbox (6.22205pt too wide) in paragraph at lines 732--740
+\T1/cmr/m/n/14.4 (-20) mo»na z ko-lei inne funk-cje straty (np. per-cep-tu-aln¡
+) oraz me-tody ogra-ni-cza-j¡ce
+ []
+
+[31] [32] (./BIAI-raport-koncowy.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1250,24 +1344,27 @@ Package rerunfilecheck Info: File `BIAI-raport-koncowy.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 18594 strings out of 474222
- 324181 string characters out of 5748734
- 1931975 words of memory out of 5000000
- 40395 multiletter control sequences out of 15000+600000
- 578071 words of font info for 150 fonts, out of 8000000 for 9000
+ 18650 strings out of 474222
+ 325066 string characters out of 5748734
+ 1932975 words of memory out of 5000000
+ 40419 multiletter control sequences out of 15000+600000
+ 579713 words of font info for 160 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  108i,8n,107p,10941b,493s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
-r/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/
-type1/public/cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-supe
-r/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr
-/share/texmf/fonts/type1/public/cm-super/sfsx1200.pfb></usr/share/texmf/fonts/t
-ype1/public/cm-super/sfti1440.pfb></usr/share/texmf/fonts/type1/public/cm-super
-/sftt1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1440.pfb>
-Output written on BIAI-raport-koncowy.pdf (27 pages, 1323314 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf
+/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/
+cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pf
+b></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/
+fonts/type1/public/cm-super/sfsx1200.pfb></usr/share/texmf/fonts/type1/public/c
+m-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1440.pfb
+></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/texmf/f
+onts/type1/public/cm-super/sftt1440.pfb>
+Output written on BIAI-raport-koncowy.pdf (32 pages, 3225800 bytes).
 PDF statistics:
- 359 PDF objects out of 1000 (max. 8388607)
- 285 compressed objects within 3 object streams
- 76 named destinations out of 1000 (max. 500000)
- 34101 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 427 PDF objects out of 1000 (max. 8388607)
+ 339 compressed objects within 4 object streams
+ 89 named destinations out of 1000 (max. 500000)
+ 36199 words of extra memory for PDF output out of 42996 (max. 10000000)
 
