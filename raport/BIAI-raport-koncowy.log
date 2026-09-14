@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.8)  6 SEP 2026 21:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.8)  14 SEP 2026 20:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -540,6 +540,9 @@ LaTeX Warning: Label `fig:save_data_to_files' multiply defined.
 
 
 LaTeX Warning: Label `fig:save_data_to_files' multiply defined.
+
+
+LaTeX Warning: Label `fig:raw_data' multiply defined.
 
 )
 \openout1 = `BIAI-raport-koncowy.aux'.
@@ -1098,43 +1101,143 @@ Overfull \hbox (10.95514pt too wide) in paragraph at lines 350--352
 sty-wane pod-czas ucze-nia. 
  []
 
+File: assets/raw_data.png Graphic file (type png)
+<use assets/raw_data.png>
+Package pdftex.def Info: assets/raw_data.png  used on input line 355.
+(pdftex.def)             Requested size: 448.13095pt x 91.39615pt.
 [21 <./assets/generate_files.png>]
-Overfull \hbox (17.12761pt too wide) in paragraph at lines 353--358
+Overfull \hbox (17.12761pt too wide) in paragraph at lines 360--365
 \T1/cmr/m/n/14.4 (-20) temu mo-del oce-niano na da-nych osób, któ-rych na-gra-n
 ia nie byªy wy-ko-rzy-sty-wane
  []
 
 
-Overfull \hbox (0.4867pt too wide) in paragraph at lines 359--366
+Overfull \hbox (0.4867pt too wide) in paragraph at lines 366--373
 \T1/cmr/m/n/14.4 (-20) ope-ra-cyj-nej, mie-sza-nie prze-pro-wa-dzono dwu-eta-po
 wo, bez wczy-ty-wa-nia ca-ªo-±ci
  []
 
 
-Overfull \hbox (0.31703pt too wide) in paragraph at lines 372--378
+Overfull \hbox (0.31703pt too wide) in paragraph at lines 379--385
 \T1/cmr/m/n/14.4 (-20) pa-ra-me-try za-pi-sy-wano osobno, aby mo»-liwe byªo ich
  pó¹-niej-sze wy-ko-rzy-sta-nie.
  []
 
 
-Overfull \hbox (17.73105pt too wide) in paragraph at lines 372--378
+Overfull \hbox (17.73105pt too wide) in paragraph at lines 379--385
 \T1/cmr/m/n/14.4 (-20) Ostat-nim kro-kiem byªa zmiana ko-lej-no-±ci wy-mia-rów 
 ta-blicy na ukªad ocze-ki-wany
  []
 
-
-Overfull \hbox (8.70522pt too wide) in paragraph at lines 381--390
+[22]
+Overfull \hbox (8.70522pt too wide) in paragraph at lines 388--397
 \T1/cmr/m/n/14.4 (-20) do obu eta-pów, dzi¦ki czemu po-zo-sta-waªy one ze sob¡ 
 spójne. Ta-kie roz-wi¡-za-nie
  []
 
-[22]
-Overfull \hbox (34.62311pt too wide) in paragraph at lines 391--396
+
+Overfull \hbox (34.62311pt too wide) in paragraph at lines 398--403
 []\T1/cmr/m/n/14.4 (-20) Skrypt prze-wi-dy-waª dwa tryby dzia-ªa-nia, prze-ª¡-c
 zane flag¡. W try-bie pod-sta-wo-wym
  []
 
-[23] (./BIAI-raport-koncowy.aux)
+
+Overfull \hbox (1.22102pt too wide) in paragraph at lines 415--424
+\T1/cmr/m/n/14.4 (-20) trzy ar-chi-tek-tury sieci neu-ro-no-wych oraz dwie re-p
+re-zen-ta-cje sy-gnaªu. Pierw-sze
+ []
+
+[23]
+Overfull \hbox (13.5464pt too wide) in paragraph at lines 427--437
+\T1/cmr/m/n/14.4 (-20) Pierwszy mo-del sta-no-wiªa kla-syczna sie¢ kon-wo-lu-cy
+jna, trak-tu-j¡ca re-pre-zen-ta-cj¦
+ []
+
+
+Overfull \hbox (1.27724pt too wide) in paragraph at lines 427--437
+\T1/cmr/m/n/14.4 (-20) Adam z funk-cj¡ straty \T1/cmtt/m/n/14.4 sparse_-categor
+ical_-crossentropy\T1/cmr/m/n/14.4 (-20) , wspo-ma-ga-nym
+ []
+
+
+Overfull \hbox (27.90807pt too wide) in paragraph at lines 438--445
+\T1/cmr/m/n/14.4 (-20) wska-zy-waªo na po-trzeb¦ sil-niej-szej re-gu-la-ry-za-c
+ji, m.in. zmniej-sze-nia wspóª-czyn-nika
+ []
+
+
+Overfull \hbox (7.27248pt too wide) in paragraph at lines 448--456
+\T1/cmr/m/n/14.4 (-20) se-pa-ro-wal-nego, z ak-ty-wa-cj¡ ELU i ogra-ni-cze-niam
+i normy wag (ang. \T1/cmr/m/it/14.4 (-20) max-norm\T1/cmr/m/n/14.4 (-20) ).
+ []
+
+
+Overfull \hbox (16.94965pt too wide) in paragraph at lines 457--465
+[]\T1/cmr/m/n/14.4 (-20) Aby do-pa-so-wa¢ sy-gnaª do za-ªo-»e« sieci, pod-dano 
+go de-cy-ma-cji (pod-prób-ko-wa-niu)
+ []
+
+
+Overfull \hbox (31.51012pt too wide) in paragraph at lines 457--465
+\T1/cmr/m/n/14.4 (-20) zmniej-sze-nie liczby pró-bek usu-n¦ªo nad-mia-row¡ re-d
+un-dan-cj¦. W prze-pro-wa-dzo-nych
+ []
+
+[24]
+Overfull \hbox (4.10335pt too wide) in paragraph at lines 486--496
+\T1/cmr/m/n/14.4 (-20) po-szcze-gól-nych osób. T¦ sam¡ ob-ser-wa-cj¦ po-twier-d
+ziªa ana-liza spek-tro-gra-mów:
+ []
+
+
+Overfull \hbox (25.9715pt too wide) in paragraph at lines 486--496
+\T1/cmr/m/n/14.4 (-20) ró»ne osoby re-aguj¡ na ten sam ob-raz od-mien-nie w dzi
+e-dzi-nie czasu i cz¦-sto-tli-wo-±ci.
+ []
+
+[25]
+Overfull \hbox (1.54019pt too wide) in paragraph at lines 499--507
+\T1/cmr/m/n/14.4 (-20) naj-wy»-szej cel-no-±ci na zbio-rze ucz¡-cym, wy-ra¹-nie
+ si¦ prze-uczaª, co ogra-ni-czaªo
+ []
+
+
+Overfull \hbox (9.95728pt too wide) in paragraph at lines 523--529
+\T1/cmr/m/n/14.4 (-20) pro-sta gra-fika geo-me-tryczna, wi-zu-al-nie skraj-nie 
+od-mienna od zdj¦¢, wy-wo-ªu-j¡ca
+ []
+
+
+Overfull \hbox (52.46524pt too wide) in paragraph at lines 523--529
+\T1/cmr/m/n/14.4 (-20) po-nadto ten-den-cj¦ mo-deli do cz¦-stego prze-wi-dy-wa-
+nia kilku ka-te-go-rii (m.in. sa-mo-chodu,
+ []
+
+
+Overfull \hbox (4.61787pt too wide) in paragraph at lines 530--538
+\T1/cmr/m/n/14.4 (-20) nie-sie in-for-ma-cj¦ wy-star-cza-j¡c¡ do od-ró»-nie-nia
+ wy-ra¹-nie od-mien-nych bod¹-ców,
+ []
+
+
+Overfull \hbox (24.7162pt too wide) in paragraph at lines 530--538
+\T1/cmr/m/n/14.4 (-20) ró»-nymi oso-bami -- prze-kra-cza mo»-li-wo-±ci me-tody 
+na tym po-zio-mie. Re-pre-zen-ta-cja
+ []
+
+
+Overfull \hbox (16.80643pt too wide) in paragraph at lines 530--538
+\T1/cmr/m/n/14.4 (-20) czasowo-cz¦stotliwo±ciowa (CNN) oraz su-rowy sy-gnaª (EE
+GNet, EEG-Inception)
+ []
+
+
+Overfull \hbox (7.24452pt too wide) in paragraph at lines 530--538
+\T1/cmr/m/n/14.4 (-20) ar-chi-tek-tura sieci, lecz ilo±¢ in-for-ma-cji o ob-ra-
+zie za-warta w sa-mym sy-gnale. 
+ []
+
+[26] [27] (./BIAI-raport-koncowy.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1147,11 +1250,11 @@ Package rerunfilecheck Info: File `BIAI-raport-koncowy.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 18505 strings out of 474222
- 322973 string characters out of 5748734
+ 18594 strings out of 474222
+ 324181 string characters out of 5748734
  1931975 words of memory out of 5000000
- 40348 multiletter control sequences out of 15000+600000
- 572821 words of font info for 121 fonts, out of 8000000 for 9000
+ 40395 multiletter control sequences out of 15000+600000
+ 578071 words of font info for 150 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  108i,8n,107p,10941b,493s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
@@ -1161,10 +1264,10 @@ r/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr
 /share/texmf/fonts/type1/public/cm-super/sfsx1200.pfb></usr/share/texmf/fonts/t
 ype1/public/cm-super/sfti1440.pfb></usr/share/texmf/fonts/type1/public/cm-super
 /sftt1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1440.pfb>
-Output written on BIAI-raport-koncowy.pdf (23 pages, 1311428 bytes).
+Output written on BIAI-raport-koncowy.pdf (27 pages, 1323314 bytes).
 PDF statistics:
- 316 PDF objects out of 1000 (max. 8388607)
- 246 compressed objects within 3 object streams
- 65 named destinations out of 1000 (max. 500000)
- 27917 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 359 PDF objects out of 1000 (max. 8388607)
+ 285 compressed objects within 3 object streams
+ 76 named destinations out of 1000 (max. 500000)
+ 34101 words of extra memory for PDF output out of 35830 (max. 10000000)
 

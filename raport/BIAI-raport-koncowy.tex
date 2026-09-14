@@ -350,6 +350,13 @@
 	Pliki przygotowane dla poszczególnych badanych łączono następnie w~jeden
 	zbiór, który mieszano i~dzielono na części wykorzystywane podczas uczenia.
 	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{assets/raw_data.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za wczytanie surowych danych do programu.}
+		\label{fig:raw_data}
+	\end{figure}
+	
 	Podziału dokonano w~sposób rozłączny względem uczestników: część ucząca
 	obejmowała siedmiu badanych, a~część testowa -- dwóch pozostałych. Dzięki
 	temu model oceniano na danych osób, których nagrania nie były wykorzystywane
@@ -405,7 +412,129 @@
 	
 	\section{Klasyfikacja obrazów}
 	
-	\textcolor{red}{Jak ją zrobiliśmy i co wyszło.}
+	Klasyfikację obrazów na podstawie sygnału EEG zrealizowano, porównując trzy
+	architektury sieci neuronowych oraz dwie reprezentacje sygnału. Pierwsze
+	podejście wykorzystywało klasyczną sieć konwolucyjną (CNN) działającą na
+	reprezentacji czasowo-częstotliwościowej (spektrogramach), natomiast dwa
+	pozostałe -- sieci EEGNet oraz EEG-Inception -- operowały bezpośrednio na
+	surowym sygnale w~dziedzinie czasu. Zadaniem każdego modelu było przypisanie
+	próby do jednej z~jedenastu kategorii obrazów. W~toku prac szczególnie istotny
+	okazał się sposób podziału danych na zbiór uczący i~testowy, któremu
+	poświęcono osobny podrozdział.
+	
+	\subsection{Model konwolucyjny na spektrogramach (CNN)}
+	
+	Pierwszy model stanowiła klasyczna sieć konwolucyjna, traktująca reprezentację
+	czasowo-częstotliwościową pojedynczej próby jak wielokanałowy obraz -- o~wymiarach
+	częstotliwość na czas, z~poszczególnymi elektrodami pełniącymi rolę kanałów.
+	Sieć zbudowano z~kilku bloków konwolucyjnych ze splotami rozciągniętymi wzdłuż
+	osi czasu oraz częstotliwości i~splotami typu \textit{depthwise}, zakończonych
+	częścią gęstą z~warstwą \texttt{softmax}. Zastosowano normalizację wsadową
+	(ang.~\textit{batch normalization}), warstwy \textit{dropout}, operacje łączące
+	(ang.~\textit{max pooling}) oraz aktywację ReLU. Model uczono optymalizatorem
+	Adam z~funkcją straty \texttt{sparse\_categorical\_crossentropy}, wspomaganym
+	wczesnym zatrzymaniem oraz redukcją współczynnika uczenia.
+	
+	Istotnym usprawnieniem okazało się przejście na logarytmiczną skalę mocy
+	w~spektrogramach: wyrównało ono duże różnice wartości pomiędzy pasmami
+	i~podniosło celność. W~trakcie uczenia model wykazywał jednak wyraźną
+	skłonność do nadmiernego dopasowania (ang.~\textit{overfitting}) -- osiągał
+	wysoką celność na zbiorze uczącym przy znacznie niższej na walidacyjnym -- co
+	wskazywało na potrzebę silniejszej regularyzacji, m.in.~zmniejszenia
+	współczynnika uczenia lub zwiększenia współczynnika \textit{dropout}.
+	
+	\subsection{Sieć EEGNet}
+	
+	Drugą metodą była sieć EEGNet -- kompaktowa architektura konwolucyjna
+	zaprojektowana specjalnie dla sygnałów EEG, operująca bezpośrednio na surowym
+	(przefiltrowanym) sygnale w~postaci: kanały na próbki czasowe. Składa się ze
+	splotu czasowego (uczącego się filtrów odpowiadających pasmom częstotliwości),
+	splotu przestrzennego typu \textit{depthwise} po kanałach oraz splotu
+	separowalnego, z~aktywacją ELU i~ograniczeniami normy wag (ang.~\textit{max-norm}).
+	Ze względu na niewielki rozmiar danych surowych model uczono w~jednym
+	przebiegu, z~wydzieleniem części walidacyjnej.
+	
+	Aby dopasować sygnał do założeń sieci, poddano go decymacji (podpróbkowaniu) --
+	dane były odfiltrowane do~40~Hz, lecz próbkowane znacznie gęściej, więc
+	zmniejszenie liczby próbek usunęło nadmiarową redundancję. W~przeprowadzonych
+	próbach model osiągał zbliżoną celność na zbiorze uczącym i~walidacyjnym
+	(rzędu 20--22\%), nie potrafiąc dopasować się do danych treningowych powyżej
+	tego poziomu. Wskazywało to na niedouczenie wynikające nie z~ograniczeń samego
+	modelu, lecz z~ilości informacji zawartej w~pojedynczej próbie surowego
+	sygnału -- zwiększanie pojemności sieci nie poprawiało wyniku.
+	
+	\subsection{Sieć EEG-Inception}
+	
+	Trzecią metodą była sieć EEG-Inception, również działająca na surowym sygnale,
+	lecz wykorzystująca moduły typu \textit{inception} -- równoległe sploty czasowe
+	o~różnych długościach jądra, łączone ze sobą. Dzięki temu sieć analizuje sygnał
+	w~wielu skalach czasowych jednocześnie, wychwytując zarówno krótsze, jak
+	i~dłuższe wzorce. Po splotach czasowych, podobnie jak w~EEGNet, następuje splot
+	przestrzenny po kanałach. Architektura ta osiągnęła nieco lepsze wyniki niż
+	EEGNet, pozostając jednak w~tym samym, umiarkowanym zakresie skuteczności.
+	
+	\subsection{Podział danych i~jego wpływ na wyniki}
+	
+	W~trakcie prac kluczowe okazało się, w~jaki sposób dane dzielone są na zbiór
+	uczący i~testowy. Rozważono dwa warianty. W~podejściu \emph{międzyosobowym}
+	zbiór testowy tworzyli badani całkowicie nieobecni podczas treningu, co
+	odpowiada pytaniu o~zdolność modelu do generalizacji na nowe osoby.
+	W~podejściu \emph{mieszanym} próby wszystkich badanych łączono, tasowano
+	i~dzielono losowo -- zbiór testowy zawierał wówczas nowe próby osób znanych
+	z~treningu.
+	
+	Różnica w~wynikach okazała się bardzo duża. Przy podziale mieszanym modele
+	osiągały celność wyraźnie powyżej poziomu losowego (ok.~9\% dla jedenastu
+	klas), natomiast przy podziale międzyosobowym spadały niemal do tego poziomu,
+	przewidując dla danych testowych praktycznie jedną klasę. Oznacza to, że sieci
+	uczyły się wzorców w~dużej mierze specyficznych dla poszczególnych osób. Tę
+	samą obserwację potwierdziła analiza spektrogramów: w~obrębie jednego badanego
+	istnieją powtarzalne zależności, jednak dwie różne osoby reagują na ten sam
+	obraz odmiennie w~dziedzinie czasu i~częstotliwości. Silna zmienność
+	międzyosobowa sygnału EEG stanowiła zatem główne ograniczenie skuteczności
+	klasyfikacji.
+	
+	\subsection{Wyniki i~porównanie metod}
+	
+	Wyniki uzyskane przy podziale mieszanym zestawiono w~tabeli~\ref{tab:porownanie-metod}.
+	Wszystkie trzy modele osiągnęły zbliżony, umiarkowany poziom skuteczności --
+	rzędu 20--24\% wobec 9\% poziomu losowego. Najlepiej wypadła sieć EEG-Inception,
+	nieznacznie wyprzedzając model CNN oraz EEGNet. Model CNN, mimo najwyższej
+	celności na zbiorze uczącym, wyraźnie się przeuczał, co ograniczało jego
+	skuteczność na danych testowych. Przy podziale międzyosobowym skuteczność
+	wszystkich modeli spadała do okolic poziomu losowego (dla modelu CNN
+	odnotowano ok.~11\%).
+	
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{llc}
+			\hline
+			Model & Reprezentacja & Celność (test) \\
+			\hline
+			CNN           & spektrogramy   & ok.~22,5\% \\
+			EEGNet        & sygnał surowy  & ok.~20\% \\
+			EEG-Inception & sygnał surowy  & ok.~23,5\% \\
+			\hline
+		\end{tabular}
+		\caption{Skuteczność klasyfikacji przy podziale mieszanym (poziom losowy ok.~9\%).}
+		\label{tab:porownanie-metod}
+	\end{table}
+	
+	We wszystkich przypadkach najlepiej rozpoznawaną kategorią był \textit{abstract}
+	-- prosta grafika geometryczna, wizualnie skrajnie odmienna od zdjęć, wywołująca
+	wyraźnie inną odpowiedź kory wzrokowej. Macierze pomyłek pokazywały ponadto
+	tendencję modeli do częstego przewidywania kilku kategorii (m.in.~samochodu,
+	niekiedy jabłka), co przy słabym sygnale odpowiada dryfowi w~stronę klas
+	dominujących.
+	
+	Podsumowując, dekodowanie kategorii oglądanego obrazu z~pojedynczej próby EEG
+	okazało się możliwe jedynie w~ograniczonym zakresie. Sygnał niesie informację
+	wystarczającą do odróżnienia wyraźnie odmiennych bodźców, jednak dokładne
+	rozróżnienie jedenastu kategorii -- zwłaszcza pomiędzy różnymi osobami --
+	przekracza możliwości metody na tym poziomie. Reprezentacja
+	czasowo-częstotliwościowa (CNN) oraz surowy sygnał (EEGNet, EEG-Inception)
+	dały porównywalne rezultaty, co sugeruje, że wąskim gardłem nie jest
+	architektura sieci, lecz ilość informacji o~obrazie zawarta w~samym sygnale.
 	
 	\section{Rekonstrukcja obrazów}
 	
