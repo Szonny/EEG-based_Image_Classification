@@ -79,7 +79,7 @@
 	
 	Na początku pojawiał się punkt fiksacji, na którym badany miał skupić wzrok. Następnie na krótko wyświetlany był czarny ekran, po którym pojawiał się właściwy obraz. Obraz był prezentowany przez około 0,5 sekundy.
 	
-	Po obejrzeniu każdego obrazu uczestnik miał w jednym zdaniu opisać to, co zobaczył. Kiedy kończył opis, naciskał klawisz spacji. W tym momencie zapisywane było zdarzenie \texttt{SPACE\_PRESSED}, a następnie pojawiał się krótki czarny ekran i rozpoczynała się kolejna próba.
+	Po obejrzeniu każdego obrazu uczestnik miał jednym słowem opisać to, co zobaczył. Kiedy kończył opis, naciskał klawisz spacji. W tym momencie zapisywane było zdarzenie \texttt{SPACE\_PRESSED}, a następnie pojawiał się krótki czarny ekran i rozpoczynała się kolejna próba.
 	
 	Poszczególne etapy były zapisywane w pliku z wykorzystaniem specjalnych znaczników. Przykładowo, \texttt{FIXATION} oznaczało rozpoczęcie fiksacji, \texttt{IMAGE\_ON} moment pojawienia się obrazu, \texttt{DESCRIBE\_SCREEN} rozpoczęcie etapu opisu, a \texttt{SPACE\_PRESSED} zakończenie opisu przez badanego. Dzięki temu późniejsza analiza nie wymagała zgadywania, w którym momencie prezentowany był dany obraz.
 	
@@ -95,19 +95,54 @@
 	
 	\subsection{Środowisko programistyczne}
 	
-	\textcolor{red}{PyCharm, Terminal linuxowy (po zainstalowaniu pyhona3, potrzebnych pakietów i bibliotek na systemie operacyjnym Ubuntu), Google Colab (powiedźmy, że to środowisko programistyczne :p).}
+	Projekt realizowano w~kilku środowiskach. Kod tworzono i~uruchamiano głównie
+	w~środowisku PyCharm oraz w~terminalu systemu Linux (Ubuntu) -- po
+	zainstalowaniu Pythona~3 wraz z~potrzebnymi pakietami i~bibliotekami. Część
+	prac prowadzono również w~programie PowerShell w~systemie Windows (analogicznie,
+	po zainstalowaniu Pythona~3 i~wymaganych bibliotek) oraz w~środowisku Google
+	Colab, wygodnym zwłaszcza do~uczenia sieci neuronowych ze~względu na~dostęp
+	do~akceleracji GPU.
 	
 	\subsection{Biblioteki}
 	
-	\textcolor{red}{m.in. MNE, matplotlib, pandas, numpy, sklearn.}
+	W~projekcie wykorzystano przede wszystkim biblioteki języka Python: MNE
+	(wczytywanie i~przetwarzanie sygnału EEG -- filtrowanie, montaż, analiza ICA,
+	tworzenie epok), NumPy oraz pandas (operacje na~tablicach danych i~metadanych),
+	Matplotlib (wizualizacje: wykresy, macierze pomyłek, siatki obrazów), a~także
+	scikit-learn (kodowanie etykiet, podział danych oraz miary skuteczności, m.in.
+	raport klasyfikacji i~macierz pomyłek). Do~budowy i~uczenia sieci neuronowych
+	użyto biblioteki TensorFlow wraz z~interfejsem Keras, natomiast do~wczytywania
+	i~skalowania obrazów na~potrzeby rekonstrukcji -- biblioteki Pillow.
 	
 	\subsection{Narzędzia}
 	
-	\textcolor{red}{Tu może być tak naprawdę cokolwiek: gen AI, które nam pomagało (Gemini, Claude, ChatGPT), jakieś napisane przez nas skrypty albo inne fajne rzeczy, które nie są jedną z tych trzech innych kategori w tym podrozdziale.}
+	Do~przygotowania diagramów potoku przetwarzania danych wykorzystano program
+	draw.io (diagrams.net). W~pracy nad kodem oraz analizą wyników pomocniczo
+	korzystano z~narzędzi generatywnej sztucznej inteligencji (m.in.~Claude,
+	ChatGPT oraz Gemini). Oprócz gotowych narzędzi projekt obejmował również zestaw
+	własnych skryptów w~języku Python, odpowiedzialnych za~kolejne etapy pracy:
+	przygotowanie danych, mieszanie i~podział zbiorów, uczenie modeli oraz
+	rekonstrukcję obrazów.
 	
 	\subsection{Sieci neuronowe}
 	
-	\textcolor{red}{Użyte przez nas finalnie sieci neuronowe. Można tu też wspomnieć o tych, które rozważaliśmy, ale ostatecznie z jakiegoś powodu odrzuciliśmy.}
+	W~zadaniu klasyfikacji obrazów wykorzystano finalnie trzy architektury sieci
+	konwolucyjnych: klasyczną sieć CNN działającą na~reprezentacji
+	czasowo-czę- stotliwościowej (spektrogramach) oraz sieci EEGNet i~EEG-Inception,
+	operujące na~surowym sygnale w~dziedzinie czasu. Wszystkie trzy porównano na~tym
+	samym zadaniu i~podziale danych.
+	
+	W~zadaniu rekonstrukcji obrazów zastosowano autoenkoder, którego enkoder oparto
+	na~architekturze EEGNet, a~dekoder zbudowano ze~splotów transponowanych,
+	rozwijających wektor cech z~powrotem do~obrazu. W~uzupełniającym wariancie
+	opartym na~identyfikacji obrazów (ang.~\textit{retrieval}) do~wyznaczenia
+	reprezentacji obrazów wykorzystano dodatkowo pretrenowaną sieć MobileNetV2.
+	
+	Architektura EEGNet pełniła zatem rolę wspólnego rdzenia -- stosowano ją
+	zarówno w~klasyfikacji, jak i~jako enkoder w~zadaniach rekonstrukcji. Na~etapie
+	prac porównywano ponadto różne reprezentacje sygnału (surową oraz
+	czasowo-częstotliwościową), których wpływ na~skuteczność omówiono w~sekcji
+	poświęconej klasyfikacji.
 	
 	\section{Przygotowanie danych}
 	
