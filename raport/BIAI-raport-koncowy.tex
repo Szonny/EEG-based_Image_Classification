@@ -543,7 +543,17 @@
 	zmniejszenie liczby próbek usunęło nadmiarową redundancję. W~przeprowadzonych
 	próbach model osiągał zbliżoną celność na zbiorze uczącym i~walidacyjnym
 	(rzędu 20--22\%), nie potrafiąc dopasować się do danych treningowych powyżej
-	tego poziomu. Wskazywało to na niedouczenie wynikające nie z~ograniczeń samego
+	tego poziomu.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.65\textwidth]{assets/EEGNetBestMultiMixedMatrix.png}
+		\includegraphics[width=0.65\textwidth]{assets/EEGNetBestMultiMixed.png}
+		\caption{Wyniki dla najlepszej sieci, wyszkolonej na danych z wielu pacjentów pomieszanych między zbiór treningowy i testowy.}
+		\label{fig:EEGNetBestMultiMixed}
+	\end{figure}
+	
+	 Wskazywało to na niedouczenie wynikające nie z~ograniczeń samego
 	modelu, lecz z~ilości informacji zawartej w~pojedynczej próbie surowego
 	sygnału -- zwiększanie pojemności sieci nie poprawiało wyniku.
 	
@@ -556,6 +566,14 @@
 	i~dłuższe wzorce. Po splotach czasowych, podobnie jak w~EEGNet, następuje splot
 	przestrzenny po kanałach. Architektura ta osiągnęła nieco lepsze wyniki niż
 	EEGNet, pozostając jednak w~tym samym, umiarkowanym zakresie skuteczności.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.65\textwidth]{assets/EEGInceptionBestMultiMixedMatrix.png}
+		\includegraphics[width=0.65\textwidth]{assets/EEGInceptionBestMultiMixed.png}
+		\caption{Wyniki dla najlepszej sieci, wyszkolonej na danych z wielu pacjentów pomieszanych między zbiór treningowy i testowy.}
+		\label{fig:EEGInceptionBestMultiMixed}
+	\end{figure}
 	
 	\subsection{Podział danych i~jego wpływ na wyniki}
 	
