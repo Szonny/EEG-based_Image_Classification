@@ -448,7 +448,7 @@
 	\textit{logratio}, \textit{zlogratio}, \textit{mean} oraz \textit{zscore}).
 	Pozwalało to przygotować komplet danych do porównania wpływu poszczególnych
 	metod na wyniki, przy czym -- ze względu na liczbę wariantów -- powstający
-	zbiór osiągał znaczny rozmiar (rzędu ponad 100~GB).
+	zbiór osiągał znaczny rozmiar (rzędu ponad 130~GB).
 	
 	\section{Klasyfikacja obrazów}
 	
@@ -524,15 +524,14 @@
 	z~treningu.
 	
 	Różnica w~wynikach okazała się bardzo duża. Przy podziale mieszanym modele
-	osiągały celność wyraźnie powyżej poziomu losowego (ok.~9\% dla jedenastu
-	klas), natomiast przy podziale międzyosobowym spadały niemal do tego poziomu,
+	osiągały celność wyraźnie powyżej poziomu losowego (13-22\% dla jedenastu klas), natomiast przy podziale międzyosobowym spadały niemal do tego poziomu (ok.~9,26\% dla jedenastu klas),
 	przewidując dla danych testowych praktycznie jedną klasę. Oznacza to, że sieci
 	uczyły się wzorców w~dużej mierze specyficznych dla poszczególnych osób. Tę
 	samą obserwację potwierdziła analiza spektrogramów: w~obrębie jednego badanego
 	istnieją powtarzalne zależności, jednak dwie różne osoby reagują na ten sam
 	obraz odmiennie w~dziedzinie czasu i~częstotliwości. Silna zmienność
 	międzyosobowa sygnału EEG stanowiła zatem główne ograniczenie skuteczności
-	klasyfikacji.
+	klasyfikacji, przy uogólnianiu danych między pacjentów.
 	
 	\subsection{Wyniki i~porównanie metod}
 	
@@ -738,13 +737,13 @@
 	jednak słaba -- nie pozwala na~precyzyjne wskazanie ani odtworzenie konkretnego
 	obrazu.
 	
-	Kluczowym czynnikiem ograniczającym skuteczność okazała się zmienność
-	międzyosobowa. Przy podziale danych rozłącznym względem badanych (ocenie na
+	Kluczowym problemem ograniczającym skuteczność okazały się różnice w sygnałach zebranych dla poszczególnych
+	osób. Przy podziale danych rozłącznym względem badanych (ocenie na
 	osobach nieobecnych podczas treningu) skuteczność spadała niemal do~poziomu
 	losowego, natomiast przy podziale mieszanym wyraźnie go przewyższała. Oznacza
 	to, że modele uczyły się wzorców w~dużej mierze specyficznych dla
-	poszczególnych osób -- dwie różne osoby reagują na~ten sam obraz odmiennie, co
-	utrudnia zbudowanie modelu uniwersalnego.
+	poszczególnych osób. Oznacza to, że dwie różne osoby reagują na~ten sam obraz odmiennie, co
+	utrudnia zbudowanie modelu uniwersalnego, niezależnego od osoby badanej.
 	
 	Porównanie architektur i~reprezentacji wskazuje ponadto, że ograniczeniem nie
 	jest sam model, lecz ilość informacji zawarta w~sygnale. Sieci działające na
