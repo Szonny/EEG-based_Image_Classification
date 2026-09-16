@@ -462,26 +462,70 @@
 	okazał się sposób podziału danych na zbiór uczący i~testowy, któremu
 	poświęcono osobny podrozdział.
 	
-	\subsection{Model konwolucyjny na spektrogramach (CNN)}
+	\subsection{Sieć konwolucyjna (CNN), z wykorzystaniem spektrogramów }
 	
 	Pierwszy model stanowiła klasyczna sieć konwolucyjna, traktująca reprezentację
-	czasowo-częstotliwościową pojedynczej próby jak wielokanałowy obraz -- o~wymiarach
-	częstotliwość na czas, z~poszczególnymi elektrodami pełniącymi rolę kanałów.
+	czasowo-częstotliwościową pojedynczej próby jak obraz o 21 kanałach, odpowiadających 21 elektrodą EEG. Każdy spektogram posiadał wysokość 36, ponieważ był wykonany dla częstotliwości 4-40 Hz, oraz 301 wartości szerokości odpowiadającym pół sekundy przy częstotliwości próbkowania 600 Hz.
+	
 	Sieć zbudowano z~kilku bloków konwolucyjnych ze splotami rozciągniętymi wzdłuż
-	osi czasu oraz częstotliwości i~splotami typu \textit{depthwise}, zakończonych
-	częścią gęstą z~warstwą \texttt{softmax}. Zastosowano normalizację wsadową
-	(ang.~\textit{batch normalization}), warstwy \textit{dropout}, operacje łączące
+	osi czasu oraz częstotliwości (conv2d) i~splotami typu \textit{depthwise}, zakończonych
+	częścią gęstą z~warstwą \texttt{softmax} (dense). W celu zapobiegania przed przeuczeniem sieci, wprowadzono ograniczenia szybkości uczenia. Zastosowano obniżony \textit{learning-rate} (0.0001), normalizację wsadową po każdej warstwie konwolucyjnej
+	(ang.~\textit{batch normalization}) oraz \textit{dropout} wysokich wartościach wyłączający losowo części sieci podczas trenowania. Po nich wykorzystano operacje łączące
 	(ang.~\textit{max pooling}) oraz aktywację ReLU. Model uczono optymalizatorem
 	Adam z~funkcją straty \texttt{sparse\_categorical\_crossentropy}, wspomaganym
-	wczesnym zatrzymaniem oraz redukcją współczynnika uczenia.
+	wczesnym zatrzymaniem oraz automatyczną redukcją współczynnika uczenia.
 	
-	Istotnym usprawnieniem okazało się przejście na logarytmiczną skalę mocy
-	w~spektrogramach: wyrównało ono duże różnice wartości pomiędzy pasmami
-	i~podniosło celność. W~trakcie uczenia model wykazywał jednak wyraźną
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{assets/CNNarchitecture.png}
+		\caption{Podsumowanie, ukazujące wszystkie warstwy utworzonej na potrzeby projektu sieci CNN.}
+		\label{fig:CNNAcrch}
+	\end{figure}
+	
+	\newpage
+	
+	W~trakcie uczenia model wykazywał wyraźną
 	skłonność do nadmiernego dopasowania (ang.~\textit{overfitting}) -- osiągał
-	wysoką celność na zbiorze uczącym przy znacznie niższej na walidacyjnym -- co
-	wskazywało na potrzebę silniejszej regularyzacji, m.in.~zmniejszenia
-	współczynnika uczenia lub zwiększenia współczynnika \textit{dropout}.
+	wysoką celność na zbiorze uczącym przy znacznie niższej na testowym -- dlatego zdecydowano się na tak drastyczne zmniejszenie
+	współczynnika uczenia i podniesienie współczynnika \textit{dropout}.
+	
+	Przy testach dla pojedynczego pacjenta sieć wykazywała chęć do uczenia się, pomimo okrojonego zbioru danych potrafiła osiągnąć około 13\% celności dla 11 kategorii.
+	Istotnym usprawnieniem okazało się usuwanie średniej wartości pikseli między kanałami poszczególnych obrazków oraz przejście na logarytmiczną skalę wartości, miało to na celu wyrównanie duże różnice wartości pomiędzy pasmami, gdyż w niektórych reakcje były silniejsze, niż w pozostałych. Dzięki tym zmianą sieć ucząca się na~spektrogramach podniosła swoją celność do 22.53\% na zbiorze danych dla pojedynczego badanego.  
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{assets/BestOnePatientCNN.png}
+		\caption{Wyniki dla najlepszego sieci, wyszkolonej na danych z pojedynczego pacjenta.}
+		\label{fig:CNNBestOne}
+	\end{figure}
+	
+	\newpage
+	
+	Pierwsze próby po utworzeniu skryptu mieszającego i ładującego, opierały się na idei zbioru treningowego, wykonanego z danych pochodzących od pierwszych 7 pacjentów i niezależnego zbioru testowego w którego skład wchodziły przetworzone dane od dwóch pozostałych pacjentów. Model był testowany na takich paczkach danych trzykrotnie, przechodząc podczas treningu po każdej paczce w tej samej kolejności. Takie podejście okazało się przynosić słabe wyniki. Pomimo raportowanych podczas uczenia stabilnych spadek straty i w zrostu celności do nawet 40\%, na danych testowych model wykazywał że nie potrafi zareagować na dane pochodzące od pacjentów nieuwzględnionych w zbiorze treningowym. 
+	
+	Dla wszystkich danych dostępnych spektogramów, model potrafił osiągnąć 9,09\% celności, czyli strzelał losowo  jedną klasę. 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{assets/BestMuliPatientFixed.png}
+		\caption{Wyniki dla najlepszego sieci, wyszkolonej na danych z wielu pacjentów.}
+		\label{fig:CNNBestMulti}
+	\end{figure}
+	
+	\newpage
+	
+	Przy zniesieniu podziału pacjentów na treningowych i testowych, model  znów zaczął osiągać wyniki podobne do które można było zaobserwować dla pojedynczego pacjenta. Model osiągnął 22,31\% celności. 
+	
+	Późniejsze próby wzbogacenia redukcji wartości o średnią z 0,3s przed wyświetleniem obrazu nie przyniosły żadnej poprawy, jedynie redukując celność do 9.09\% powodując ślepe zgadywanie klasy abstrakcyjnych obiektów.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{assets/BestMuliPatientMixed.png}
+		\caption{Wyniki dla najlepszej sieci, wyszkolonej na danych z wielu pacjentów pomieszanych między zbiór treningowy i testowy.}
+		\label{fig:CNNBestMultiMixed}
+	\end{figure}
+	
+	\newpage
 	
 	\subsection{Sieć EEGNet}
 	
