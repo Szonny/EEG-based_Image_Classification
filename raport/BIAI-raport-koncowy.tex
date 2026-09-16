@@ -62,7 +62,7 @@
 	
 	\subsection{Struktura danych}
 	
-	W badaniu wykorzystano obrazy należące do 11 kategorii: abstrakt, samolot, jabłko, banan, ptak, łódź, samochód, pies, osoba, pociąg oraz zebra. Kategoria abstrakt różniła się od pozostałych, ponieważ zamiast zdjęć zawierała prostą grafikę złożoną z figur geometrycznych.
+	W badaniu wykorzystano obrazy należące do 11 kategorii: abstrakcja, samolot, jabłko, banan, ptak, łódź, samochód, pies, osoba, pociąg oraz zebra. Kategoria abstrakcja różniła się od pozostałych, ponieważ zamiast zdjęć zawierała prostą grafikę złożoną z figur geometrycznych.
 	
 	W każdej kategorii znajdowało się 20 obrazów, co dawało łącznie 220 unikalnych obrazów. Zestaw ten był prezentowany w sześciu seriach, więc każdy obraz pojawiał się podczas badania sześć razy. W efekcie dla jednego badanego otrzymano łącznie 1320 prób, czyli po 220 prób w każdej serii.
 	
@@ -103,8 +103,8 @@
 	Projekt realizowano w~kilku środowiskach. Kod tworzono i~uruchamiano głównie
 	w~środowisku PyCharm oraz w~terminalu systemu Linux (Ubuntu) -- po
 	zainstalowaniu Pythona~3 wraz z~potrzebnymi pakietami i~bibliotekami. Część
-	prac prowadzono również w~programie PowerShell w~systemie Windows (analogicznie,
-	po zainstalowaniu Pythona~3 i~wymaganych bibliotek) oraz w~środowisku Google
+	prac prowadzono również w~programie PowerShell na~systemach Windows 10 i 11 (analogicznie,
+	po zainstalowaniu Pythona~3.11 i~wymaganych bibliotek) oraz w~środowisku Google
 	Colab, wygodnym zwłaszcza do~uczenia sieci neuronowych ze~względu na~dostęp
 	do~akceleracji GPU.
 	
@@ -133,7 +133,7 @@
 	
 	W~zadaniu klasyfikacji obrazów wykorzystano finalnie trzy architektury sieci
 	konwolucyjnych: klasyczną sieć CNN działającą na~reprezentacji
-	czasowo-czę- stotliwościowej (spektrogramach) oraz sieci EEGNet i~EEG-Inception,
+	czasowo-częstotliwościowej (spektrogramach) oraz sieci EEGNet i~EEG-Inception,
 	operujące na~surowym sygnale w~dziedzinie czasu. Wszystkie trzy porównano na~tym
 	samym zadaniu i~podziale danych.
 	
@@ -321,7 +321,7 @@
 		\label{fig:morlet_wavelet}
 	\end{figure}
 	
-	Wykorzystano w~tym celu transformatę falkową z~zastosowaniem falki Morleta, wyznaczając reprezentację sygnału dla częstotliwości z~zakresu od~4 do~40~Hz. Liczbę cykli falki uzależniono od~częstotliwości, co stanowi kompromis pomiędzy rozdzielczością czasową a~częstotliwościową. Istotne było przy tym zachowanie osobnej reprezentacji dla każdej epoki, aby każdemu obrazowi odpowiadał odrębny przykład uczący.
+	Wykorzystano w~tym celu transformatę falkową z~zastosowaniem falki Morleta, wyznaczając reprezentację sygnału dla częstotliwości z~zakresu od~4 do~40~Hz. Liczbę cykli falki uzależniono od~częstotliwości, co stanowi kompromis pomiędzy rozdzielczością czasową a~częstotliwościową. Istotne było przy tym zachowanie osobnej reprezentacji dla każdej epoki tak, aby każdy obraz po połączeniu z etykietą stanowił osobny przykład uczący.
 	
 	Uzyskaną reprezentację ograniczono do okna od~0 do~0,5~s, odpowiadającego prezentacji obrazu. Wartości mocy przeliczono następnie na skalę logarytmiczną (decybele), co pozwoliło wyrównać znaczne różnice wartości pomiędzy pasami i~uzyskać rozkład korzystniejszy z~punktu widzenia uczenia sieci neuronowej. Dodatkowo przewidziano opcjonalne odniesienie sygnału do linii bazowej sprzed bodźca oraz odjęcie średniej wartości liczbowej pomiędzy kanałami, co w~przeprowadzonych próbach nieznacznie poprawiało wyniki.
 	
@@ -338,7 +338,7 @@
 		\label{fig:save_data_to_files}
 	\end{figure}
 	
-	Osobno zapisywano tablicę~przetworzonym sygnałem oraz tablicę z~etykietami kategorii obrazów. W~nazwach plików uwzględniono zastosowany wariant przetwarzania (m.in.~dane przekształcone lub surowe), dzięki czemu poszczególne wersje zbioru danych nie nadpisywały się wzajemnie i~mogły być ze sobą porównywane.
+	Osobno zapisywano tablicę z~przetworzonym sygnałem oraz plik zawierający etykiety kategorii obrazów. W~nazwach plików uwzględniono zastosowany wariant przetwarzania (m.in.~dane przekształcone lub surowe), dzięki czemu poszczególne wersje zbioru danych nie nadpisywały się wzajemnie i~mogły być ze sobą porównywane.
 	
 	\subsection{Wizualizacja danych}
 	
