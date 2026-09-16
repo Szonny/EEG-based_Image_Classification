@@ -1,6 +1,7 @@
 \documentclass[12pt,a4paper,numbers=enddot,headings=small]{scrartcl} %article
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{microtype}
 \usepackage[polish]{babel}
 \usepackage[parfill]{parskip}
@@ -20,14 +21,16 @@
 \usepackage[none]{hyphenat}
 
 \begin{document}
+	\pagenumbering{gobble}  % Wylącza numeracje
+	\begin{titlepage}
 	
-	.
-	\vspace{3cm}
-	\large Biologically Inspired Artificial Inteligence
+	\vspace*{3cm}
+	
 	\begin{center}
 		{
-			\vspace{5cm}
-			\huge \bfseries
+			\bfseries
+			\large Biologically Inspired Artificial Inteligence	\\		
+			\bigskip \huge 
 			Klasyfikacja i rekonstrukcja \\
 			obrazów z sygnału EEG
 			\bigskip
@@ -46,12 +49,14 @@
 		\rightline{22.08.2026}
 		
 	}
+	\end{titlepage}
+	\pagenumbering{arabic}  % Wlącza numeracje
 	
 	\newpage
 	
 	\section{Cel projektu}
 	
-	Celem projektu było sprawdzenie, czy modele sztucznej inteligencji są w stanie sklasyfikować i odtworzyć obrazy wyłącznie na podstawie danych EEG. W tym celu zapoznano się z procedurą badania z zakresu neurobiologii oraz przeanalizowano dostępne dane. Następnie odpowiednio przygotowano je do wykorzystania przez wybrany model sieci neuronowej i przeprowadzono próby klasyfikacji oraz rekonstrukcji obrazów. Cały przebieg projektu, poczynione obserwacje oraz wyciągnięte wnioski zostały przedstawione w niniejszym raporcie.
+	Celem projektu było utworzenie sieci neuronowej która byłaby w stanie sklasyfikować i odtworzyć obrazy wyłącznie na podstawie sygnału EEG. W tym celu zapoznano się z typowym przebiegiem badania EEG, strukturą plików wynikowych oraz typowymi problemami występującymi podczas takiego badania. Następnie dokonano analizy danych i odpowiednio przygotowano je do szkolenia kilku modeli sieci neuronowych, aby przeprowadzić próby klasyfikacji oraz rekonstrukcji obrazów. Cały przebieg projektu, poczynione obserwacje oraz wyciągnięte wnioski zostały przedstawione w niniejszym raporcie.
 	
 	\section{Założenia}
 	
