@@ -348,18 +348,18 @@
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.8\textwidth]{assets/save_data_to_files.png}
-		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za zapis przygotowanych danych.}
-		\label{fig:save_data_to_files}
+		\includegraphics[width=1.0\textwidth]{assets/generate_single_epoch_image.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, przedstawiający spektrogramy pojedynczego kanału dla kolejnych epok w~porządku chronologicznym.}
+		\label{fig:generate_single_epoch_image}
 	\end{figure}
 	
 	Druga funkcja porządkowała epoki nie według czasu, lecz według prezentowanego obrazu i~jego kategorii. Epoki sortowano na podstawie identyfikatora obrazu, a~następnie wyznaczano granice pomiędzy kolejnymi kategoriami, dzięki czemu możliwe było wyświetlenie spektrogramów odpowiadających jednej, wybranej kategorii (określonej zmienną \texttt{chosen\_category}). Umożliwiało to porównanie sygnału rejestrowanego dla obrazów należących do tej samej klasy. 
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.8\textwidth]{assets/save_data_to_files.png}
-		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za zapis przygotowanych danych.}
-		\label{fig:save_data_to_files}
+		\includegraphics[width=1.0\textwidth]{assets/generate_single_channel_gif_in_image_order.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, porządkowujący epoki według prezentowanego obrazu i~jego kategorii}
+		\label{fig:generate_single_channel_gif_in_image_order}
 	\end{figure}
 	
 	Trzecia funkcja rozszerzała powyższe podejście na sześć elektrod jednocześnie, prezentowanych w~układzie odpowiadającym ich położeniu na głowie. W~jednym kadrze zestawiano elektrody z~lewej (F3, C3, O1) oraz prawej
@@ -367,9 +367,9 @@
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.8\textwidth]{assets/save_data_to_files.png}
-		\caption{Fragment kodu pipeline'u przygotowującego dane, odpowiedzialny za zapis przygotowanych danych.}
-		\label{fig:save_data_to_files}
+		\includegraphics[width=1.0\textwidth]{assets/generate_combo_GIF_image_order.png}
+		\caption{Fragment kodu pipeline'u przygotowującego dane, który prezentuje rozkład sygnału na elektrodach.}
+		\label{fig:generate_combo_GIF_image_order}
 	\end{figure}
 	
 	\subsection{Parametryzacja potoku}
