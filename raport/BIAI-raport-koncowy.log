@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.8)  16 SEP 2026 14:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.8)  16 SEP 2026 20:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -815,19 +815,19 @@ Overfull \hbox (6.53992pt too wide) in paragraph at lines 154--155
  []
 
 [3]
-<assets/data_preparation_pipeline.png, id=36, 604.2575pt x 513.92pt>
+<assets/data_preparation_pipeline.png, id=36, 795.97375pt x 604.2575pt>
 File: assets/data_preparation_pipeline.png Graphic file (type png)
 <use assets/data_preparation_pipeline.png>
 Package pdftex.def Info: assets/data_preparation_pipeline.png  used on input li
 ne 158.
-(pdftex.def)             Requested size: 313.69029pt x 266.79295pt.
+(pdftex.def)             Requested size: 403.31511pt x 306.16646pt.
 
 Overfull \hbox (11.49677pt too wide) in paragraph at lines 167--169
 \T1/lmr/m/n/12 (-20) Na po-cz¡tku skryptu zgro-ma-dzono wszyst-kie pa-ra-me-try
  ste-ru-j¡ce prze-bie-giem prze-twa-rza-nia.
  []
 
-<assets/variables.png, id=38, 665.48625pt x 759.83875pt>
+<assets/variables.png, id=37, 665.48625pt x 759.83875pt>
 File: assets/variables.png Graphic file (type png)
 <use assets/variables.png>
 Package pdftex.def Info: assets/variables.png  used on input line 172.
@@ -880,7 +880,7 @@ mr/m/n/12 (-20) ) oraz prze-two-rzon¡ re-pre-zen-ta-cj¦ licz-bow¡ (\T1/lmtt/m/n
 /12 tfData_-float32\T1/lmr/m/n/12 (-20) )
  []
 
-<assets/raw_data.png, id=53, 1220.56pt x 248.93pt>
+<assets/raw_data.png, id=52, 1220.56pt x 248.93pt>
 File: assets/raw_data.png Graphic file (type png)
 <use assets/raw_data.png>
 Package pdftex.def Info: assets/raw_data.png  used on input line 199.
@@ -902,7 +902,7 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [7{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc} <./assets/raw_data.png>]
-<assets/channel_mapping.png, id=69, 811.03pt x 573.14125pt>
+<assets/channel_mapping.png, id=68, 811.03pt x 573.14125pt>
 File: assets/channel_mapping.png Graphic file (type png)
 <use assets/channel_mapping.png>
 Package pdftex.def Info: assets/channel_mapping.png  used on input line 231.
@@ -913,7 +913,7 @@ Overfull \hbox (2.25293pt too wide) in paragraph at lines 242--243
 mon-ta» \T1/lmtt/m/n/12 standard_-1020\T1/lmr/m/n/12 (-20) . Wy-ko-rzy-stano
  []
 
-<assets/standard_10-20_map.png, id=77, 653.44125pt x 622.325pt>
+<assets/standard_10-20_map.png, id=76, 653.44125pt x 622.325pt>
 File: assets/standard_10-20_map.png Graphic file (type png)
 <use assets/standard_10-20_map.png>
 Package pdftex.def Info: assets/standard_10-20_map.png  used on input line 249.
@@ -937,7 +937,7 @@ Overfull \hbox (23.38539pt too wide) in paragraph at lines 256--258
 mtt/m/n/12 set_-eeg_-reference(ref_-channels=['A1',
  []
 
-<assets/signal_filtering.png, id=83, 797.98125pt x 105.39375pt>
+<assets/signal_filtering.png, id=82, 797.98125pt x 105.39375pt>
 File: assets/signal_filtering.png Graphic file (type png)
 <use assets/signal_filtering.png>
 Package pdftex.def Info: assets/signal_filtering.png  used on input line 265.
@@ -960,7 +960,7 @@ Overfull \hbox (5.46492pt too wide) in paragraph at lines 274--275
 dwu-stop-niowy me-cha-nizm oceny. 
  []
 
-<assets/bad_quality_channels_detection.png, id=88, 745.78625pt x 1124.2pt>
+<assets/bad_quality_channels_detection.png, id=87, 745.78625pt x 1124.2pt>
 File: assets/bad_quality_channels_detection.png Graphic file (type png)
 <use assets/bad_quality_channels_detection.png>
 Package pdftex.def Info: assets/bad_quality_channels_detection.png  used on inp
@@ -982,7 +982,7 @@ Overfull \hbox (12.97978pt too wide) in paragraph at lines 287--288
 i po-zwala oczy-±ci¢ sy-gnaª przy za-cho-wa-niu
  []
 
-<assets/ICA.png, id=104, 1244.65pt x 946.53625pt>
+<assets/ICA.png, id=103, 1244.65pt x 946.53625pt>
 File: assets/ICA.png Graphic file (type png)
 <use assets/ICA.png>
 Package pdftex.def Info: assets/ICA.png  used on input line 291.
@@ -1005,7 +1005,7 @@ Overfull \hbox (25.16269pt too wide) in paragraph at lines 300--301
 i¡-gªego za-pisu frag-men-tów od-po-wia-da-j¡-cych
  []
 
-<assets/epochs.png, id=105, 1812.7725pt x 1075.01625pt>
+<assets/epochs.png, id=104, 1812.7725pt x 1075.01625pt>
 File: assets/epochs.png Graphic file (type png)
 <use assets/epochs.png>
 Package pdftex.def Info: assets/epochs.png  used on input line 304.
@@ -1023,7 +1023,7 @@ Overfull \hbox (18.43088pt too wide) in paragraph at lines 315--316
  []
 
 [14 <./assets/epochs.png>]
-<assets/morlet_wavelet.png, id=120, 1356.06625pt x 792.9625pt>
+<assets/morlet_wavelet.png, id=119, 1356.06625pt x 792.9625pt>
 File: assets/morlet_wavelet.png Graphic file (type png)
 <use assets/morlet_wavelet.png>
 Package pdftex.def Info: assets/morlet_wavelet.png  used on input line 319.
@@ -1041,7 +1041,7 @@ pli-ków w for-ma-cie \T1/lmtt/m/n/12 .npy\T1/lmr/m/n/12 (-20) , umo»-li-wia-j¡-
 cym
  []
 
-<assets/save_data_to_files.png, id=128, 1209.51875pt x 561.09625pt>
+<assets/save_data_to_files.png, id=127, 1209.51875pt x 561.09625pt>
 File: assets/save_data_to_files.png Graphic file (type png)
 <use assets/save_data_to_files.png>
 Package pdftex.def Info: assets/save_data_to_files.png  used on input line 336.
@@ -1099,7 +1099,7 @@ Overfull \hbox (73.73593pt too wide) in paragraph at lines 377--378
 nych, za-sto-so-wa-nie ana-lizy czasowo-cz¦stotliwo±ciowej
  []
 
-<assets/generate_files.png, id=143, 1274.7625pt x 1190.4475pt>
+<assets/generate_files.png, id=142, 1274.7625pt x 1190.4475pt>
 File: assets/generate_files.png Graphic file (type png)
 <use assets/generate_files.png>
 Package pdftex.def Info: assets/generate_files.png  used on input line 381.
@@ -1133,192 +1133,209 @@ Overfull \hbox (8.61359pt too wide) in paragraph at lines 455--464
  []
 
 
-Overfull \hbox (80.63391pt too wide) in paragraph at lines 467--477
+Overfull \hbox (80.63391pt too wide) in paragraph at lines 467--469
 \T1/lmr/m/n/12 (-20) Pierwszy mo-del sta-no-wiªa kla-syczna sie¢ kon-wo-lu-cyjn
 a, trak-tu-j¡ca re-pre-zen-ta-cj¦ czasowo-cz¦stotliwo±ciow¡
  []
 
 
-Overfull \hbox (35.76028pt too wide) in paragraph at lines 467--477
-\T1/lmr/m/n/12 (-20) po-je-dyn-czej próby jak wie-lo-ka-na-ªowy ob-raz -- o wy-
-mia-rach cz¦-sto-tli-wo±¢ na czas, z po-szcze-gól-nymi
+Overfull \hbox (21.77489pt too wide) in paragraph at lines 470--477
+\T1/lmr/m/n/12 (-20) opty-ma-li-za-to-rem Adam z funk-cj¡ straty \T1/lmtt/m/n/1
+2 sparse_-categorical_-crossentropy\T1/lmr/m/n/12 (-20) , wspo-ma-ga-nym
  []
 
-
-Overfull \hbox (102.09653pt too wide) in paragraph at lines 467--477
-\T1/lmr/m/n/12 (-20) ak-ty-wa-cj¦ ReLU. Mo-del uczono opty-ma-li-za-to-rem Adam
- z funk-cj¡ straty \T1/lmtt/m/n/12 sparse_-categorical_-crossentropy\T1/lmr/m/n
-/12 (-20) ,
+<assets/CNNarchitecture.png, id=164, 649.42625pt x 816.04875pt>
+File: assets/CNNarchitecture.png Graphic file (type png)
+<use assets/CNNarchitecture.png>
+Package pdftex.def Info: assets/CNNarchitecture.png  used on input line 480.
+(pdftex.def)             Requested size: 448.13095pt x 563.1116pt.
+[21] [22 <./assets/CNNarchitecture.png (PNG copy)>]
+Overfull \hbox (15.65747pt too wide) in paragraph at lines 492--494
+\T1/lmr/m/n/12 (-20) uspraw-nie-niem oka-zaªo si¦ usu-wa-nie ±red-niej war-to-±
+ci pik-seli mi¦-dzy ka-na-ªami po-szcze-gól-nych
  []
 
+<assets/BestOnePatientCNN.png, id=176, 1220.30907pt x 1198.4775pt>
+File: assets/BestOnePatientCNN.png Graphic file (type png)
+<use assets/BestOnePatientCNN.png>
+Package pdftex.def Info: assets/BestOnePatientCNN.png  used on input line 497.
+(pdftex.def)             Requested size: 403.31511pt x 396.10228pt.
+[23 <./assets/BestOnePatientCNN.png>]
+<assets/BestMuliPatientFixed.png, id=183, 1248.91594pt x 1211.27531pt>
+File: assets/BestMuliPatientFixed.png Graphic file (type png)
+<use assets/BestMuliPatientFixed.png>
+Package pdftex.def Info: assets/BestMuliPatientFixed.png  used on input line 51
+0.
+(pdftex.def)             Requested size: 403.31511pt x 391.1462pt.
+ [24 <./assets/BestMuliPatientFixed.png>]
+<assets/BestMuliPatientMixed.png, id=191, 1242.14063pt x 1254.18562pt>
+File: assets/BestMuliPatientMixed.png Graphic file (type png)
+<use assets/BestMuliPatientMixed.png>
+Package pdftex.def Info: assets/BestMuliPatientMixed.png  used on input line 52
+3.
+(pdftex.def)             Requested size: 403.31511pt x 407.22275pt.
 
-Overfull \hbox (15.28156pt too wide) in paragraph at lines 478--485
-[]\T1/lmr/m/n/12 (-20) Istotnym uspraw-nie-niem oka-zaªo si¦ przej-±cie na lo-g
-a-ryt-miczn¡ skal¦ mocy w spek-tro-gra-mach:
+Underfull \hbox (badness 1337) in paragraph at lines 524--524
+[][][]|\T1/lmr/m/n/12 (+20) Wy-niki dla naj-lep-szej sieci, wy-szko-lo-nej na d
+a-nych z wielu pa-cjen-tów
  []
 
-
-Overfull \hbox (2.97528pt too wide) in paragraph at lines 488--496
+[25 <./assets/BestMuliPatientMixed.png>]
+Overfull \hbox (2.97528pt too wide) in paragraph at lines 532--540
 \T1/lmr/m/n/12 (-20) Drug¡ me-tod¡ byªa sie¢ EEGNet -- kom-pak-towa ar-chi-tek-
 tura kon-wo-lu-cyjna za-pro-jek-to-wana
  []
 
-[21]
-Overfull \hbox (5.0692pt too wide) in paragraph at lines 508--515
+
+Overfull \hbox (5.0692pt too wide) in paragraph at lines 552--559
 \T1/lmr/m/n/12 (-20) osi¡-gn¦ªa nieco lep-sze wy-niki ni» EEGNet, po-zo-sta-j¡c
  jed-nak w tym sa-mym, umiar-ko-wa-nym
  []
 
-[22]
-Overfull \hbox (9.15234pt too wide) in paragraph at lines 570--578
+[26]
+Overfull \hbox (9.15234pt too wide) in paragraph at lines 613--621
 \T1/lmr/m/n/12 (-20) oka-zaªo si¦ mo»-liwe je-dy-nie w ogra-ni-czo-nym za-kre-s
 ie. Sy-gnaª nie-sie in-for-ma-cj¦ wy-star-cza-j¡c¡
  []
 
 
-Overfull \hbox (2.2652pt too wide) in paragraph at lines 581--591
+Overfull \hbox (2.2652pt too wide) in paragraph at lines 624--634
 \T1/lmr/m/n/12 (-20) za-re-je-stro-wa-nej ak-tyw-no-±ci mó-zgo-wej. Za-da-nie t
 o jest bar-dziej wy-ma-ga-j¡ce ni» kla-sy-fi-ka-cja,
  []
 
-[23]
-Overfull \hbox (14.91052pt too wide) in paragraph at lines 594--603
+[27]
+Overfull \hbox (14.91052pt too wide) in paragraph at lines 637--646
 \T1/lmr/m/n/12 (-20) za po-±red-nic-twem re-pre-zen-ta-cji po-±red-niej. Au-to-
 en-ko-der skªada si¦ z dwóch wspóª-pra-cu-j¡-cych
  []
 
 
-Overfull \hbox (1.60168pt too wide) in paragraph at lines 594--603
+Overfull \hbox (1.60168pt too wide) in paragraph at lines 637--646
 \T1/lmr/m/n/12 (-20) cz¦-±ci. En-ko-der prze-twa-rza sy-gnaª EEG i prze-ksztaªc
 a go w zwi¦-zªy wek-tor cech (ang. \T1/lmr/m/it/12 (-20) la-tent
  []
 
-<assets/reconstruction_architecture.png, id=187, 975.645pt x 728.7225pt>
+<assets/reconstruction_architecture.png, id=214, 975.645pt x 728.7225pt>
 File: assets/reconstruction_architecture.png Graphic file (type png)
 <use assets/reconstruction_architecture.png>
 Package pdftex.def Info: assets/reconstruction_architecture.png  used on input 
-line 621.
+line 664.
 (pdftex.def)             Requested size: 448.13095pt x 334.71605pt.
-[24{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/d
+[28{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/d
 vips/lm/lm-mathit.enc}]
-<assets/reconstruction_autoencoder.png, id=198, 997.7275pt x 314.17375pt>
+<assets/reconstruction_autoencoder.png, id=224, 997.7275pt x 314.17375pt>
 File: assets/reconstruction_autoencoder.png Graphic file (type png)
 <use assets/reconstruction_autoencoder.png>
 Package pdftex.def Info: assets/reconstruction_autoencoder.png  used on input l
-ine 640.
+ine 683.
 (pdftex.def)             Requested size: 448.13095pt x 141.10841pt.
- [25 <./assets/reconstruction_architecture.png>]
-Overfull \hbox (34.00983pt too wide) in paragraph at lines 646--657
-\T1/lmr/m/n/12 (-20) i ko-lo-ry-styce (rys. [][]19[][]). Ta-kie za-cho-wa-nie j
+ [29 <./assets/reconstruction_architecture.png>]
+Overfull \hbox (34.00983pt too wide) in paragraph at lines 689--700
+\T1/lmr/m/n/12 (-20) i ko-lo-ry-styce (rys. [][]23[][]). Ta-kie za-cho-wa-nie j
 est cha-rak-te-ry-styczne dla re-kon-struk-cji opty-ma-li-zo-wa-nej
  []
 
 
-Overfull \hbox (7.13925pt too wide) in paragraph at lines 658--662
+Overfull \hbox (7.13925pt too wide) in paragraph at lines 701--705
 []\T1/lmr/m/n/12 (-20) Wynik ten wska-zaª na ogra-ni-cze-nia bez-po-±red-niej r
 e-kon-struk-cji pik-se-lo-wej w roz-pa-try-wa-nym
  []
 
-<assets/reconstruction.png, id=205, 1606.0pt x 441.65pt>
+<assets/reconstruction.png, id=231, 1606.0pt x 441.65pt>
 File: assets/reconstruction.png Graphic file (type png)
 <use assets/reconstruction.png>
-Package pdftex.def Info: assets/reconstruction.png  used on input line 665.
+Package pdftex.def Info: assets/reconstruction.png  used on input line 708.
 (pdftex.def)             Requested size: 448.13095pt x 123.23659pt.
 
-Overfull \hbox (2.0382pt too wide) in paragraph at lines 675--681
+Overfull \hbox (2.0382pt too wide) in paragraph at lines 718--724
 \T1/lmr/m/n/12 (-20) re-pre-zen-ta-cji ob-ra-zów, opi-sane w po-przed-niej sek-
 cji. Za-miast od-twa-rza¢ ob-raz w prze-strzeni
  []
 
-[26 <./assets/reconstruction_autoencoder.png> <./assets/reconstruction.png>]
-Overfull \hbox (0.8383pt too wide) in paragraph at lines 682--693
+[30 <./assets/reconstruction_autoencoder.png> <./assets/reconstruction.png>]
+Overfull \hbox (0.8383pt too wide) in paragraph at lines 725--736
 \T1/lmr/m/n/12 (-20) wek-tory znor-ma-li-zo-wano do jed-nost-ko-wej dªu-go-±ci,
  co uªa-twia ich pó¹-niej-sze po-rów-ny-wa-nie.
  []
 
-<assets/retrieval_image_embeddings.png, id=212, 1298.8525pt x 516.93124pt>
+<assets/retrieval_image_embeddings.png, id=239, 1298.8525pt x 516.93124pt>
 File: assets/retrieval_image_embeddings.png Graphic file (type png)
 <use assets/retrieval_image_embeddings.png>
 Package pdftex.def Info: assets/retrieval_image_embeddings.png  used on input l
-ine 696.
+ine 739.
 (pdftex.def)             Requested size: 448.13095pt x 178.34935pt.
-<assets/retrieval_encoder.png, id=214, 1304.875pt x 720.6925pt>
+<assets/retrieval_encoder.png, id=241, 1304.875pt x 720.6925pt>
 File: assets/retrieval_encoder.png Graphic file (type png)
 <use assets/retrieval_encoder.png>
-Package pdftex.def Info: assets/retrieval_encoder.png  used on input line 716.
+Package pdftex.def Info: assets/retrieval_encoder.png  used on input line 759.
 (pdftex.def)             Requested size: 448.13095pt x 247.5065pt.
-[27 <./assets/retrieval_image_embeddings.png>]
-Overfull \hbox (7.84956pt too wide) in paragraph at lines 723--731
+[31 <./assets/retrieval_image_embeddings.png>]
+Overfull \hbox (7.84956pt too wide) in paragraph at lines 766--774
 []\T1/lmr/m/n/12 (-20) Po wy-tre-no-wa-niu en-ko-dera re-kon-struk-cj¦ for-mu-ª
 o-wano jako za-da-nie iden-ty-fi-ka-cji. Dla ka»-dej
  []
 
 
-Overfull \hbox (24.00821pt too wide) in paragraph at lines 723--731
+Overfull \hbox (24.00821pt too wide) in paragraph at lines 766--774
 \T1/lmr/m/n/12 (-20) naj-bli»-szego s¡-siada (ang. \T1/lmr/m/it/12 (-20) ne-are
 st ne-igh-bour\T1/lmr/m/n/12 (-20) ). Za-da-nie nie spro-wa-dzaªo si¦ za-tem do
   kla-sy-fi-ka-cji
  []
 
-<assets/retrieval_nway.png, id=223, 1495.5875pt x 479.7925pt>
+<assets/retrieval_nway.png, id=250, 1495.5875pt x 479.7925pt>
 File: assets/retrieval_nway.png Graphic file (type png)
 <use assets/retrieval_nway.png>
-Package pdftex.def Info: assets/retrieval_nway.png  used on input line 747.
+Package pdftex.def Info: assets/retrieval_nway.png  used on input line 790.
 (pdftex.def)             Requested size: 448.13095pt x 143.76314pt.
-[28 <./assets/retrieval_encoder.png>]
-<assets/retrieval.png, id=232, 1027.84pt x 869.2475pt>
+[32 <./assets/retrieval_encoder.png>]
+<assets/retrieval.png, id=259, 1027.84pt x 869.2475pt>
 File: assets/retrieval.png Graphic file (type png)
 <use assets/retrieval.png>
-Package pdftex.def Info: assets/retrieval.png  used on input line 760.
+Package pdftex.def Info: assets/retrieval.png  used on input line 803.
 (pdftex.def)             Requested size: 336.0982pt x 284.23962pt.
-<assets/retrieval-2.png, id=233, 841.9455pt x 711.8595pt>
+<assets/retrieval-2.png, id=260, 841.9455pt x 711.8595pt>
 File: assets/retrieval-2.png Graphic file (type png)
 <use assets/retrieval-2.png>
-Package pdftex.def Info: assets/retrieval-2.png  used on input line 769.
+Package pdftex.def Info: assets/retrieval-2.png  used on input line 812.
 (pdftex.def)             Requested size: 336.0982pt x 284.16306pt.
- [29 <./assets/retrieval_nway.png> <./assets/retrieval.png>]
-Overfull \hbox (16.42761pt too wide) in paragraph at lines 805--811
+ [33 <./assets/retrieval_nway.png> <./assets/retrieval.png>]
+Overfull \hbox (16.42761pt too wide) in paragraph at lines 848--854
 \T1/lmr/m/n/12 (-20) ‘wiad-czy to, »e mimo sta-ty-stycz-nej prze-wagi nad po-zi
 o-mem lo-so-wym po-je-dyn-cze do-pa-so-wa-nia
  []
 
-[30 <./assets/retrieval-2.png>]
-Overfull \hbox (10.47636pt too wide) in paragraph at lines 824--830
+[34 <./assets/retrieval-2.png>]
+Overfull \hbox (10.47636pt too wide) in paragraph at lines 867--873
 \T1/lmr/m/n/12 (-20) ob-ra-zów w za-da-niu re-kon-struk-cji. In-for-ma-cja ta j
 est jed-nak sªaba -- nie po-zwala na pre-cy-zyjne
  []
 
 
-Overfull \hbox (1.29385pt too wide) in paragraph at lines 831--838
-[]\T1/lmr/m/n/12 (-20) Kluczowym czyn-ni-kiem ogra-ni-cza-j¡-cym sku-tecz-no±¢ 
-oka-zaªa si¦ zmien-no±¢ mi¦-dzy-oso-bowa.
- []
-
-
-Overfull \hbox (5.62512pt too wide) in paragraph at lines 839--846
+Overfull \hbox (5.62512pt too wide) in paragraph at lines 882--889
 \T1/lmr/m/n/12 (-20) Do-dat-kowo re-pre-zen-ta-cja czasowo-cz¦stotliwo±ciowa or
 az sy-gnaª su-rowy daªy po-rów-ny-walne
  []
 
 
-Overfull \hbox (22.65355pt too wide) in paragraph at lines 847--852
+Overfull \hbox (22.65355pt too wide) in paragraph at lines 890--895
 \T1/lmr/m/n/12 (-20) znacz-nie sªa-biej. Su-ge-ruje to, »e sy-gnaª od-zwier-cie
 -dla przede wszyst-kim ogólne, ni-sko-po-zio-mowe
  []
 
-[31]
-Overfull \hbox (1.15862pt too wide) in paragraph at lines 862--870
+[35]
+Overfull \hbox (1.15862pt too wide) in paragraph at lines 905--913
 \T1/lmr/m/n/12 (-20) w do-ce-lo-wym po-st¦-po-wa-niu warto nor-ma-li-zo-wa¢ zbi
 ór te-stowy sta-ty-sty-kami wy-zna-czo-nymi
  []
 
 
-Overfull \hbox (1.87238pt too wide) in paragraph at lines 871--875
+Overfull \hbox (1.87238pt too wide) in paragraph at lines 914--918
 []\T1/lmr/m/n/12 (-20) Mimo umiar-ko-wa-nych wy-ni-ków licz-bo-wych pro-jekt po
 -zwo-liª przej±¢ peªn¡ ±cie»k¦ ba-daw-cz¡
  []
 
-[32] (./BIAI-raport-koncowy.aux)
+[36] (./BIAI-raport-koncowy.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1331,11 +1348,11 @@ Package rerunfilecheck Info: File `BIAI-raport-koncowy.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 18862 strings out of 474222
- 330174 string characters out of 5748734
+ 18900 strings out of 474222
+ 331323 string characters out of 5748734
  1932975 words of memory out of 5000000
- 40611 multiletter control sequences out of 15000+600000
- 608900 words of font info for 143 fonts, out of 8000000 for 9000
+ 40643 multiletter control sequences out of 15000+600000
+ 608771 words of font info for 142 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  108i,8n,107p,10941b,546s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/ty
@@ -1343,10 +1360,10 @@ pe1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></us
 r/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/pu
 blic/lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/s
 hare/texmf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on BIAI-raport-koncowy.pdf (33 pages, 7069757 bytes).
+Output written on BIAI-raport-koncowy.pdf (37 pages, 7842217 bytes).
 PDF statistics:
- 433 PDF objects out of 1000 (max. 8388607)
- 344 compressed objects within 4 object streams
- 96 named destinations out of 1000 (max. 500000)
- 27525 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 464 PDF objects out of 1000 (max. 8388607)
+ 365 compressed objects within 4 object streams
+ 104 named destinations out of 1000 (max. 500000)
+ 27545 words of extra memory for PDF output out of 29859 (max. 10000000)
 
