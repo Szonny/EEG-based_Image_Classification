@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.8)  16 SEP 2026 10:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.8)  16 SEP 2026 14:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -145,6 +145,41 @@ Package: inputenc 2021/02/14 v1.3d Input encoding file
 (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 )
+(/usr/share/texmf/tex/latex/lm/lmodern.sty
+Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+)
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
 Package: microtype 2023/03/13 v3.1a Micro-typographical refinements (RS)
 
@@ -200,7 +235,7 @@ Class scrartcl Warning: Usage of package `parskip' together
 (scrartcl)              I'd suggest to use option
 (scrartcl)              `parskip' with one of it's several values.
 (scrartcl)              Nevertheless, using requested
-(scrartcl)              package `parskip' on input line 7.
+(scrartcl)              package `parskip' on input line 8.
 
 (/usr/share/texlive/texmf-dist/tex/latex/parskip/parskip.sty
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
@@ -526,6 +561,12 @@ Package: hyphenat 2009/09/02 v2.3c hyphenation utilities
 \langwohyphens=\language90
 LaTeX Info: Redefining \_ on input line 43.
 )
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 23
+.
+
+(/usr/share/texmf/tex/latex/lm/t1lmr.fd
+File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count295
@@ -544,40 +585,43 @@ LaTeX Warning: Label `fig:save_data_to_files' multiply defined.
 
 LaTeX Warning: Label `fig:raw_data' multiply defined.
 
+
+LaTeX Warning: Label `fig' multiply defined.
+
 )
 \openout1 = `BIAI-raport-koncowy.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Info: Redefining \microtypecontext on input line 22.
-Package microtype Info: Applying patch `item' on input line 22.
-Package microtype Info: Applying patch `toc' on input line 22.
-Package microtype Info: Applying patch `eqnum' on input line 22.
-Package microtype Info: Applying patch `footnote' on input line 22.
-Package microtype Info: Applying patch `verbatim' on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Info: Redefining \microtypecontext on input line 23.
+Package microtype Info: Applying patch `item' on input line 23.
+Package microtype Info: Applying patch `toc' on input line 23.
+Package microtype Info: Applying patch `eqnum' on input line 23.
+Package microtype Info: Applying patch `footnote' on input line 23.
+Package microtype Info: Applying patch `verbatim' on input line 23.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 22.
+LaTeX Info: Redefining \showhyphens on input line 23.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -615,7 +659,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 22.
+Package hyperref Info: Link coloring ON on input line 23.
 
 (./BIAI-raport-koncowy.out) (./BIAI-raport-koncowy.out)
 \@outlinefile=\write3
@@ -628,7 +672,7 @@ Class scrartcl Info: loading recommended package `bookmark'.
 (scrartcl)           `bookmarkpackage=false' before \begin{document} and
 (scrartcl)           you can avoid this message adding:
 (scrartcl)             \usepackage{bookmark}
-(scrartcl)           before \begin{document} on input line 22.
+(scrartcl)           before \begin{document} on input line 23.
 
 (/usr/share/texlive/texmf-dist/tex/latex/bookmark/bookmark.sty
 Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
@@ -643,35 +687,65 @@ Package caption Info: End \AtBeginDocument code.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/enc/
-dvips/cm-super/cm-super-t1.enc}]
-LaTeX Font Info:    Trying to load font information for T1+cmss on input line 5
-2.
- (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmss.fd
-File: t1cmss.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+dvips/lm/lm-ec.enc}]
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 5
+7.
+ (/usr/share/texmf/tex/latex/lm/t1lmss.fd
+File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmss' (encoding: T1).
+(microtype)             `lmss' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Overfull \hbox (0.8834pt too wide) in paragraph at lines 60--61
-\T1/cmr/m/n/14.4 (-20) jabªko, ba-nan, ptak, ªód¹, sa-mo-chód, pies, osoba, po-
-ci¡g oraz ze-bra. Ka-te-go-ria
+Overfull \hbox (19.21184pt too wide) in paragraph at lines 59--60
+\T1/lmr/m/n/12 (-20) i od-po-wied-nio przy-go-to-wano je do szko-le-nia kilku m
+o-deli sieci neu-ro-no-wych, aby prze-pro-wa-dzi¢
  []
 
 
-Overfull \hbox (8.22078pt too wide) in paragraph at lines 64--65
-\T1/cmr/m/n/14.4 (-20) za-pi-sa-nymi zda-rze-niami znaj-do-waªy si¦ rów-nie» in
--for-ma-cje o cza-sie wy-st¡-pie-nia
+Overfull \hbox (0.24944pt too wide) in paragraph at lines 75--76
+\T1/lmr/m/n/12 (-20) Przed roz-po-cz¦-ciem wªa-±ci-wego ba-da-nia uczest-nik uz
+u-peª-niaª krótk¡ an-kiet¦ oraz otrzy-maª
  []
 
-[2]
-Overfull \hbox (25.82178pt too wide) in paragraph at lines 72--73
-[]\T1/cmr/m/n/14.4 (-20) Badanym byª stu-dent re-ali-zu-j¡cy pro-jekt, który pr
-zed roz-po-cz¦-ciem eks-pe-ry-mentu
+
+Overfull \hbox (25.45636pt too wide) in paragraph at lines 75--76
+\T1/lmr/m/n/12 (-20) in-struk-cj¦ do-ty-cz¡c¡ prze-biegu eks-pe-ry-mentu. Na-st
+¦p-nie wy-ko-nano krótki etap przy-go-to-waw-czy,
  []
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 77.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 8
+2.
+(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 8
+2.
+
+(/usr/share/texmf/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
+82.
+
+(/usr/share/texmf/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
+82.
+
+(/usr/share/texmf/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 82.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 82.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 82.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 82.
+
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -679,7 +753,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 77.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 82.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -687,694 +761,564 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 8
-2.
+) [1]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 8
+7.
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: T1).
+(microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Overfull \hbox (3.39835pt too wide) in paragraph at lines 84--85
-\T1/cmr/m/n/14.4 (-20) znacz-ni-ków. Przy-kªa-dowo, \T1/cmtt/m/n/14.4 FIXATION 
-\T1/cmr/m/n/14.4 (-20) ozna-czaªo roz-po-cz¦-cie fik-sa-cji, \T1/cmtt/m/n/14.4 
-IMAGE_-ON
+Overfull \hbox (1.47235pt too wide) in paragraph at lines 93--94
+[]\T1/lmr/m/n/12 (-20) Czas po-trzebny na wy-ko-na-nie po-je-dyn-czej próby nie
+ byª za-wsze taki sam. Sama pre-zen-ta-cja
  []
 
 
-Overfull \hbox (1.86412pt too wide) in paragraph at lines 88--89
-\T1/cmr/m/n/14.4 (-20) Sama pre-zen-ta-cja ob-razu trwaªa okoªo 0,5 se-kundy, n
-a-to-miast etap opi-sy-wa-nia
+Overfull \hbox (15.37349pt too wide) in paragraph at lines 103--110
+\T1/lmr/m/n/12 (-20) Projekt re-ali-zo-wano w kilku ±ro-do-wi-skach. Kod two-rz
+ono i uru-cha-miano gªów-nie w ±ro-do-wi-sku
+ []
+
+
+Overfull \hbox (1.5059pt too wide) in paragraph at lines 103--110
+\T1/lmr/m/n/12 (-20) i wy-ma-ga-nych bi-blio-tek) oraz w ±ro-do-wi-sku Go-ogle 
+Co-lab, wy-god-nym zwªasz-cza do ucze-nia
+ []
+
+[2{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}]
+Overfull \hbox (11.16245pt too wide) in paragraph at lines 134--139
+\T1/lmr/m/n/12 (-20) W za-da-niu kla-sy-fi-ka-cji ob-ra-zów wy-ko-rzy-stano fi-
+nal-nie trzy ar-chi-tek-tury sieci kon-wo-lu-cyj-nych:
+ []
+
+
+Overfull \hbox (8.94969pt too wide) in paragraph at lines 134--139
+\T1/lmr/m/n/12 (-20) kla-syczn¡ sie¢ CNN dzia-ªa-j¡c¡ na re-pre-zen-ta-cji czas
+owo-cz¦stotliwo±ciowej (spek-tro-gra-mach)
+ []
+
+
+Overfull \hbox (7.01526pt too wide) in paragraph at lines 140--145
+\T1/lmr/m/n/12 (-20) na ar-chi-tek-tu-rze EEGNet, a de-ko-der zbu-do-wano ze sp
+lo-tów trans-po-no-wa-nych, roz-wi-ja-j¡-cych
+ []
+
+
+Overfull \hbox (6.53992pt too wide) in paragraph at lines 154--155
+\T1/lmr/m/n/12 (-20) zªo-»o-nego z sze-regu funk-cji wy-ko-ny-wa-nych w usta-lo
+-nej ko-lej-no-±ci. Ka»da z nich od-po-wia-daªa
  []
 
 [3]
-Overfull \hbox (3.13535pt too wide) in paragraph at lines 92--93
-\T1/cmr/m/n/14.4 (-20) znacz-ni-kom zda-rze« mo»-liwe jest okre-±le-nie, kiedy 
-uczest-nik ogl¡-daª kon-kretny
- []
-
-
-Overfull \hbox (10.89084pt too wide) in paragraph at lines 98--105
-\T1/cmr/m/n/14.4 (-20) w ±ro-do-wi-sku Go-ogle Co-lab, wy-god-nym zwªasz-cza do
- ucze-nia sieci neu-ro-no-wych
- []
-
-
-Overfull \hbox (18.62617pt too wide) in paragraph at lines 108--116
-\T1/cmr/m/n/14.4 (-20) Ke-ras, na-to-miast do wczy-ty-wa-nia i ska-lo-wa-nia ob
--ra-zów na po-trzeby re-kon-struk-cji
- []
-
-[4]
-Overfull \hbox (34.47498pt too wide) in paragraph at lines 119--126
-\T1/cmr/m/n/14.4 (-20) po-moc-ni-czo ko-rzy-stano z na-rz¦-dzi ge-ne-ra-tyw-nej
- sztucz-nej in-te-li-gen-cji (m.in. Claude,
- []
-
-
-Overfull \hbox (14.26738pt too wide) in paragraph at lines 129--134
-\T1/cmr/m/n/14.4 (-20) sto-tli-wo-±cio-wej (spek-tro-gra-mach) oraz sieci EEGNe
-t i EEG-Inception, ope-ru-j¡ce
- []
-
-
-Overfull \hbox (39.46193pt too wide) in paragraph at lines 135--140
-\T1/cmr/m/n/14.4 (-20) oparto na ar-chi-tek-tu-rze EEGNet, a de-ko-der zbu-do-w
-ano ze splo-tów trans-po-no-wa-nych,
- []
-
-
-Overfull \hbox (6.9043pt too wide) in paragraph at lines 135--140
-\T1/cmr/m/n/14.4 (-20) roz-wi-ja-j¡-cych wek-tor cech z po-wro-tem do ob-razu. 
-W uzu-peª-nia-j¡-cym wa-rian-cie
- []
-
-
-Overfull \hbox (4.65309pt too wide) in paragraph at lines 135--140
-\T1/cmr/m/n/14.4 (-20) opar-tym na iden-ty-fi-ka-cji ob-ra-zów (ang. \T1/cmr/m/
-it/14.4 (-20) re-trie-val\T1/cmr/m/n/14.4 (-20) ) do wy-zna-cze-nia re-pre-zen-
-ta-cji
- []
-
-
-Overfull \hbox (33.47295pt too wide) in paragraph at lines 149--150
-\T1/cmr/m/n/14.4 (-20) Przygotowanie da-nych zre-ali-zo-wano w po-staci po-toku
- prze-twa-rza-nia (ang. \T1/cmr/m/it/14.4 (-20) pi-pe-line\T1/cmr/m/n/14.4 (-20
-) ),
- []
-
-[5]
-<assets/data_preparation_pipeline.png, id=43, 604.2575pt x 513.92pt>
+<assets/data_preparation_pipeline.png, id=36, 604.2575pt x 513.92pt>
 File: assets/data_preparation_pipeline.png Graphic file (type png)
 <use assets/data_preparation_pipeline.png>
 Package pdftex.def Info: assets/data_preparation_pipeline.png  used on input li
-ne 153.
+ne 158.
 (pdftex.def)             Requested size: 313.69029pt x 266.79295pt.
 
-Overfull \hbox (5.00409pt too wide) in paragraph at lines 158--159
-[]\T1/cmr/m/n/14.4 (-20) Poni»ej opi-sano fi-naln¡ po-sta¢ po-toku oraz wska-za
-no w jaki spo-sób zmie-niaª si¦
+Overfull \hbox (11.49677pt too wide) in paragraph at lines 167--169
+\T1/lmr/m/n/12 (-20) Na po-cz¡tku skryptu zgro-ma-dzono wszyst-kie pa-ra-me-try
+ ste-ru-j¡ce prze-bie-giem prze-twa-rza-nia.
  []
 
-
-Overfull \hbox (2.56718pt too wide) in paragraph at lines 162--164
-\T1/cmr/m/n/14.4 (-20) Na po-cz¡tku skryptu zgro-ma-dzono wszyst-kie pa-ra-me-t
-ry ste-ru-j¡ce prze-bie-giem
- []
-
-<assets/variables.png, id=45, 665.48625pt x 759.83875pt>
+<assets/variables.png, id=38, 665.48625pt x 759.83875pt>
 File: assets/variables.png Graphic file (type png)
 <use assets/variables.png>
-Package pdftex.def Info: assets/variables.png  used on input line 167.
+Package pdftex.def Info: assets/variables.png  used on input line 172.
 (pdftex.def)             Requested size: 448.13095pt x 511.67482pt.
-[6 <./assets/data_preparation_pipeline.png>]
-Overfull \hbox (16.76506pt too wide) in paragraph at lines 172--175
-[]\T1/cmr/m/n/14.4 (-20) Podstaw¦ sta-no-wiªy li-sty opi-su-j¡ce do-st¦pne dane
-. W zmien-nej \T1/cmtt/m/n/14.4 nicki_-badanych
+[4 <./assets/data_preparation_pipeline.png>]
+Overfull \hbox (22.41179pt too wide) in paragraph at lines 177--180
+\T1/lmr/m/n/12 (-20) Po-nadto w zmien-nej \T1/lmtt/m/n/12 categories \T1/lmr/m/
+n/12 (-20) prze-cho-wy-wano je-de-na-±cie ka-te-go-rii ob-ra-zów wy-ko-rzy-sta-
+nych
+ []
+
+[5 <./assets/variables.png>]
+Overfull \hbox (9.06981pt too wide) in paragraph at lines 184--187
+\T1/lmr/m/n/12 (-20) ka-na-ªami, a \T1/lmtt/m/n/12 reduct_-tfa_-using_-baseline
+ \T1/lmr/m/n/12 (-20) wraz z pa-ra-me-trem \T1/lmtt/m/n/12 chosen_-reduction_-m
+ethod
  []
 
 
-Overfull \hbox (14.28581pt too wide) in paragraph at lines 172--175
-\T1/cmr/m/n/14.4 (-20) znacz-nik czasu (\T1/cmtt/m/n/14.4 now\T1/cmr/m/n/14.4 (
--20) ), wy-ko-rzy-sty-wany przy na-zy-wa-niu pli-ków wy-ni-ko-wych. 
- []
-
-[7 <./assets/variables.png>]
-Overfull \hbox (18.62918pt too wide) in paragraph at lines 176--178
-[]\T1/cmr/m/n/14.4 (-20) Zmienna \T1/cmtt/m/n/14.4 wybrani_-badani \T1/cmr/m/n/
-14.4 (-20) okre-±laªa, któ-rzy uczest-nicy maj¡ zo-sta¢ prze-two-rzeni
+Overfull \hbox (14.52702pt too wide) in paragraph at lines 188--189
+\T1/lmr/m/n/12 (-20) da-nych na eta-pie eks-plo-ra-cji. Zmienne \T1/lmtt/m/n/12
+ image_-channel\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 image_-epoch \T1/lmr/m/n/
+12 (-20) oraz \T1/lmtt/m/n/12 chosen_-category
  []
 
 
-Overfull \hbox (121.89688pt too wide) in paragraph at lines 179--182
-\T1/cmtt/m/n/14.4 morlet_-log_-scale \T1/cmr/m/n/14.4 (-20) wª¡-czaª prze-li-cz
-e-nie mocy na skal¦ lo-ga-ryt-miczn¡, \T1/cmtt/m/n/14.4 subtract_-mean_-baselin
-e
+Overfull \hbox (4.76584pt too wide) in paragraph at lines 188--189
+\T1/lmr/m/n/12 (-20) ze-staw flag \T1/lmtt/m/n/12 do_-generate_-... \T1/lmr/m/n
+/12 (-20) po-zwa-laª wª¡-cza¢ po-szcze-gólne ro-dzaje ilu-stra-cji (po-je-dyn-c
+zy
  []
 
 
-Overfull \hbox (8.81664pt too wide) in paragraph at lines 179--182
-\T1/cmr/m/n/14.4 (-20) -- od-j¦-cie ±red-niej li-czo-nej po-mi¦-dzy ka-na-ªami,
- a \T1/cmtt/m/n/14.4 reduct_-tfa_-using_-baseline
+Overfull \hbox (33.00386pt too wide) in paragraph at lines 190--192
+[]\T1/lmr/m/n/12 (-20) Na ko-niec, na pod-sta-wie po-wy»-szych usta-wie«, wy-zn
+a-czano zmienne po-moc-ni-cze wy-ko-rzy-sty-wane
  []
 
 
-Overfull \hbox (13.18579pt too wide) in paragraph at lines 183--184
-\T1/cmr/m/n/14.4 (-20) pod-gl¡du da-nych na eta-pie eks-plo-ra-cji. Zmienne \T1
-/cmtt/m/n/14.4 image_-channel\T1/cmr/m/n/14.4 (-20) , \T1/cmtt/m/n/14.4 image_-
-epoch
+Overfull \hbox (1.85916pt too wide) in paragraph at lines 190--192
+\T1/lmr/m/n/12 (-20) pseu-do-nim i plik zda-rze« pierw-szego z nich (\T1/lmtt/m
+/n/12 NICK_-BADANEGO\T1/lmr/m/n/12 (-20) , \T1/lmtt/m/n/12 CSV_-EVENTY\T1/lmr/m
+/n/12 (-20) ). Za-de-kla-ro-wano
  []
 
 
-Overfull \hbox (3.10179pt too wide) in paragraph at lines 183--184
-\T1/cmr/m/n/14.4 (-20) oraz \T1/cmtt/m/n/14.4 chosen_-category \T1/cmr/m/n/14.4
- (-20) wska-zy-waªy, który ka-naª, któr¡ epok¦ i któr¡ ka-te-go-ri¦
+Overfull \hbox (36.62752pt too wide) in paragraph at lines 190--192
+\T1/lmr/m/n/12 (-20) sy-gnaª po-dzie-lony na epoki (\T1/lmtt/m/n/12 epochs\T1/l
+mr/m/n/12 (-20) ) oraz prze-two-rzon¡ re-pre-zen-ta-cj¦ licz-bow¡ (\T1/lmtt/m/n
+/12 tfData_-float32\T1/lmr/m/n/12 (-20) )
  []
 
-
-Overfull \hbox (9.3717pt too wide) in paragraph at lines 183--184
-\T1/cmr/m/n/14.4 (-20) ob-razu przed-sta-wi¢, na-to-miast ze-staw flag \T1/cmtt
-/m/n/14.4 do_-generate_-... \T1/cmr/m/n/14.4 (-20) po-zwa-laª wª¡-cza¢
- []
-
-
-Overfull \hbox (119.47572pt too wide) in paragraph at lines 183--184
-\T1/cmr/m/n/14.4 (-20) po-rz¡dku). Ka-ta-log do-ce-lowy dla tych pli-ków okre-±
-laªa zmienna \T1/cmtt/m/n/14.4 visualization_-catalogue\T1/cmr/m/n/14.4 (-20) .
- 
- []
-
-
-Overfull \hbox (14.86015pt too wide) in paragraph at lines 185--187
-[]\T1/cmr/m/n/14.4 (-20) Na ko-niec, na pod-sta-wie po-wy»-szych usta-wie«, wy-
-zna-czano zmienne po-moc-ni-cze
- []
-
-
-Overfull \hbox (43.33186pt too wide) in paragraph at lines 185--187
-\T1/cmr/m/n/14.4 (-20) (\T1/cmtt/m/n/14.4 obecnie_-badani\T1/cmr/m/n/14.4 (-20)
- ) oraz pseu-do-nim i plik zda-rze« pierw-szego z nich (\T1/cmtt/m/n/14.4 NICK_
--BADANEGO\T1/cmr/m/n/14.4 (-20) ,
- []
-
-
-Overfull \hbox (18.6618pt too wide) in paragraph at lines 185--187
-\T1/cmr/m/n/14.4 (-20) które byªy wspóª-dzie-lone i mo-dy-fi-ko-wane przez po-s
-zcze-gólne funk-cje po-toku. 
- []
-
-
-Overfull \hbox (41.29172pt too wide) in paragraph at lines 190--191
-\T1/cmr/m/it/14.4 (-20) For-mat\T1/cmr/m/n/14.4 (-20) ), b¦-d¡-cym stan-dar-dem
- sto-so-wa-nym do za-pisu sy-gna-ªów bio-me-dycz-nych. 
- []
-
-[8]
-<assets/raw_data.png, id=64, 1220.56pt x 248.93pt>
+<assets/raw_data.png, id=53, 1220.56pt x 248.93pt>
 File: assets/raw_data.png Graphic file (type png)
 <use assets/raw_data.png>
-Package pdftex.def Info: assets/raw_data.png  used on input line 194.
+Package pdftex.def Info: assets/raw_data.png  used on input line 199.
 (pdftex.def)             Requested size: 448.13095pt x 91.39615pt.
-
-Overfull \hbox (10.30049pt too wide) in paragraph at lines 199--200
-\T1/cmtt/m/n/14.4 preload=True\T1/cmr/m/n/14.4 (-20) ), co byªo ko-nieczne, aby
- mo»-liwe byªo jego pó¹-niej-sze fil-tro-wa-nie
+[6]
+Overfull \hbox (0.66876pt too wide) in paragraph at lines 204--205
+[]\T1/lmr/m/n/12 (-20) Do ich od-czytu wy-ko-rzy-stano funk-cj¦ \T1/lmtt/m/n/12
+ read_-raw_-edf() \T1/lmr/m/n/12 (-20) z bi-blio-teki MNE. Sy-gnaª wczy-tano
  []
 
 
-Overfull \hbox (2.73177pt too wide) in paragraph at lines 199--200
-\T1/cmr/m/n/14.4 (-20) ka-na-ªów na pod-sta-wie ich nazw (pa-ra-metr \T1/cmtt/m
-/n/14.4 infer_-types=True\T1/cmr/m/n/14.4 (-20) ). Po wczy-ta-niu
+Overfull \hbox (8.02373pt too wide) in paragraph at lines 204--205
+\T1/lmr/m/n/12 (-20) aby mo»-liwe byªo jego pó¹-niej-sze fil-tro-wa-nie i  mo-d
+y-fi-ka-cja. Wª¡-czono rów-nie» au-to-ma-tyczne
  []
 
-
-Overfull \hbox (44.81908pt too wide) in paragraph at lines 205--206
-\T1/cmr/m/n/14.4 (-20) od-st¦-pach sta-no-wi¡-cych okoªo 10% lub 20% od-le-gªo-
-±ci po-mi¦-dzy cha-rak-te-ry-stycz-nymi
- []
-
-[9 <./assets/raw_data.png>]
-Overfull \hbox (12.64128pt too wide) in paragraph at lines 222--223
-[]\T1/cmr/m/n/14.4 (-20) Przygotowanie ka-na-ªów prze-bie-gaªo w kilku kro-kach
-, któ-rych kod przed-sta-wiono
- []
-
-<assets/channel_mapping.png, id=74, 811.03pt x 573.14125pt>
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
+15.
+(/usr/share/texmf/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [7{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc} <./assets/raw_data.png>]
+<assets/channel_mapping.png, id=69, 811.03pt x 573.14125pt>
 File: assets/channel_mapping.png Graphic file (type png)
 <use assets/channel_mapping.png>
-Package pdftex.def Info: assets/channel_mapping.png  used on input line 226.
+Package pdftex.def Info: assets/channel_mapping.png  used on input line 231.
 (pdftex.def)             Requested size: 448.13095pt x 316.68915pt.
-[10{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-Overfull \hbox (1.75935pt too wide) in paragraph at lines 233--234
-\T1/cmr/m/n/14.4 (-20) na-zwach roz-po-czy-na-j¡-cych si¦ od \T1/cmtt/m/n/14.4 
-Imp\T1/cmr/m/n/14.4 (-20) ) usu-ni¦to, po-nie-wa» nie nios¡ in-for-ma-cji
+ [8 <./assets/channel_mapping.png>]
+Overfull \hbox (2.25293pt too wide) in paragraph at lines 242--243
+[]\T1/lmr/m/n/12 (-20) Po upo-rz¡d-ko-wa-niu ka-na-ªów przy-pi-sano do da-nych 
+mon-ta» \T1/lmtt/m/n/12 standard_-1020\T1/lmr/m/n/12 (-20) . Wy-ko-rzy-stano
  []
 
-
-Overfull \hbox (21.18956pt too wide) in paragraph at lines 235--236
-[]\T1/cmr/m/n/14.4 (-20) Podziaª ka-na-ªów na po-szcze-gólne typy byª istotny p
-od-czas dal-szego prze-twa-rza-nia
- []
-
-
-Overfull \hbox (12.4495pt too wide) in paragraph at lines 235--236
-\T1/cmr/m/n/14.4 (-20) ICA, do-my±l-nie obej-muj¡ wy-ª¡cz-nie ka-naªy typu \T1/
-cmtt/m/n/14.4 eeg\T1/cmr/m/n/14.4 (-20) . Ka-naªy \T1/cmtt/m/n/14.4 misc \T1/cm
-r/m/n/14.4 (-20) prze-cho-wuj¡
- []
-
-
-Overfull \hbox (1.077pt too wide) in paragraph at lines 235--236
-\T1/cmr/m/n/14.4 (-20) do-dat-kowe in-for-ma-cje, które nie s¡ trak-to-wane jak
- sy-gnaª mó-zgowy, na-to-miast
- []
-
-[11 <./assets/channel_mapping.png>]
-Overfull \hbox (7.02965pt too wide) in paragraph at lines 237--238
-\T1/cmr/m/n/14.4 (-20) elek-trod, dzi¦ki czemu na-zwy ka-na-ªów, mo-gªy zo-sta¢
- po-wi¡-zane z ich po-zy-cjami
- []
-
-
-Overfull \hbox (21.16951pt too wide) in paragraph at lines 239--241
-[]\T1/cmr/m/n/14.4 (-20) Poprawno±¢ przy-pi-sa-nia mon-ta»u spraw-dzono za po-m
-oc¡ funk-cji \T1/cmtt/m/n/14.4 plot_-sensors( 
- []
-
-<assets/standard_10-20_map.png, id=88, 653.44125pt x 622.325pt>
+<assets/standard_10-20_map.png, id=77, 653.44125pt x 622.325pt>
 File: assets/standard_10-20_map.png Graphic file (type png)
 <use assets/standard_10-20_map.png>
-Package pdftex.def Info: assets/standard_10-20_map.png  used on input line 244.
+Package pdftex.def Info: assets/standard_10-20_map.png  used on input line 249.
 
 (pdftex.def)             Requested size: 403.31511pt x 384.10925pt.
-[12]
-Overfull \hbox (33.60486pt too wide) in paragraph at lines 249--250
-\T1/cmr/m/n/14.4 (-20) przy-pi-sa-nia nazw elek-trod do stan-dar-do-wych po-zy-
-cji prze-strzen-nych. Przy-go-to-wane
+[9]
+Overfull \hbox (2.17368pt too wide) in paragraph at lines 254--255
+[]\T1/lmr/m/n/12 (-20) Na wy-kre-sie elek-trody EEG zo-staªy roz-miesz-czone zg
+od-nie ze stan-dar-dem 10--20. Wi-doczna
  []
 
 
-Overfull \hbox (9.03227pt too wide) in paragraph at lines 249--250
-\T1/cmr/m/n/14.4 (-20) w ten spo-sób dane mo-gªy zo-sta¢ wy-ko-rzy-stane w ko-l
-ej-nych eta-pach ana-lizy. 
+Overfull \hbox (26.39578pt too wide) in paragraph at lines 254--255
+\T1/lmr/m/n/12 (-20) po-praw-no±¢ przy-pi-sa-nia nazw elek-trod do stan-dar-do-
+wych po-zy-cji prze-strzen-nych. Przy-go-to-wane
  []
 
-[13 <./assets/standard_10-20_map.png>]
-<assets/signal_filtering.png, id=99, 797.98125pt x 105.39375pt>
+
+Overfull \hbox (23.38539pt too wide) in paragraph at lines 256--258
+\T1/lmr/m/n/12 (-20) w ba-da-niach EEG. Ope-ra-cj¦ t¦ wy-ko-nano funk-cj¡ \T1/l
+mtt/m/n/12 set_-eeg_-reference(ref_-channels=['A1',
+ []
+
+<assets/signal_filtering.png, id=83, 797.98125pt x 105.39375pt>
 File: assets/signal_filtering.png Graphic file (type png)
 <use assets/signal_filtering.png>
-Package pdftex.def Info: assets/signal_filtering.png  used on input line 260.
+Package pdftex.def Info: assets/signal_filtering.png  used on input line 265.
 (pdftex.def)             Requested size: 448.13095pt x 59.18733pt.
-
-Overfull \hbox (4.25392pt too wide) in paragraph at lines 265--266
-\T1/cmr/m/n/14.4 (-20) po-cho-dz¡ce z sieci ener-ge-tycz-nej (w Eu-ro-pie na-pi
-¦-cie zmienne ma cz¦-sto-tli-wo±¢
+[10 <./assets/standard_10-20_map.png>]
+Overfull \hbox (2.56331pt too wide) in paragraph at lines 270--271
+\T1/lmr/m/n/12 (-20) ener-ge-tycz-nej (w Eu-ro-pie na-pi¦-cie zmienne ma cz¦-st
+o-tli-wo±¢ 50 Hz). Na-st¦p-nie za-sto-so-wano
  []
 
-<assets/bad_quality_channels_detection.png, id=100, 745.78625pt x 1124.2pt>
+
+Overfull \hbox (29.40025pt too wide) in paragraph at lines 270--271
+\T1/lmr/m/n/12 (-20) pa-smo obej-muje za-kres istotny z punktu wi-dze-nia ana-l
+i-zo-wa-nej ak-tyw-no-±ci kory wzro-ko-wej. 
+ []
+
+
+Overfull \hbox (5.46492pt too wide) in paragraph at lines 274--275
+\T1/lmr/m/n/12 (-20) stanu ka»-dego ka-naªu. Na tej pod-sta-wie za-sto-so-wano 
+dwu-stop-niowy me-cha-nizm oceny. 
+ []
+
+<assets/bad_quality_channels_detection.png, id=88, 745.78625pt x 1124.2pt>
 File: assets/bad_quality_channels_detection.png Graphic file (type png)
 <use assets/bad_quality_channels_detection.png>
 Package pdftex.def Info: assets/bad_quality_channels_detection.png  used on inp
-ut line 273.
+ut line 278.
 (pdftex.def)             Requested size: 403.31511pt x 607.95097pt.
-[14 <./assets/signal_filtering.png>]
+[11 <./assets/signal_filtering.png>]
 Overfull \vbox (11.45096pt too high) has occurred while \output is active []
 
 
-[15 <./assets/bad_quality_channels_detection.png>]
-<assets/ICA.png, id=115, 1244.65pt x 946.53625pt>
+[12 <./assets/bad_quality_channels_detection.png>]
+Overfull \hbox (3.1321pt too wide) in paragraph at lines 287--288
+\T1/lmr/m/n/12 (-20) roz-kªada za-re-je-stro-wany sy-gnaª na zbiór skªa-do-wych
+, z któ-rych cz¦±¢ od-po-wiada ak-tyw-no-±ci
+ []
+
+
+Overfull \hbox (12.97978pt too wide) in paragraph at lines 287--288
+\T1/lmr/m/n/12 (-20) mi¦-±ni. Usu-ni¦-cie skªa-do-wych b¦-d¡-cych ar-te-fak-tam
+i po-zwala oczy-±ci¢ sy-gnaª przy za-cho-wa-niu
+ []
+
+<assets/ICA.png, id=104, 1244.65pt x 946.53625pt>
 File: assets/ICA.png Graphic file (type png)
 <use assets/ICA.png>
-Package pdftex.def Info: assets/ICA.png  used on input line 286.
+Package pdftex.def Info: assets/ICA.png  used on input line 291.
 (pdftex.def)             Requested size: 313.69029pt x 238.5544pt.
 
-Overfull \hbox (19.65494pt too wide) in paragraph at lines 291--292
-[]\T1/cmr/m/n/14.4 (-20) Model ICA do-pa-so-wano do da-nych, przyj-mu-j¡c liczb
-¦ skªa-do-wych od-po-wia-da-j¡c¡
+Overfull \hbox (12.40897pt too wide) in paragraph at lines 296--297
+[]\T1/lmr/m/n/12 (-20) Model ICA do-pa-so-wano do da-nych, przyj-mu-j¡c liczb¦ 
+skªa-do-wych od-po-wia-da-j¡c¡ za-cho-wa-niu
  []
 
 
-Overfull \hbox (20.72089pt too wide) in paragraph at lines 291--292
-\T1/cmr/m/n/14.4 (-20) po-mi-ni¦-ciem. W za-sto-so-wa-nym roz-wi¡-za-niu iden-t
-y-fi-ka-cja skªa-do-wych prze-bie-gaªa
+Overfull \hbox (4.42433pt too wide) in paragraph at lines 296--297
+\T1/lmr/m/n/12 (-20) iden-ty-fi-ka-cja skªa-do-wych prze-bie-gaªa au-to-ma-tycz
+-nie; w do-ce-lo-wym po-st¦-po-wa-niu wska-zana
  []
 
-[16 <./assets/ICA.png>]
-<assets/epochs.png, id=123, 1812.7725pt x 1075.01625pt>
+
+Overfull \hbox (25.16269pt too wide) in paragraph at lines 300--301
+\T1/lmr/m/n/12 (-20) Do dal-szej ana-lizy ko-nieczne byªo wy-od-r¦b-nie-nie z c
+i¡-gªego za-pisu frag-men-tów od-po-wia-da-j¡-cych
+ []
+
+<assets/epochs.png, id=105, 1812.7725pt x 1075.01625pt>
 File: assets/epochs.png Graphic file (type png)
 <use assets/epochs.png>
-Package pdftex.def Info: assets/epochs.png  used on input line 299.
+Package pdftex.def Info: assets/epochs.png  used on input line 304.
 (pdftex.def)             Requested size: 448.13095pt x 265.75159pt.
-
-Overfull \hbox (2.2481pt too wide) in paragraph at lines 304--305
-[]\T1/cmr/m/n/14.4 (-20) W tym celu na pod-sta-wie ka-naªu \T1/cmtt/m/n/14.4 Tr
-igger \T1/cmr/m/n/14.4 (-20) od-czy-tano zda-rze-nia za-re-je-stro-wane
+[13 <./assets/ICA.png>]
+Overfull \hbox (12.18036pt too wide) in paragraph at lines 311--312
+\T1/lmr/m/n/12 (-20) przed po-ja-wie-niem si¦ ob-razu do 0,5 s po nim. Frag-men
+t po-prze-dza-j¡cy bo-dziec wy-ko-rzy-stano
  []
 
 
-Overfull \hbox (2.80644pt too wide) in paragraph at lines 304--305
-\T1/cmr/m/n/14.4 (-20) od-po-wia-da-j¡-cym po-ja-wie-niu si¦ ob-razu (\T1/cmtt/
-m/n/14.4 IMAGE_-ON\T1/cmr/m/n/14.4 (-20) ). Liczb¦ tak wy-zna-czo-nych
+Overfull \hbox (18.43088pt too wide) in paragraph at lines 315--316
+\T1/lmr/m/it/12 (-20) ana-ly-sis\T1/lmr/m/n/12 (-20) ), która po-zwala prze-±le
+-dzi¢, jak moc sy-gnaªu w po-szcze-gól-nych pa-smach cz¦-sto-tli-wo-±ci
  []
 
-[17 <./assets/epochs.png>]
-Overfull \hbox (14.27304pt too wide) in paragraph at lines 306--307
-\T1/cmr/m/n/14.4 (-20) ka-te-go-ria i na-zwa pre-zen-to-wa-nego ob-razu, dzi¦ki
- czemu mo»-liwe byªo po-wi¡-za-nie
- []
-
-
-Overfull \hbox (0.32509pt too wide) in paragraph at lines 306--307
-\T1/cmr/m/n/14.4 (-20) po-kry-wa-j¡ce si¦ z wcze-±niej ozna-czo-nymi wa-dli-wym
-i frag-men-tami za-pisu. 
- []
-
-
-Overfull \hbox (50.96323pt too wide) in paragraph at lines 310--311
-\T1/cmr/m/n/14.4 (-20) Przygotowane epoki pod-dano ana-li-zie czasowo-cz¦stotli
-wo±ciowej (ang. \T1/cmr/m/it/14.4 (-20) time--frequency
- []
-
-<assets/morlet_wavelet.png, id=131, 1356.06625pt x 792.9625pt>
+[14 <./assets/epochs.png>]
+<assets/morlet_wavelet.png, id=120, 1356.06625pt x 792.9625pt>
 File: assets/morlet_wavelet.png Graphic file (type png)
 <use assets/morlet_wavelet.png>
-Package pdftex.def Info: assets/morlet_wavelet.png  used on input line 314.
+Package pdftex.def Info: assets/morlet_wavelet.png  used on input line 319.
 (pdftex.def)             Requested size: 448.13095pt x 262.04141pt.
-[18 <./assets/morlet_wavelet.png>]
-Overfull \hbox (10.69247pt too wide) in paragraph at lines 321--322
-\T1/cmr/m/n/14.4 (-20) pre-zen-ta-cji ob-razu. War-to-±ci mocy prze-li-czono na
--st¦p-nie na skal¦ lo-ga-ryt-miczn¡
+
+Overfull \hbox (3.62445pt too wide) in paragraph at lines 324--325
+[]\T1/lmr/m/n/12 (-20) Wykorzystano w tym celu trans-for-mat¦ fal-kow¡ z za-sto
+-so-wa-niem falki Mor-leta, wy-zna-cza-j¡c
  []
 
-
-Overfull \hbox (3.48787pt too wide) in paragraph at lines 323--324
-[]\T1/cmr/m/n/14.4 (-20) Niezale»nie od po-wy»-szego przy-go-to-wano rów-nie» w
-a-riant, w któ-rym po-mi-jano
+[15 <./assets/morlet_wavelet.png>]
+Overfull \hbox (26.02583pt too wide) in paragraph at lines 332--333
+\T1/lmr/m/n/12 (-20) Ostatnim eta-pem byª za-pis przy-go-to-wa-nych da-nych do 
+pli-ków w for-ma-cie \T1/lmtt/m/n/12 .npy\T1/lmr/m/n/12 (-20) , umo»-li-wia-j¡-
+cym
  []
 
-
-Overfull \hbox (12.32289pt too wide) in paragraph at lines 323--324
-\T1/cmr/m/n/14.4 (-20) sku-tecz-no-±ci mo-delu na da-nych prze-ksztaª-co-nych o
-raz nie-prze-ksztaª-co-nych. 
- []
-
-<assets/save_data_to_files.png, id=139, 1209.51875pt x 561.09625pt>
+<assets/save_data_to_files.png, id=128, 1209.51875pt x 561.09625pt>
 File: assets/save_data_to_files.png Graphic file (type png)
 <use assets/save_data_to_files.png>
-Package pdftex.def Info: assets/save_data_to_files.png  used on input line 331.
+Package pdftex.def Info: assets/save_data_to_files.png  used on input line 336.
 
 (pdftex.def)             Requested size: 358.50612pt x 166.30963pt.
 
-Overfull \hbox (0.29214pt too wide) in paragraph at lines 336--337
-[]\T1/cmr/m/n/14.4 (-20) Osobno za-pi-sy-wano ta-blic¦ prze-two-rzo-nym sy-gna-
-ªem oraz ta-blic¦ z ety-kie-tami
+Overfull \hbox (10.76378pt too wide) in paragraph at lines 345--346
+\T1/lmr/m/n/12 (-20) W celu ja-ko-±cio-wej oceny przy-go-to-wa-nych da-nych prz
+e-wi-dziano ze-staw funk-cji po-moc-ni-czych,
  []
 
 
-Overfull \hbox (17.44896pt too wide) in paragraph at lines 336--337
-\T1/cmr/m/n/14.4 (-20) prze-twa-rza-nia (m.in. dane prze-ksztaª-cone lub su-row
-e), dzi¦ki czemu po-szcze-gólne
- []
-
-[19 <./assets/save_data_to_files.png>]
-Overfull \hbox (32.97171pt too wide) in paragraph at lines 340--341
-\T1/cmr/m/n/14.4 (-20) w for-ma-cie GIF, w ka-ta-logu wska-za-nym zmienn¡ \T1/c
-mtt/m/n/14.4 visualization_-catalogue\T1/cmr/m/n/14.4 (-20) . 
+Overfull \hbox (12.87175pt too wide) in paragraph at lines 345--346
+\T1/lmr/m/n/12 (-20) po-toku prze-ka-zy-wa-nego mo-de-lowi, lecz sªu-»yªy je-dy
+-nie do pod-gl¡du i we-ry-fi-ka-cji po-praw-no-±ci
  []
 
 File: assets/save_data_to_files.png Graphic file (type png)
 <use assets/save_data_to_files.png>
-Package pdftex.def Info: assets/save_data_to_files.png  used on input line 346.
+Package pdftex.def Info: assets/save_data_to_files.png  used on input line 351.
 
 (pdftex.def)             Requested size: 358.50612pt x 166.30963pt.
-
-Overfull \hbox (18.73187pt too wide) in paragraph at lines 351--352
-[]\T1/cmr/m/n/14.4 (-20) Druga funk-cja po-rz¡d-ko-waªa epoki nie we-dªug czasu
-, lecz we-dªug pre-zen-to-wa-nego
+[16 <./assets/save_data_to_files.png>]
+Overfull \hbox (14.1865pt too wide) in paragraph at lines 356--357
+\T1/lmr/m/n/12 (-20) wy-zna-czano gra-nice po-mi¦-dzy ko-lej-nymi ka-te-go-riam
+i, dzi¦ki czemu mo»-liwe byªo wy-±wie-tle-nie
  []
 
-[20]
-File: assets/save_data_to_files.png Graphic file (type png)
-<use assets/save_data_to_files.png>
-Package pdftex.def Info: assets/save_data_to_files.png  used on input line 355.
 
-(pdftex.def)             Requested size: 358.50612pt x 166.30963pt.
-
-Overfull \hbox (14.03758pt too wide) in paragraph at lines 360--362
-\T1/cmr/m/n/14.4 (-20) pre-zen-to-wa-nych w ukªa-dzie od-po-wia-da-j¡-cym ich p
-o-ªo-»e-niu na gªo-wie. W jed-nym
+Overfull \hbox (50.0503pt too wide) in paragraph at lines 356--357
+\T1/lmr/m/n/12 (-20) spek-tro-gra-mów od-po-wia-da-j¡-cych jed-nej, wy-bra-nej 
+ka-te-go-rii (okre-±lo-nej zmienn¡ \T1/lmtt/m/n/12 chosen_-category\T1/lmr/m/n/
+12 (-20) ).
  []
 
 File: assets/save_data_to_files.png Graphic file (type png)
 <use assets/save_data_to_files.png>
-Package pdftex.def Info: assets/save_data_to_files.png  used on input line 365.
+Package pdftex.def Info: assets/save_data_to_files.png  used on input line 360.
 
 (pdftex.def)             Requested size: 358.50612pt x 166.30963pt.
 
-Overfull \hbox (23.41531pt too wide) in paragraph at lines 372--373
-\T1/cmr/m/n/14.4 (-20) ar-gu-menty naj-wa»-niej-sze usta-wie-nia po-toku (m.in.
- wy-bór ba-da-nych, za-sto-so-wa-nie
+Overfull \hbox (17.05376pt too wide) in paragraph at lines 365--367
+[]\T1/lmr/m/n/12 (-20) Trzecia funk-cja roz-sze-rzaªa po-wy»-sze po-dej-±cie na
+ sze±¢ elek-trod jed-no-cze-±nie, pre-zen-to-wa-nych
  []
 
-[21]
-<assets/generate_files.png, id=161, 1274.7625pt x 1190.4475pt>
+File: assets/save_data_to_files.png Graphic file (type png)
+<use assets/save_data_to_files.png>
+Package pdftex.def Info: assets/save_data_to_files.png  used on input line 370.
+
+(pdftex.def)             Requested size: 358.50612pt x 166.30963pt.
+[17]
+Overfull \hbox (73.73593pt too wide) in paragraph at lines 377--378
+\T1/lmr/m/n/12 (-20) naj-wa»-niej-sze usta-wie-nia po-toku (m.in. wy-bór ba-da-
+nych, za-sto-so-wa-nie ana-lizy czasowo-cz¦stotliwo±ciowej
+ []
+
+<assets/generate_files.png, id=143, 1274.7625pt x 1190.4475pt>
 File: assets/generate_files.png Graphic file (type png)
 <use assets/generate_files.png>
-Package pdftex.def Info: assets/generate_files.png  used on input line 376.
+Package pdftex.def Info: assets/generate_files.png  used on input line 381.
 (pdftex.def)             Requested size: 403.31511pt x 376.62778pt.
-
-Overfull \hbox (24.0914pt too wide) in paragraph at lines 381--382
-\T1/cmr/m/n/14.4 (-20) po-tok miaª po-sta¢ po-je-dyn-czego, li-nio-wego skryptu
-; pa-ra-me-try-za-cj¦ wpro-wa-dzono
- []
-
-
-Overfull \hbox (65.41838pt too wide) in paragraph at lines 381--382
-\T1/cmr/m/n/14.4 (-20) na pó¹-niej-szym eta-pie, gdy po-ja-wiªa si¦ po-trzeba p
-ro-wa-dze-nia wielu eks-pe-ry-men-tów. 
- []
-
-
-Overfull \hbox (10.95514pt too wide) in paragraph at lines 385--387
-\T1/cmr/m/n/14.4 (-20) zbiór, który mie-szano i dzie-lono na cz¦-±ci wy-ko-rzy-
-sty-wane pod-czas ucze-nia. 
+[18]
+Overfull \hbox (14.48322pt too wide) in paragraph at lines 386--387
+[]\T1/lmr/m/n/12 (-20) Rozwi¡zanie to po-zwa-laªo wy-god-nie ge-ne-ro-wa¢ ró»ne
+ wa-rianty zbioru da-nych bez ko-niecz-no-±ci
  []
 
 File: assets/raw_data.png Graphic file (type png)
 <use assets/raw_data.png>
-Package pdftex.def Info: assets/raw_data.png  used on input line 390.
+Package pdftex.def Info: assets/raw_data.png  used on input line 395.
 (pdftex.def)             Requested size: 448.13095pt x 91.39615pt.
-[22 <./assets/generate_files.png>]
-Overfull \hbox (17.12761pt too wide) in paragraph at lines 395--400
-\T1/cmr/m/n/14.4 (-20) temu mo-del oce-niano na da-nych osób, któ-rych na-gra-n
-ia nie byªy wy-ko-rzy-sty-wane
+[19 <./assets/generate_files.png>]
+Overfull \hbox (17.18123pt too wide) in paragraph at lines 406--413
+\T1/lmr/m/n/12 (-20) mie-sza-nie prze-pro-wa-dzono dwu-eta-powo, bez wczy-ty-wa
+-nia ca-ªo-±ci na-raz. Naj-pierw wy-zna-czano
  []
 
 
-Overfull \hbox (0.4867pt too wide) in paragraph at lines 401--408
-\T1/cmr/m/n/14.4 (-20) ope-ra-cyj-nej, mie-sza-nie prze-pro-wa-dzono dwu-eta-po
-wo, bez wczy-ty-wa-nia ca-ªo-±ci
+Overfull \hbox (7.59952pt too wide) in paragraph at lines 428--437
+\T1/lmr/m/n/12 (-20) w skryp-cie (m.in. za-sto-so-wa-nie ana-lizy czasowo-cz¦st
+otliwo±ciowej oraz me-toda nor-ma-li-za-cji)
+ []
+
+[20]
+Overfull \hbox (8.61359pt too wide) in paragraph at lines 455--464
+\T1/lmr/m/n/12 (-20) Klasyfikacj¦ ob-ra-zów na pod-sta-wie sy-gnaªu EEG zre-ali
+-zo-wano, po-rów-nu-j¡c trzy ar-chi-tek-tury
  []
 
 
-Overfull \hbox (0.31703pt too wide) in paragraph at lines 414--420
-\T1/cmr/m/n/14.4 (-20) pa-ra-me-try za-pi-sy-wano osobno, aby mo»-liwe byªo ich
- pó¹-niej-sze wy-ko-rzy-sta-nie.
+Overfull \hbox (80.63391pt too wide) in paragraph at lines 467--477
+\T1/lmr/m/n/12 (-20) Pierwszy mo-del sta-no-wiªa kla-syczna sie¢ kon-wo-lu-cyjn
+a, trak-tu-j¡ca re-pre-zen-ta-cj¦ czasowo-cz¦stotliwo±ciow¡
  []
 
 
-Overfull \hbox (17.73105pt too wide) in paragraph at lines 414--420
-\T1/cmr/m/n/14.4 (-20) Ostat-nim kro-kiem byªa zmiana ko-lej-no-±ci wy-mia-rów 
-ta-blicy na ukªad ocze-ki-wany
+Overfull \hbox (35.76028pt too wide) in paragraph at lines 467--477
+\T1/lmr/m/n/12 (-20) po-je-dyn-czej próby jak wie-lo-ka-na-ªowy ob-raz -- o wy-
+mia-rach cz¦-sto-tli-wo±¢ na czas, z po-szcze-gól-nymi
+ []
+
+
+Overfull \hbox (102.09653pt too wide) in paragraph at lines 467--477
+\T1/lmr/m/n/12 (-20) ak-ty-wa-cj¦ ReLU. Mo-del uczono opty-ma-li-za-to-rem Adam
+ z funk-cj¡ straty \T1/lmtt/m/n/12 sparse_-categorical_-crossentropy\T1/lmr/m/n
+/12 (-20) ,
+ []
+
+
+Overfull \hbox (15.28156pt too wide) in paragraph at lines 478--485
+[]\T1/lmr/m/n/12 (-20) Istotnym uspraw-nie-niem oka-zaªo si¦ przej-±cie na lo-g
+a-ryt-miczn¡ skal¦ mocy w spek-tro-gra-mach:
+ []
+
+
+Overfull \hbox (2.97528pt too wide) in paragraph at lines 488--496
+\T1/lmr/m/n/12 (-20) Drug¡ me-tod¡ byªa sie¢ EEGNet -- kom-pak-towa ar-chi-tek-
+tura kon-wo-lu-cyjna za-pro-jek-to-wana
+ []
+
+[21]
+Overfull \hbox (5.0692pt too wide) in paragraph at lines 508--515
+\T1/lmr/m/n/12 (-20) osi¡-gn¦ªa nieco lep-sze wy-niki ni» EEGNet, po-zo-sta-j¡c
+ jed-nak w tym sa-mym, umiar-ko-wa-nym
+ []
+
+[22]
+Overfull \hbox (9.15234pt too wide) in paragraph at lines 570--578
+\T1/lmr/m/n/12 (-20) oka-zaªo si¦ mo»-liwe je-dy-nie w ogra-ni-czo-nym za-kre-s
+ie. Sy-gnaª nie-sie in-for-ma-cj¦ wy-star-cza-j¡c¡
+ []
+
+
+Overfull \hbox (2.2652pt too wide) in paragraph at lines 581--591
+\T1/lmr/m/n/12 (-20) za-re-je-stro-wa-nej ak-tyw-no-±ci mó-zgo-wej. Za-da-nie t
+o jest bar-dziej wy-ma-ga-j¡ce ni» kla-sy-fi-ka-cja,
  []
 
 [23]
-Overfull \hbox (8.70522pt too wide) in paragraph at lines 423--432
-\T1/cmr/m/n/14.4 (-20) do obu eta-pów, dzi¦ki czemu po-zo-sta-waªy one ze sob¡ 
-spójne. Ta-kie roz-wi¡-za-nie
+Overfull \hbox (14.91052pt too wide) in paragraph at lines 594--603
+\T1/lmr/m/n/12 (-20) za po-±red-nic-twem re-pre-zen-ta-cji po-±red-niej. Au-to-
+en-ko-der skªada si¦ z dwóch wspóª-pra-cu-j¡-cych
  []
 
 
-Overfull \hbox (34.62311pt too wide) in paragraph at lines 433--438
-[]\T1/cmr/m/n/14.4 (-20) Skrypt prze-wi-dy-waª dwa tryby dzia-ªa-nia, prze-ª¡-c
-zane flag¡. W try-bie pod-sta-wo-wym
+Overfull \hbox (1.60168pt too wide) in paragraph at lines 594--603
+\T1/lmr/m/n/12 (-20) cz¦-±ci. En-ko-der prze-twa-rza sy-gnaª EEG i prze-ksztaªc
+a go w zwi¦-zªy wek-tor cech (ang. \T1/lmr/m/it/12 (-20) la-tent
+ []
+
+<assets/reconstruction_architecture.png, id=187, 975.645pt x 728.7225pt>
+File: assets/reconstruction_architecture.png Graphic file (type png)
+<use assets/reconstruction_architecture.png>
+Package pdftex.def Info: assets/reconstruction_architecture.png  used on input 
+line 621.
+(pdftex.def)             Requested size: 448.13095pt x 334.71605pt.
+[24{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/d
+vips/lm/lm-mathit.enc}]
+<assets/reconstruction_autoencoder.png, id=198, 997.7275pt x 314.17375pt>
+File: assets/reconstruction_autoencoder.png Graphic file (type png)
+<use assets/reconstruction_autoencoder.png>
+Package pdftex.def Info: assets/reconstruction_autoencoder.png  used on input l
+ine 640.
+(pdftex.def)             Requested size: 448.13095pt x 141.10841pt.
+ [25 <./assets/reconstruction_architecture.png>]
+Overfull \hbox (34.00983pt too wide) in paragraph at lines 646--657
+\T1/lmr/m/n/12 (-20) i ko-lo-ry-styce (rys. [][]19[][]). Ta-kie za-cho-wa-nie j
+est cha-rak-te-ry-styczne dla re-kon-struk-cji opty-ma-li-zo-wa-nej
  []
 
 
-Overfull \hbox (1.22102pt too wide) in paragraph at lines 450--459
-\T1/cmr/m/n/14.4 (-20) trzy ar-chi-tek-tury sieci neu-ro-no-wych oraz dwie re-p
-re-zen-ta-cje sy-gnaªu. Pierw-sze
+Overfull \hbox (7.13925pt too wide) in paragraph at lines 658--662
+[]\T1/lmr/m/n/12 (-20) Wynik ten wska-zaª na ogra-ni-cze-nia bez-po-±red-niej r
+e-kon-struk-cji pik-se-lo-wej w roz-pa-try-wa-nym
  []
 
-[24]
-Overfull \hbox (13.5464pt too wide) in paragraph at lines 462--472
-\T1/cmr/m/n/14.4 (-20) Pierwszy mo-del sta-no-wiªa kla-syczna sie¢ kon-wo-lu-cy
-jna, trak-tu-j¡ca re-pre-zen-ta-cj¦
- []
-
-
-Overfull \hbox (1.27724pt too wide) in paragraph at lines 462--472
-\T1/cmr/m/n/14.4 (-20) Adam z funk-cj¡ straty \T1/cmtt/m/n/14.4 sparse_-categor
-ical_-crossentropy\T1/cmr/m/n/14.4 (-20) , wspo-ma-ga-nym
- []
-
-
-Overfull \hbox (27.90807pt too wide) in paragraph at lines 473--480
-\T1/cmr/m/n/14.4 (-20) wska-zy-waªo na po-trzeb¦ sil-niej-szej re-gu-la-ry-za-c
-ji, m.in. zmniej-sze-nia wspóª-czyn-nika
- []
-
-
-Overfull \hbox (7.27248pt too wide) in paragraph at lines 483--491
-\T1/cmr/m/n/14.4 (-20) se-pa-ro-wal-nego, z ak-ty-wa-cj¡ ELU i ogra-ni-cze-niam
-i normy wag (ang. \T1/cmr/m/it/14.4 (-20) max-norm\T1/cmr/m/n/14.4 (-20) ).
- []
-
-
-Overfull \hbox (16.94965pt too wide) in paragraph at lines 492--500
-[]\T1/cmr/m/n/14.4 (-20) Aby do-pa-so-wa¢ sy-gnaª do za-ªo-»e« sieci, pod-dano 
-go de-cy-ma-cji (pod-prób-ko-wa-niu)
- []
-
-
-Overfull \hbox (31.51012pt too wide) in paragraph at lines 492--500
-\T1/cmr/m/n/14.4 (-20) zmniej-sze-nie liczby pró-bek usu-n¦ªo nad-mia-row¡ re-d
-un-dan-cj¦. W prze-pro-wa-dzo-nych
- []
-
-[25]
-Overfull \hbox (4.10335pt too wide) in paragraph at lines 521--531
-\T1/cmr/m/n/14.4 (-20) po-szcze-gól-nych osób. T¦ sam¡ ob-ser-wa-cj¦ po-twier-d
-ziªa ana-liza spek-tro-gra-mów:
- []
-
-
-Overfull \hbox (25.9715pt too wide) in paragraph at lines 521--531
-\T1/cmr/m/n/14.4 (-20) ró»ne osoby re-aguj¡ na ten sam ob-raz od-mien-nie w dzi
-e-dzi-nie czasu i cz¦-sto-tli-wo-±ci.
- []
-
-[26]
-Overfull \hbox (1.54019pt too wide) in paragraph at lines 534--542
-\T1/cmr/m/n/14.4 (-20) naj-wy»-szej cel-no-±ci na zbio-rze ucz¡-cym, wy-ra¹-nie
- si¦ prze-uczaª, co ogra-ni-czaªo
- []
-
-
-Overfull \hbox (9.95728pt too wide) in paragraph at lines 558--564
-\T1/cmr/m/n/14.4 (-20) pro-sta gra-fika geo-me-tryczna, wi-zu-al-nie skraj-nie 
-od-mienna od zdj¦¢, wy-wo-ªu-j¡ca
- []
-
-
-Overfull \hbox (52.46524pt too wide) in paragraph at lines 558--564
-\T1/cmr/m/n/14.4 (-20) po-nadto ten-den-cj¦ mo-deli do cz¦-stego prze-wi-dy-wa-
-nia kilku ka-te-go-rii (m.in. sa-mo-chodu,
- []
-
-
-Overfull \hbox (4.61787pt too wide) in paragraph at lines 565--573
-\T1/cmr/m/n/14.4 (-20) nie-sie in-for-ma-cj¦ wy-star-cza-j¡c¡ do od-ró»-nie-nia
- wy-ra¹-nie od-mien-nych bod¹-ców,
- []
-
-
-Overfull \hbox (24.7162pt too wide) in paragraph at lines 565--573
-\T1/cmr/m/n/14.4 (-20) ró»-nymi oso-bami -- prze-kra-cza mo»-li-wo-±ci me-tody 
-na tym po-zio-mie. Re-pre-zen-ta-cja
- []
-
-
-Overfull \hbox (16.80643pt too wide) in paragraph at lines 565--573
-\T1/cmr/m/n/14.4 (-20) czasowo-cz¦stotliwo±ciowa (CNN) oraz su-rowy sy-gnaª (EE
-GNet, EEG-Inception)
- []
-
-
-Overfull \hbox (7.24452pt too wide) in paragraph at lines 565--573
-\T1/cmr/m/n/14.4 (-20) ar-chi-tek-tura sieci, lecz ilo±¢ in-for-ma-cji o ob-ra-
-zie za-warta w sa-mym sy-gnale. 
- []
-
-
-Overfull \hbox (2.25157pt too wide) in paragraph at lines 576--584
-\T1/cmr/m/n/14.4 (-20) wy-maga od-two-rze-nia znacz-nie bo-gat-szej in-for-ma-c
-ji ni» sama ety-kieta ka-te-go-rii.
- []
-
-[27]
-Overfull \hbox (3.87306pt too wide) in paragraph at lines 587--595
-\T1/cmr/m/n/14.4 (-20) Pierwsze po-dej-±cie oparto na au-to-en-ko-de-rze zªo-»o
--nym z dwóch cz¦-±ci. En-ko-der
- []
-
-
-Overfull \hbox (60.02069pt too wide) in paragraph at lines 587--595
-\T1/cmr/m/n/14.4 (-20) pik-sele. Mo-del uczono me-tod¡ re-gre-sji do pik-seli, 
-mi-ni-ma-li-zu-j¡c bª¡d ±red-nio-kwa-dra-towy
- []
-
-
-Overfull \hbox (18.8657pt too wide) in paragraph at lines 587--595
-\T1/cmr/m/n/14.4 (-20) (ang. \T1/cmr/m/it/14.4 (-20) mean squ-ared er-ror\T1/cm
-r/m/n/14.4 (-20) , MSE) po-mi¦-dzy ob-ra-zem od-two-rzo-nym a rze-czy-wi-stym
- []
-
-
-Overfull \hbox (0.74373pt too wide) in paragraph at lines 610--618
-\T1/cmr/m/n/14.4 (-20) naj-ko-rzyst-niej jest wów-czas zwra-ca¢ u±red-niony ob-
-raz ca-ªego zbioru, po-nie-wa»
- []
-
-
-Overfull \hbox (1.6006pt too wide) in paragraph at lines 610--618
-\T1/cmr/m/n/14.4 (-20) in-for-ma-cji wy-star-cza-j¡-cej do wier-nego, pik-se-lo
--wego od-two-rze-nia po-je-dyn-czego
- []
-
-<assets/reconstruction.png, id=202, 1606.0pt x 441.65pt>
+<assets/reconstruction.png, id=205, 1606.0pt x 441.65pt>
 File: assets/reconstruction.png Graphic file (type png)
 <use assets/reconstruction.png>
-Package pdftex.def Info: assets/reconstruction.png  used on input line 621.
+Package pdftex.def Info: assets/reconstruction.png  used on input line 665.
 (pdftex.def)             Requested size: 448.13095pt x 123.23659pt.
-[28]
-Overfull \hbox (31.69228pt too wide) in paragraph at lines 630--637
-\T1/cmr/m/n/14.4 (-20) ob-raz, uczono en-ko-der od-wzo-ro-wy-wa¢ sy-gnaª EEG na
- wek-tor cech (ang. \T1/cmr/m/it/14.4 (-20) em-bed-ding\T1/cmr/m/n/14.4 (-20) )
 
+Overfull \hbox (2.0382pt too wide) in paragraph at lines 675--681
+\T1/lmr/m/n/12 (-20) re-pre-zen-ta-cji ob-ra-zów, opi-sane w po-przed-niej sek-
+cji. Za-miast od-twa-rza¢ ob-raz w prze-strzeni
+ []
+
+[26 <./assets/reconstruction_autoencoder.png> <./assets/reconstruction.png>]
+Overfull \hbox (0.8383pt too wide) in paragraph at lines 682--693
+\T1/lmr/m/n/12 (-20) wek-tory znor-ma-li-zo-wano do jed-nost-ko-wej dªu-go-±ci,
+ co uªa-twia ich pó¹-niej-sze po-rów-ny-wa-nie.
+ []
+
+<assets/retrieval_image_embeddings.png, id=212, 1298.8525pt x 516.93124pt>
+File: assets/retrieval_image_embeddings.png Graphic file (type png)
+<use assets/retrieval_image_embeddings.png>
+Package pdftex.def Info: assets/retrieval_image_embeddings.png  used on input l
+ine 696.
+(pdftex.def)             Requested size: 448.13095pt x 178.34935pt.
+<assets/retrieval_encoder.png, id=214, 1304.875pt x 720.6925pt>
+File: assets/retrieval_encoder.png Graphic file (type png)
+<use assets/retrieval_encoder.png>
+Package pdftex.def Info: assets/retrieval_encoder.png  used on input line 716.
+(pdftex.def)             Requested size: 448.13095pt x 247.5065pt.
+[27 <./assets/retrieval_image_embeddings.png>]
+Overfull \hbox (7.84956pt too wide) in paragraph at lines 723--731
+[]\T1/lmr/m/n/12 (-20) Po wy-tre-no-wa-niu en-ko-dera re-kon-struk-cj¦ for-mu-ª
+o-wano jako za-da-nie iden-ty-fi-ka-cji. Dla ka»-dej
  []
 
 
-Overfull \hbox (4.9906pt too wide) in paragraph at lines 646--651
-[]\T1/cmr/m/n/14.4 (-20) Rekonstrukcj¦ ro-zu-miano tu jako iden-ty-fi-ka-cj¦. D
-la próby te-sto-wej wy-zna-czano
+Overfull \hbox (24.00821pt too wide) in paragraph at lines 723--731
+\T1/lmr/m/n/12 (-20) naj-bli»-szego s¡-siada (ang. \T1/lmr/m/it/12 (-20) ne-are
+st ne-igh-bour\T1/lmr/m/n/12 (-20) ). Za-da-nie nie spro-wa-dzaªo si¦ za-tem do
+  kla-sy-fi-ka-cji
  []
 
-
-Overfull \hbox (9.00067pt too wide) in paragraph at lines 661--670
-[]\T1/cmr/m/n/14.4 (-20) Skuteczno±¢ oce-niano dwiema mia-rami. Wska¹-niki \T1/
-cmr/m/it/14.4 (-20) top-1 \T1/cmr/m/n/14.4 (-20) oraz \T1/cmr/m/it/14.4 (-20) t
-op-5 \T1/cmr/m/n/14.4 (-20) spraw-dzaªy,
- []
-
-
-Overfull \hbox (13.31853pt too wide) in paragraph at lines 661--670
-\T1/cmr/m/n/14.4 (-20) czy sku-tecz-no±¢ nie wy-nika wy-ª¡cz-nie z ªa-two od-ró
-»-nial-nej gra-fiki geo-me-trycz-nej.
- []
-
-<assets/retrieval.png, id=211, 1027.84pt x 869.2475pt>
+<assets/retrieval_nway.png, id=223, 1495.5875pt x 479.7925pt>
+File: assets/retrieval_nway.png Graphic file (type png)
+<use assets/retrieval_nway.png>
+Package pdftex.def Info: assets/retrieval_nway.png  used on input line 747.
+(pdftex.def)             Requested size: 448.13095pt x 143.76314pt.
+[28 <./assets/retrieval_encoder.png>]
+<assets/retrieval.png, id=232, 1027.84pt x 869.2475pt>
 File: assets/retrieval.png Graphic file (type png)
 <use assets/retrieval.png>
-Package pdftex.def Info: assets/retrieval.png  used on input line 673.
-(pdftex.def)             Requested size: 448.13095pt x 378.98175pt.
-[29 <./assets/reconstruction.png>]
+Package pdftex.def Info: assets/retrieval.png  used on input line 760.
+(pdftex.def)             Requested size: 336.0982pt x 284.23962pt.
+<assets/retrieval-2.png, id=233, 841.9455pt x 711.8595pt>
+File: assets/retrieval-2.png Graphic file (type png)
+<use assets/retrieval-2.png>
+Package pdftex.def Info: assets/retrieval-2.png  used on input line 769.
+(pdftex.def)             Requested size: 336.0982pt x 284.16306pt.
+ [29 <./assets/retrieval_nway.png> <./assets/retrieval.png>]
+Overfull \hbox (16.42761pt too wide) in paragraph at lines 805--811
+\T1/lmr/m/n/12 (-20) ‘wiad-czy to, »e mimo sta-ty-stycz-nej prze-wagi nad po-zi
+o-mem lo-so-wym po-je-dyn-cze do-pa-so-wa-nia
+ []
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+[30 <./assets/retrieval-2.png>]
+Overfull \hbox (10.47636pt too wide) in paragraph at lines 824--830
+\T1/lmr/m/n/12 (-20) ob-ra-zów w za-da-niu re-kon-struk-cji. In-for-ma-cja ta j
+est jed-nak sªaba -- nie po-zwala na pre-cy-zyjne
+ []
 
-[30 <./assets/retrieval.png>]
-Overfull \hbox (12.26424pt too wide) in paragraph at lines 729--735
-\T1/cmr/m/n/14.4 (-20) eks-pe-ry-men-tów: cel-no±¢ kla-sy-fi-ka-cji utrzy-my-wa
-ªa si¦ po-wy-»ej po-ziomu lo-so-wego,
+
+Overfull \hbox (1.29385pt too wide) in paragraph at lines 831--838
+[]\T1/lmr/m/n/12 (-20) Kluczowym czyn-ni-kiem ogra-ni-cza-j¡-cym sku-tecz-no±¢ 
+oka-zaªa si¦ zmien-no±¢ mi¦-dzy-oso-bowa.
+ []
+
+
+Overfull \hbox (5.62512pt too wide) in paragraph at lines 839--846
+\T1/lmr/m/n/12 (-20) Do-dat-kowo re-pre-zen-ta-cja czasowo-cz¦stotliwo±ciowa or
+az sy-gnaª su-rowy daªy po-rów-ny-walne
+ []
+
+
+Overfull \hbox (22.65355pt too wide) in paragraph at lines 847--852
+\T1/lmr/m/n/12 (-20) znacz-nie sªa-biej. Su-ge-ruje to, »e sy-gnaª od-zwier-cie
+-dla przede wszyst-kim ogólne, ni-sko-po-zio-mowe
  []
 
 [31]
-Overfull \hbox (5.78166pt too wide) in paragraph at lines 767--775
-\T1/cmr/m/n/14.4 (-20) aby unik-n¡¢ pod-gl¡-da-nia da-nych te-sto-wych. W za-da
--niu re-kon-struk-cji roz-wa-»y¢
+Overfull \hbox (1.15862pt too wide) in paragraph at lines 862--870
+\T1/lmr/m/n/12 (-20) w do-ce-lo-wym po-st¦-po-wa-niu warto nor-ma-li-zo-wa¢ zbi
+ór te-stowy sta-ty-sty-kami wy-zna-czo-nymi
  []
 
 
-Overfull \hbox (6.22205pt too wide) in paragraph at lines 767--775
-\T1/cmr/m/n/14.4 (-20) mo»na z ko-lei inne funk-cje straty (np. per-cep-tu-aln¡
-) oraz me-tody ogra-ni-cza-j¡ce
+Overfull \hbox (1.87238pt too wide) in paragraph at lines 871--875
+[]\T1/lmr/m/n/12 (-20) Mimo umiar-ko-wa-nych wy-ni-ków licz-bo-wych pro-jekt po
+-zwo-liª przej±¢ peªn¡ ±cie»k¦ ba-daw-cz¡
  []
 
-[32] [33] (./BIAI-raport-koncowy.aux)
+[32] (./BIAI-raport-koncowy.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1387,27 +1331,22 @@ Package rerunfilecheck Info: File `BIAI-raport-koncowy.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 18653 strings out of 474222
- 325093 string characters out of 5748734
+ 18862 strings out of 474222
+ 330174 string characters out of 5748734
  1932975 words of memory out of 5000000
- 40419 multiletter control sequences out of 15000+600000
- 579775 words of font info for 161 fonts, out of 8000000 for 9000
+ 40611 multiletter control sequences out of 15000+600000
+ 608900 words of font info for 143 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 108i,8n,107p,10941b,493s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf
-/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/
-cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pf
-b></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/
-fonts/type1/public/cm-super/sfsx1200.pfb></usr/share/texmf/fonts/type1/public/c
-m-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1440.pfb
-></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/texmf/f
-onts/type1/public/cm-super/sftt1440.pfb>
-Output written on BIAI-raport-koncowy.pdf (33 pages, 3228107 bytes).
+ 108i,8n,107p,10941b,546s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/ty
+pe1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></us
+r/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/pu
+blic/lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/s
+hare/texmf/fonts/type1/public/lm/lmtt12.pfb>
+Output written on BIAI-raport-koncowy.pdf (33 pages, 7069757 bytes).
 PDF statistics:
- 431 PDF objects out of 1000 (max. 8388607)
- 342 compressed objects within 4 object streams
- 90 named destinations out of 1000 (max. 500000)
- 36199 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 433 PDF objects out of 1000 (max. 8388607)
+ 344 compressed objects within 4 object streams
+ 96 named destinations out of 1000 (max. 500000)
+ 27525 words of extra memory for PDF output out of 29859 (max. 10000000)
 

@@ -578,108 +578,198 @@
 	\section{Rekonstrukcja obrazów}
 	
 	Drugim celem projektu była próba rekonstrukcji obrazów na podstawie sygnału
-	EEG -- odtworzenia tego, co widział badany, wyłącznie z~zapisu jego aktywności
-	mózgowej. Zadanie to jest trudniejsze od~klasyfikacji, ponieważ wymaga
-	odtworzenia znacznie bogatszej informacji niż sama etykieta kategorii.
-	Zrealizowano je dwoma komplementarnymi sposobami: przez bezpośrednią
-	rekonstrukcję pikseli (autoenkoder) oraz przez identyfikację obrazu spośród
-	zbioru kandydatów (ang.~\textit{retrieval}). W~obu wykorzystano dane surowe
-	oraz enkoder o~architekturze zgodnej z~siecią EEGNet.
+	EEG, czyli odtworzenia informacji o~obrazie oglądanym przez badanego
+	wyłącznie na podstawie zarejestrowanej aktywności mózgowej. Zadanie to jest
+	bardziej wymagające niż klasyfikacja, ponieważ wymaga odtworzenia znacznie
+	bogatszej informacji niż jedynie przynależność obrazu do~określonej kategorii.
+	W~ramach projektu zastosowano dwa komplementarne podejścia: bezpośrednią
+	rekonstrukcję pikselową z~wykorzystaniem autoenkodera oraz identyfikację
+	obrazu spośród zbioru kandydatów (ang.~\textit{retrieval}). W~obu przypadkach
+	wykorzystano surowy sygnał EEG oraz enkoder oparty na~architekturze zgodnej
+	z~siecią EEGNet.
 	
 	\subsection{Rekonstrukcja pikselowa (autoenkoder)}
 	
-	Pierwsze podejście oparto na autoenkoderze złożonym z~dwóch części. Enkoder --
-	korpus sieci EEGNet pozbawiony warstwy klasyfikującej -- mapował sygnał na
-	wektor cech (ang.~\textit{latent}). Dekoder rozwijał ten wektor z~powrotem do
-	obrazu RGB za pomocą splotów transponowanych (ang.~\textit{transposed
-		convolution}), stopniowo zwiększając rozdzielczość aż do rozmiaru 64 na~64
-	piksele. Model uczono metodą regresji do pikseli, minimalizując błąd
-	średniokwadratowy (ang.~\textit{mean squared error}, MSE) pomiędzy obrazem
-	odtworzonym a~rzeczywistym bodźcem.
-
-	%\begin{lstlisting}[language=Python, caption={Dekoder oraz zlozenie autoenkodera (wariant pikselowy).}, label=lst:dekoder]
-	%	# Dekoder: wektor cech (latent) -> obraz RGB przez sploty transponowane
-	%	x = Dense(8*8*64, activation="elu")(latent)
-	%	x = Reshape((8, 8, 64))(x)
-	%	x = Conv2DTranspose(32, 3, strides=2, padding="same", activation="elu")(x)  # 16x16
-	%	x = Conv2DTranspose(16, 3, strides=2, padding="same", activation="elu")(x)  # 32x32
-	%	x = Conv2DTranspose(16, 3, strides=2, padding="same", activation="elu")(x)  # 64x64
-	%	obraz = Conv2D(3, 3, padding="same", activation="sigmoid")(x)               # piksele [0,1]
-		
-	%	# Autoenkoder = dekoder(enkoder(sygnal)); uczony jako regresja do pikseli
-	%	autoenkoder = Model(wejscie, dekoder(enkoder(wejscie)))
-	%	autoenkoder.compile(optimizer=Adam(1e-3), loss="mse")
-	%\end{lstlisting}
+	Pierwsze podejście do~rekonstrukcji oparto na~autoenkoderze, czyli sieci
+	neuronowej uczącej się odwzorowania danych wejściowych na~odpowiadające im
+	dane wyjściowe za~pośrednictwem reprezentacji pośredniej. Autoenkoder składa
+	się z~dwóch współpracujących części. Enkoder przetwarza sygnał EEG i~przekształca
+	go w~zwięzły wektor cech (ang.~\textit{latent vector}), reprezentujący
+	informację wyodrębnioną z~sygnału. Dekoder wykorzystuje następnie tę
+	reprezentację do~wygenerowania obrazu. W~procesie uczenia parametry obu części
+	są dostosowywane w~taki sposób, aby obraz odtworzony przez dekoder był możliwie
+	zbliżony do~obrazu rzeczywiście prezentowanego badanemu.
 	
-	Uzyskane rekonstrukcje okazały się niemal identyczne dla wszystkich prób --
-	model odtwarzał rozmytą, uśrednioną plamę barwną, niezależnie od~wejścia
-	(rys.~\ref{fig:rekonstrukcja-mgla}). Jest to charakterystyczne zachowanie przy
-	stracie MSE w~sytuacji, gdy z~wejścia nie da się jednoznacznie odtworzyć celu:
-	matematycznie najkorzystniej jest wówczas zwracać uśredniony obraz całego
-	zbioru, ponieważ minimalizuje to średni błąd. Wynik ten oznacza, że sygnał nie
-	zawiera informacji wystarczającej do wiernego, pikselowego odtworzenia
-	pojedynczego obrazu.
+	Enkoder zbudowano na~bazie sieci EEGNet wykorzystanej wcześniej w~zadaniu
+	klasyfikacji, jednak usunięto z~niej końcową warstwę klasyfikującą
+	(\texttt{softmax}). Zamiast rozkładu prawdopodobieństwa po~kategoriach enkoder
+	zwraca wektor cech o~ustalonej długości, wynoszącej w~projekcie 128 wartości.
+	Pozwala to wykorzystać wcześniej zastosowaną architekturę jako moduł
+	ekstrakcji reprezentacji sygnału EEG. Dekoder rekonstruuje obraz etapami,
+	stopniowo zwiększając jego rozdzielczość. W~pierwszym kroku wektor cech jest
+	przekształcany do~niewielkiej mapy cech o~rozmiarze $8\times8$ z~wieloma
+	kanałami. Następnie kolejne warstwy splotów transponowanych
+	(ang.~\textit{transposed convolution}) zwiększają jej rozmiar, aż do~uzyskania
+	docelowej rozdzielczości $64\times64$ piksele. Ostatnia warstwa generuje trzy
+	kanały odpowiadające składowym barwnym RGB, z~wartościami z~zakresu $[0,1]$,
+	tworząc w~ten sposób wynikowy obraz. Kod obu części przedstawiono
+	na~rys.~\ref{fig:recon-arch}.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{assets/reconstruction_architecture.png}
+		\caption{Architektura enkodera (korpus EEGNet zakończony wektorem cech)
+			oraz dekodera (sploty transponowane rozwijające wektor cech do~obrazu).}
+		\label{fig:recon-arch}
+	\end{figure}
+	
+	Obie części połączono w~jeden model, w~którym sygnał EEG jest kolejno
+	przetwarzany przez enkoder i~dekoder (rys.~\ref{fig}).
+	Dla~każdej próby jako docelowy wynik uczenia wykorzystywano rzeczywisty obraz
+	prezentowany badanemu podczas rejestracji sygnału. Obrazy wczytywano z~plików
+	i~przeskalowywano do~rozdzielczości $64\times64$ piksele. Model był uczony
+	z~wykorzystaniem błędu średniokwadratowego (ang.~\textit{mean squared error},
+	MSE), obliczanego pomiędzy obrazem odtworzonym a~obrazem docelowym. Funkcja
+	ta określa średnią wartość kwadratów różnic pomiędzy odpowiadającymi sobie
+	wartościami pikseli. Im~niższa wartość MSE, tym mniejsza jest średnia różnica
+	pomiędzy rekonstrukcją a~obrazem docelowym.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{assets/reconstruction_autoencoder.png}
+		\caption{Złożenie autoenkodera z~enkodera i~dekodera oraz kompilacja
+			z~funkcją straty MSE (regresja do~pikseli).}
+		\label{fig}
+	\end{figure}
+	
+	Uzyskane rekonstrukcje okazały się jednak bardzo podobne dla~różnych prób.
+	Niezależnie od~podanego sygnału EEG model generował obrazy o~zbliżonej,
+	rozmytej strukturze i~kolorystyce (rys.~\ref{fig}).
+	Takie zachowanie jest charakterystyczne dla~rekonstrukcji optymalizowanej
+	z~wykorzystaniem funkcji straty MSE w~sytuacji, gdy na~podstawie danych
+	wejściowych nie można jednoznacznie określić docelowego obrazu. W~takim
+	przypadku minimalizacja średniego błędu może prowadzić do~generowania obrazu
+	stanowiącego przybliżenie średniej charakterystyki obrazów występujących
+	w~zbiorze, zamiast do~odtworzenia konkretnego obrazu. W~rezultacie uzyskane
+	rekonstrukcje nie zachowywały wystarczającej ilości informacji pozwalającej
+	na~wierne odtworzenie pojedynczego obrazu.
+	
+	Wynik ten wskazał na~ograniczenia bezpośredniej rekonstrukcji pikselowej
+	w~rozpatrywanym zadaniu i~stał się motywacją do~zastosowania drugiego
+	podejścia, opartego na~identyfikacji obrazu spośród zadanego zbioru
+	kandydatów.
 	
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=\linewidth]{assets/reconstruction.png}
-		\caption{Rekonstrukcja pikselowa: obraz prawdziwy (góra) oraz rekonstrukcja
-			z~EEG (dół). Odtworzenia są niemal identyczne dla różnych prób --
-			model zbiega do uśrednionego obrazu zbioru.}
-		\label{fig:rekonstrukcja-mgla}
+		\caption{Rekonstrukcja pikselowa: obraz rzeczywisty (góra) oraz obraz
+			odtworzony na~podstawie sygnału EEG (dół). Rekonstrukcje uzyskane
+			dla~różnych prób wykazują podobną strukturę, co wskazuje na~tendencję
+			modelu do~generowania uśrednionej reprezentacji obrazów ze~zbioru.}
+		\label{fig}
 	\end{figure}
 	
 	\subsection{Identyfikacja obrazów (retrieval)}
 	
-	Drugie podejście omijało konieczność generowania pikseli. Zamiast odtwarzać
-	obraz, uczono enkoder odwzorowywać sygnał EEG na wektor cech (ang.~\textit{embedding})
-	w~tej samej przestrzeni, w~której opisano obrazy. Embeddingi obrazów wyznaczono
-	pretrenowaną siecią rozpoznającą obrazy (MobileNetV2), dzięki czemu obrazy
-	wizualnie podobne miały zbliżone wektory. Enkoder EEG uczył się celować
-	w~embedding obrazu oglądanego podczas danej próby, a~jako funkcję straty
-	wykorzystano podobieństwo kosinusowe (ang.~\textit{cosine similarity}).
+	Drugie podejście do~rekonstrukcji omijało konieczność bezpośredniego generowania
+	pikseli, a~tym samym ograniczenie związane z~tendencją modelu do~generowania
+	uśrednionej reprezentacji obrazów, opisane w~poprzedniej sekcji. Zamiast
+	odtwarzać obraz w~przestrzeni pikseli, uczono sieć identyfikowania obrazu,
+	który badany oglądał, poprzez odwzorowanie sygnału EEG do~wspólnej przestrzeni
+	cech obrazów.
 	
-	%\begin{lstlisting}[language=Python, caption={Enkoder EEG konczacy sie embeddingiem; uczenie podobienstwem kosinusowym.}, label=lst:embedding]
-	%	# Enkoder EEG konczy sie wektorem cech znormalizowanym do dlugosci 1
-	%	x = Dense(embed_dim)(x)
-	%	osadzenie = Lambda(lambda t: tf.math.l2_normalize(t, axis=1))(x)
-	%	model = Model(wejscie, osadzenie)
-	%	model.compile(optimizer=Adam(1e-3), loss=CosineSimilarity(axis=1))
-	%\end{lstlisting}
-	
-	Rekonstrukcję rozumiano tu jako identyfikację. Dla próby testowej wyznaczano
-	jej embedding, a~następnie porównywano go z~embeddingami wszystkich
-	obrazów-kandydatów, wybierając najbliższe (ang.~\textit{nearest neighbour}).
-	Nie jest to zatem klasyfikacja po jedenastu kategoriach, lecz wyszukiwanie
-	konkretnego obrazu spośród 220 możliwych.
-	
-	%\begin{lstlisting}[language=Python, caption={Wyszukiwanie najblizszego obrazu oraz identyfikacja n-way.}, label=lst:retrieval]
-	%	# Podobienstwo embeddingu z EEG do wszystkich obrazow-kandydatow
-	%	sims = pred @ emb_obrazow.T            # (proby, obrazy)
-	%	ranking = np.argsort(-sims, axis=1)    # obrazy od najblizszego
-		
-	%	# Identyfikacja n-way: czy poprawny obraz wygrywa z k-1 losowymi rozpraszaczami
-	%	trafienie = sims[i, poprawny] > sims[i, rozpraszacze].max()
-	%\end{lstlisting}
-	
-	Skuteczność oceniano dwiema miarami. Wskaźniki \textit{top-1} oraz \textit{top-5}
-	sprawdzały, czy właściwy obraz znalazł się na~pierwszym miejscu lub w~pierwszej
-	piątce rankingu spośród wszystkich 220 obrazów. Identyfikacja \textit{n-way}
-	(dla 2, 5 oraz 10) sprawdzała, czy właściwy obraz wygrywał z~$k-1$ losowo
-	dobranymi rozpraszaczami, co odpowiada zgadywaniu spośród $k$ obrazów. Ocenę
-	powtórzono również z~pominięciem kategorii \textit{abstract}, aby sprawdzić,
-	czy skuteczność nie wynika wyłącznie z~łatwo odróżnialnej grafiki
-	geometrycznej. Przykładowe wyniki wyszukiwania przedstawiono na
-	rys.~\ref{fig:retrieval}.
+	Punktem wyjścia było opisanie każdego z~220 obrazów za~pomocą zwięzłego
+	wektora liczb (ang.~\textit{embedding}). Wektory te wyznaczono przy użyciu
+	pretrenowanej sieci rozpoznającej obrazy (MobileNetV2), która została
+	wcześniej nauczona na~milionach obrazów. Dzięki temu obrazy o~podobnej
+	charakterystyce wizualnej i~semantycznej otrzymują zbliżone reprezentacje
+	wektorowe, natomiast obrazy istotnie różniące się od~siebie zajmują w~tej
+	przestrzeni bardziej odległe położenia. W~ten sposób powstała wspólna
+	przestrzeń reprezentacji obrazów, w~której każdemu obrazowi odpowiada
+	określony punkt. Wszystkie wektory znormalizowano do~jednostkowej długości,
+	co ułatwia ich późniejsze porównywanie. Sposób wyznaczania embeddingów
+	przedstawiono na~rys.~\ref{fig:retrieval-emb}.
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=\linewidth]{assets/retrieval.png}
+		\includegraphics[width=1.0\textwidth]{assets/retrieval_image_embeddings.png}
+		\caption{Wyznaczanie embeddingów obrazów pretrenowaną siecią MobileNetV2
+			oraz ich normalizacja do~jednostkowej długości.}
+		\label{fig:retrieval-emb}
+	\end{figure}
+	
+	Następnie enkoder EEG uczono odwzorowywać sygnał do~punktu w~tej samej
+	przestrzeni reprezentacji, możliwie bliskiego obrazowi, który badany
+	rzeczywiście oglądał. Enkoder oparto na~architekturze EEGNet, a~jego wyjściem
+	był wektor cech o~długości zgodnej z~embeddingiem obrazu, również
+	znormalizowany do~jednostkowej długości. Jako funkcję straty wykorzystano
+	podobieństwo kosinusowe (ang.~\textit{cosine similarity}), które określa
+	stopień zgodności kierunków dwóch wektorów. Dla znormalizowanych wektorów
+	wartość 1 oznacza identyczny kierunek, natomiast wartość 0 oznacza ich
+	ortogonalność. Uczenie polegało zatem na~dopasowaniu reprezentacji
+	uzyskiwanej z~sygnału EEG do~reprezentacji właściwego obrazu
+	(rys.~\ref{fig:retrieval-enc}).
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{assets/retrieval_encoder.png}
+		\caption{Enkoder EEG (korpus EEGNet) zakończony znormalizowanym wektorem
+			cech oraz jego uczenie z~funkcją straty opartą na~podobieństwie
+			kosinusowym.}
+		\label{fig:retrieval-enc}
+	\end{figure}
+	
+	Po~wytrenowaniu enkodera rekonstrukcję formułowano jako zadanie identyfikacji.
+	Dla~każdej próby testowej wyznaczano wektor reprezentujący sygnał EEG,
+	a~następnie porównywano go, za~pomocą podobieństwa kosinusowego, z~wektorami
+	wszystkich 220 obrazów. Jako wynik identyfikacji wybierano obraz o~najwyższym
+	podobieństwie, stosując metodę najbliższego sąsiada
+	(ang.~\textit{nearest neighbour}). Zadanie nie sprowadzało się zatem do~
+	klasyfikacji obrazu do~jednej z~jedenastu kategorii, lecz polegało na~
+	wskazaniu konkretnego obrazu spośród całego zbioru dostępnych możliwości.
+	
+	Skuteczność identyfikacji oceniano za~pomocą dwóch grup miar. Wskaźniki
+	\textit{top-1} oraz \textit{top-5} określały, czy właściwy obraz znalazł się
+	odpowiednio na~pierwszym miejscu lub w~pierwszej piątce rankingu spośród
+	220 obrazów. Identyfikacja \textit{n-way} (dla~$k=2$, $5$ oraz $10$) określała
+	natomiast, czy właściwy obraz uzyskał wyższe podobieństwo niż $k-1$ losowo
+	dobranych obrazów pełniących rolę rozpraszaczy. Odpowiadało to zadaniu
+	wyboru właściwego obrazu spośród $k$ możliwości. Procedurę powtarzano
+	wielokrotnie, a~następnie uśredniano uzyskane wyniki. Kod implementujący
+	tę miarę przedstawiono na~rys.~\ref{fig:retrieval-nway}. Ocenę przeprowadzono
+	dwukrotnie: dla~pełnego zbioru kategorii oraz po~usunięciu najłatwiejszej
+	kategorii \textit{abstract}. Pozwoliło to sprawdzić, czy uzyskiwana informacja
+	dotyczy również samych zdjęć, a~nie wyłącznie różnic pomiędzy kategoriami.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{assets/retrieval_nway.png}
+		\caption{Miara identyfikacji \textit{n-way}: sprawdzenie, czy właściwy obraz
+			uzyskuje wyższe podobieństwo niż $k-1$ losowych obrazów pełniących
+			rolę rozpraszaczy.}
+		\label{fig:retrieval-nway}
+	\end{figure}
+	
+	Przykładowe wyniki wyszukiwania, obejmujące obraz-zapytanie oraz pięć
+	najbliższych obrazów w~przestrzeni embeddingów, przedstawiono
+	na~rys.~\ref{fig:retrieval-siatka} i ~\ref{fig:retrieval-siatka-2}.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\linewidth]{assets/retrieval.png}
 		\caption{Identyfikacja: obraz-zapytanie (pierwsza kolumna) oraz pięć
-			najbliższych obrazów wg~embeddingu z~EEG. Dla grafiki
-			\textit{abstract} wszystkie dopasowania są poprawne; wśród zdjęć
-			powtarzają się natomiast pojedyncze obrazy (tzw.~węzły).}
-		\label{fig:retrieval}
+			najbliższych obrazów według podobieństwa embeddingów uzyskanych
+			z~sygnału EEG.}
+		\label{fig:retrieval-siatka}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\linewidth]{assets/retrieval-2.png}
+		\caption{Identyfikacja: obraz-zapytanie (pierwsza kolumna) oraz pięć
+			najbliższych obrazów według podobieństwa embeddingów uzyskanych
+			z~sygnału EEG przy wykluczeniu klasy abstract.}
+		\label{fig:retrieval-siatka-2}
 	\end{figure}
 	
 	\subsection{Wyniki i~wnioski}
@@ -711,7 +801,7 @@
 		\label{tab:retrieval}
 	\end{table}
 	
-	Analiza jakościowa (rys.~\ref{fig:retrieval}) ujawniła jednocześnie zjawisko
+	Analiza jakościowa ujawniła jednocześnie zjawisko
 	tzw.~węzłów (ang.~\textit{hub}): kilka obrazów (m.in.~przedstawiających psy)
 	pojawiało się jako najbliższy sąsiad wielu różnych zapytań. Świadczy to, że
 	mimo statystycznej przewagi nad~poziomem losowym pojedyncze dopasowania
@@ -782,4 +872,4 @@
 	wnioski na~temat możliwości i~ograniczeń dekodowania obrazów z~aktywności
 	mózgu.
 	
-\end{document}
+	\end{document}
