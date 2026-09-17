@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.24)  17 SEP 2026 13:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.24)  17 SEP 2026 14:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1192,22 +1192,22 @@ File: assets/abstractComp.png Graphic file (type png)
 <use assets/abstractComp.png>
 Package pdftex.def Info: assets/abstractComp.png  used on input line 460.
 (pdftex.def)             Requested size: 448.13095pt x 180.44377pt.
-<assets/AbstractFullComp.png, id=170, 3631.5675pt x 4101.3225pt>
+<assets/AbstractFullComp.png, id=170, 145.2627pt x 164.0529pt>
 File: assets/AbstractFullComp.png Graphic file (type png)
 <use assets/AbstractFullComp.png>
 Package pdftex.def Info: assets/AbstractFullComp.png  used on input line 468.
-(pdftex.def)             Requested size: 448.13095pt x 506.09305pt.
+(pdftex.def)             Requested size: 448.13095pt x 506.14058pt.
 [22 <./assets/abstractComp.png>] [23 <./assets/AbstractFullComp.png>]
 Overfull \hbox (11.63991pt too wide) in paragraph at lines 474--475
 []\T1/lmr/m/n/12 (-20) Logartym miaª za-da-nie wy-rów-na¢ wy-kresy, nor-ma-li-z
 a-cja, miaªa na celu skró-ce-nie prze-dzia-ªów
  []
 
-<assets/randomFullComp.png, id=183, 3636.08438pt x 4101.3225pt>
+<assets/randomFullComp.png, id=183, 291.0072pt x 328.1058pt>
 File: assets/randomFullComp.png Graphic file (type png)
 <use assets/randomFullComp.png>
 Package pdftex.def Info: assets/randomFullComp.png  used on input line 478.
-(pdftex.def)             Requested size: 403.31511pt x 454.90173pt.
+(pdftex.def)             Requested size: 403.31511pt x 454.73901pt.
 
 Overfull \hbox (8.61359pt too wide) in paragraph at lines 485--494
 \T1/lmr/m/n/12 (-20) Klasyfikacj¦ ob-ra-zów na pod-sta-wie sy-gnaªu EEG zre-ali
@@ -1226,7 +1226,7 @@ Overfull \hbox (21.77489pt too wide) in paragraph at lines 500--507
 2 sparse_-categorical_-crossentropy\T1/lmr/m/n/12 (-20) , wspo-ma-ga-nym
  []
 
-<assets/CNNarchitecture.png, id=191, 649.42625pt x 816.04875pt>
+<assets/CNNarchitecture.png, id=190, 649.42625pt x 816.04875pt>
 File: assets/CNNarchitecture.png Graphic file (type png)
 <use assets/CNNarchitecture.png>
 Package pdftex.def Info: assets/CNNarchitecture.png  used on input line 510.
@@ -1237,20 +1237,20 @@ Overfull \hbox (15.65747pt too wide) in paragraph at lines 522--524
 ci pik-seli mi¦-dzy ka-na-ªami po-szcze-gól-nych
  []
 
-<assets/BestOnePatientCNN.png, id=203, 1220.30907pt x 1198.4775pt>
+<assets/BestOnePatientCNN.png, id=202, 1220.30907pt x 1198.4775pt>
 File: assets/BestOnePatientCNN.png Graphic file (type png)
 <use assets/BestOnePatientCNN.png>
 Package pdftex.def Info: assets/BestOnePatientCNN.png  used on input line 527.
 (pdftex.def)             Requested size: 403.31511pt x 396.10228pt.
 [27 <./assets/BestOnePatientCNN.png>]
-<assets/BestMuliPatientFixed.png, id=210, 1248.91594pt x 1211.27531pt>
+<assets/BestMuliPatientFixed.png, id=209, 1248.91594pt x 1211.27531pt>
 File: assets/BestMuliPatientFixed.png Graphic file (type png)
 <use assets/BestMuliPatientFixed.png>
 Package pdftex.def Info: assets/BestMuliPatientFixed.png  used on input line 54
 0.
 (pdftex.def)             Requested size: 403.31511pt x 391.1462pt.
  [28 <./assets/BestMuliPatientFixed.png>]
-<assets/BestMuliPatientMixed.png, id=217, 1242.14063pt x 1254.18562pt>
+<assets/BestMuliPatientMixed.png, id=216, 1242.14063pt x 1254.18562pt>
 File: assets/BestMuliPatientMixed.png Graphic file (type png)
 <use assets/BestMuliPatientMixed.png>
 Package pdftex.def Info: assets/BestMuliPatientMixed.png  used on input line 55
@@ -1268,13 +1268,13 @@ Overfull \hbox (2.97528pt too wide) in paragraph at lines 562--570
 tura kon-wo-lu-cyjna za-pro-jek-to-wana
  []
 
-<assets/EEGNetBestMultiMixedMatrix.png, id=224, 985.6825pt x 955.57pt>
+<assets/EEGNetBestMultiMixedMatrix.png, id=223, 985.6825pt x 955.57pt>
 File: assets/EEGNetBestMultiMixedMatrix.png Graphic file (type png)
 <use assets/EEGNetBestMultiMixedMatrix.png>
 Package pdftex.def Info: assets/EEGNetBestMultiMixedMatrix.png  used on input l
 ine 580.
 (pdftex.def)             Requested size: 291.28238pt x 282.38646pt.
-<assets/EEGNetBestMultiMixed.png, id=225, 1606.0pt x 461.725pt>
+<assets/EEGNetBestMultiMixed.png, id=224, 1606.0pt x 461.725pt>
 File: assets/EEGNetBestMultiMixed.png Graphic file (type png)
 <use assets/EEGNetBestMultiMixed.png>
 Package pdftex.def Info: assets/EEGNetBestMultiMixed.png  used on input line 58
@@ -1293,13 +1293,13 @@ Overfull \hbox (5.0692pt too wide) in paragraph at lines 592--599
  jed-nak w tym sa-mym, umiar-ko-wa-nym
  []
 
-<assets/EEGInceptionBestMultiMixedMatrix.png, id=233, 709.6914pt x 688.0104pt>
+<assets/EEGInceptionBestMultiMixedMatrix.png, id=232, 709.6914pt x 688.0104pt>
 File: assets/EEGInceptionBestMultiMixedMatrix.png Graphic file (type png)
 <use assets/EEGInceptionBestMultiMixedMatrix.png>
 Package pdftex.def Info: assets/EEGInceptionBestMultiMixedMatrix.png  used on i
 nput line 602.
 (pdftex.def)             Requested size: 291.28238pt x 282.38004pt.
-<assets/EEGInceptionBestMultiMixed.png, id=234, 1178.001pt x 338.9463pt>
+<assets/EEGInceptionBestMultiMixed.png, id=233, 1178.001pt x 338.9463pt>
 File: assets/EEGInceptionBestMultiMixed.png Graphic file (type png)
 <use assets/EEGInceptionBestMultiMixed.png>
 Package pdftex.def Info: assets/EEGInceptionBestMultiMixed.png  used on input l
@@ -1336,7 +1336,7 @@ Overfull \hbox (1.60168pt too wide) in paragraph at lines 685--694
 a go w zwi¦-zªy wek-tor cech (ang. \T1/lmr/m/it/12 (-20) la-tent
  []
 
-<assets/reconstruction_architecture.png, id=252, 975.645pt x 728.7225pt>
+<assets/reconstruction_architecture.png, id=251, 975.645pt x 728.7225pt>
 File: assets/reconstruction_architecture.png Graphic file (type png)
 <use assets/reconstruction_architecture.png>
 Package pdftex.def Info: assets/reconstruction_architecture.png  used on input 
@@ -1345,7 +1345,7 @@ line 712.
 [33{C:/Users/Grzegorz/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.en
 c}{C:/Users/Grzegorz/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit
 .enc}]
-<assets/reconstruction_autoencoder.png, id=263, 997.7275pt x 314.17375pt>
+<assets/reconstruction_autoencoder.png, id=262, 997.7275pt x 314.17375pt>
 File: assets/reconstruction_autoencoder.png Graphic file (type png)
 <use assets/reconstruction_autoencoder.png>
 Package pdftex.def Info: assets/reconstruction_autoencoder.png  used on input l
@@ -1363,11 +1363,11 @@ Overfull \hbox (7.13925pt too wide) in paragraph at lines 749--753
 e-kon-struk-cji pik-se-lo-wej w roz-pa-try-wa-nym
  []
 
-<assets/reconstruction.png, id=270, 1606.0pt x 441.65pt>
+<assets/reconstruction.png, id=269, 803.0pt x 220.825pt>
 File: assets/reconstruction.png Graphic file (type png)
 <use assets/reconstruction.png>
 Package pdftex.def Info: assets/reconstruction.png  used on input line 756.
-(pdftex.def)             Requested size: 448.13095pt x 123.23659pt.
+(pdftex.def)             Requested size: 448.13095pt x 123.23996pt.
 
 Overfull \hbox (2.0382pt too wide) in paragraph at lines 766--772
 \T1/lmr/m/n/12 (-20) re-pre-zen-ta-cji ob-ra-zów, opi-sane w po-przed-niej sek-
@@ -1380,13 +1380,13 @@ Overfull \hbox (0.8383pt too wide) in paragraph at lines 773--784
  co uªa-twia ich pó¹-niej-sze po-rów-ny-wa-nie.
  []
 
-<assets/retrieval_image_embeddings.png, id=277, 1298.8525pt x 516.93124pt>
+<assets/retrieval_image_embeddings.png, id=276, 1298.8525pt x 516.93124pt>
 File: assets/retrieval_image_embeddings.png Graphic file (type png)
 <use assets/retrieval_image_embeddings.png>
 Package pdftex.def Info: assets/retrieval_image_embeddings.png  used on input l
 ine 787.
 (pdftex.def)             Requested size: 448.13095pt x 178.34935pt.
-<assets/retrieval_encoder.png, id=279, 1304.875pt x 720.6925pt>
+<assets/retrieval_encoder.png, id=278, 1304.875pt x 720.6925pt>
 File: assets/retrieval_encoder.png Graphic file (type png)
 <use assets/retrieval_encoder.png>
 Package pdftex.def Info: assets/retrieval_encoder.png  used on input line 807.
@@ -1404,22 +1404,22 @@ st ne-igh-bour\T1/lmr/m/n/12 (-20) ). Za-da-nie nie spro-wa-dzaªo si¦ za-tem do
   kla-sy-fi-ka-cji
  []
 
-<assets/retrieval_nway.png, id=289, 1495.5875pt x 479.7925pt>
+<assets/retrieval_nway.png, id=288, 1495.5875pt x 479.7925pt>
 File: assets/retrieval_nway.png Graphic file (type png)
 <use assets/retrieval_nway.png>
 Package pdftex.def Info: assets/retrieval_nway.png  used on input line 838.
 (pdftex.def)             Requested size: 448.13095pt x 143.76314pt.
 [37 <./assets/retrieval_encoder.png>]
-<assets/retrieval.png, id=298, 1027.84pt x 869.2475pt>
+<assets/retrieval.png, id=297, 513.92pt x 434.62375pt>
 File: assets/retrieval.png Graphic file (type png)
 <use assets/retrieval.png>
 Package pdftex.def Info: assets/retrieval.png  used on input line 851.
 (pdftex.def)             Requested size: 336.0982pt x 284.23962pt.
-<assets/retrieval-2.png, id=299, 841.9455pt x 711.8595pt>
+<assets/retrieval-2.png, id=298, 168.3891pt x 142.3719pt>
 File: assets/retrieval-2.png Graphic file (type png)
 <use assets/retrieval-2.png>
 Package pdftex.def Info: assets/retrieval-2.png  used on input line 860.
-(pdftex.def)             Requested size: 336.0982pt x 284.16306pt.
+(pdftex.def)             Requested size: 336.0982pt x 284.19127pt.
  [38 <./assets/retrieval_nway.png> <./assets/retrieval.png>]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1486,9 +1486,9 @@ m/lmri12.pfb><C:/Users/Grzegorz/AppData/Local/Programs/MiKTeX/fonts/type1/publi
 c/lm/lmssbx10.pfb><C:/Users/Grzegorz/AppData/Local/Programs/MiKTeX/fonts/type1/
 public/lm/lmsy10.pfb><C:/Users/Grzegorz/AppData/Local/Programs/MiKTeX/fonts/typ
 e1/public/lm/lmtt12.pfb>
-Output written on BIAI-raport-koncowy.pdf (42 pages, 35903794 bytes).
+Output written on BIAI-raport-koncowy.pdf (42 pages, 9842211 bytes).
 PDF statistics:
- 505 PDF objects out of 1000 (max. 8388607)
+ 503 PDF objects out of 1000 (max. 8388607)
  115 named destinations out of 1000 (max. 500000)
  27603 words of extra memory for PDF output out of 29859 (max. 10000000)
 
