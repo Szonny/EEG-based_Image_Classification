@@ -416,7 +416,7 @@
 	odnalazła się w~plikach wynikowych. Pozwalało to wykryć ewentualne zagubienie
 	lub niezgodność danych powstałe podczas mieszania.
 	
-	Na koniec dane poddawano normalizacji. Dla każdego kanału wyznaczano średnią
+	Na koniec dane poddawano normalizacji. Dla każdego kanału w spektogramach z podzbioru testowego, wyznaczano średnią
 	oraz odchylenie standardowe, a~następnie standaryzowano wartości, odejmując
 	średnią i~dzieląc przez odchylenie standardowe. Wyznaczone parametry
 	zapisywano osobno, aby możliwe było ich późniejsze wykorzystanie. Ostatnim
@@ -449,6 +449,36 @@
 	Pozwalało to przygotować komplet danych do porównania wpływu poszczególnych
 	metod na wyniki, przy czym -- ze względu na liczbę wariantów -- powstający
 	zbiór osiągał znaczny rozmiar (rzędu ponad 130~GB).
+	
+	\subsection{Przykładowe gotowe spektogramy}
+	
+	Końcowo okazało się że zestawami danych, które przyniosły najlepsze efekty podczas trenowania sieci CNN utworzonej do celów projektu były spektogramy w skali logarytmicznej, po usunięciu średniej i normalizacji.
+	Zakładamy że te operacje pomogły wyrównać różnice w wartościach pojawiających się na różnych elektrodach, co szczególnie uwidaczniało się przy obrazach z klasy abstract. Elektrody posiadały różny całkowity poziom sygnału, niektóre w przedziale wartości od -1 do 6, inne nawet od -8 do 12. 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{assets/abstractComp.png}
+		\caption{Porównanie dwóch różnych reakcji na obraz z klasy abstract, widzianej z poziomy elektrody O2. W prawym spektogramie została odjęta średnia międzykanałowa oraz został zlogarytmizowany.}
+		\label{fig:abstractComp}
+	\end{figure}
+
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{assets/AbstractFullComp.png}
+		\caption{Graficzne przedstawienie spektogramów dla losowo wybranej epoki z klasy abstract, prezentujące różnice sposobów w jaki przedstwiane są dane modelowi CNN. Po zastosowanych zmianach widać widoczne zmniejszenie się wpływu sygnału wspólnego między elektrodami }
+		\label{fig:AbstractFullComp}
+	\end{figure}
+	
+	\newpage
+	Logartym miał zadanie wyrównać wykresy, normalizacja, miała na celu skrócenie przedziałów przyjmowanych wartości by ujawnić informacje ukryte przez nagłe skoki, widoczne na wizualizacjach jako czerwone plamy. Odjęcie średniej dla poszczególnych pikseli między kanałami, pozwoliło na zmniejszenie udziału sygnału wspólnego dla wszystkich elektrod (obrazki zaczęły się wyraźniej od siebie różnić).
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{assets/randomFullComp.png}
+		\caption{Graficzne przedstawienie spektogramów dla losowo wybranej epoki, z losowo wybranych klas, prezentujące że różnice w sposobie przedstawiania danych modelowi CNN, są podobne nie tylko dla klasy abstract. }
+		\label{fig:randomFullComp}
+	\end{figure}
 	
 	\section{Klasyfikacja obrazów}
 	
