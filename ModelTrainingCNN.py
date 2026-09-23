@@ -25,28 +25,26 @@ from datetime import datetime
 now = datetime.now().strftime("%m%d_%H%M")
 
 #Definicje i założenia
-nicki_badanych = ["abc", "Bear", "fghx", "jt", "mi2", "miguel", "mole", "Reshi", "sapling"]
+prefix_file_data = "plikWynikowy"
+prefix_file_eti = "plikWynikowyET"
+prefix_file_stat = "parametry_"
 
-przedrostek_pliku_danych = "plikWynikowy"
-przedrostek_pliku_etykiet = "plikWynikowyET"
-przedrostek_pliku_stat = "parametry_"
+nazwa_file = "_Dane32Przetworzone"
+mark_del_mean = ["AVG", "NoAVG"]
+mark_reduction = ["", "ratio", "logratio", "zlogratio", "mean", "zscore" , "RAW"] 
+file_stage = ["TRAIN" , "TEST"]
 
-nazwa_pliku = "_Dane32Przetworzone"
-oznaczenia_us_sredniej = ["AVG", "NoAVG"]
-oznaczenia_redukcji = ["", "ratio", "logratio", "zlogratio", "mean", "zscore" , "RAW"] 
-etapy_pliku = ["TRAIN" , "TEST"]
+run_no = [[0],[1],[2],[3], [4],[5],[6] , [0,1]] # ostatni element = przbieg testowy
+test_run = len(run_no)-1
+train_file_no = len(run_no)-1
 
-przebiegi = [[0],[1],[2],[3], [4],[5],[6] , [0,1]] # ostatni element = przbieg testowy
-przebieg_testowy = len(przebiegi)-1
-ilosc_plikow_treningowych = len(przebiegi)-1
-
-sciezka_wag = "dogotowywane.weights.h5"
+weight_file = "dogotowywane.weights.h5"
 
 #KONFIGUROWWALNE PARAMETRYY
-dane_wieloplikowe = True
+multifile_data = True
 
-wybrane_oznaczenie = oznaczenia_us_sredniej[0]+oznaczenia_redukcji[0]
-folder_wynikowy="finito"
+chosen_mark = mark_del_mean[0]+mark_reduction[0]
+result_dir="finito"
 # 0 trenuj i zapisz niedogotowany model
 # 1 trenuj i zapisz dogotowany model
 # 2 nie trenuj, tylko przetestuj i zrob wykresy
@@ -62,32 +60,32 @@ dataSourcePath = 'data2/'
 X = []
 y_txt = []
 input_shape = []
-l_klas=0
+class_amount=0
 model: tf.keras.Model | None = None
 hist: tf.keras.callbacks.History | None = None
-def wczytaj_dane(nr_przebiegu=0, czy_testowy=False):
-    global X, y_txt, X_test, y_test, y, y_train, y_validate, X_validate,  X_train, input_shape, l_klas
+def load_data(curr_run_no=0, if_test_run=False):
+    global X, y_txt, X_test, y_test, y, y_train, y_validate, X_validate,  X_train, input_shape, class_amount
     
     X = []
     y_txt = []
     input_shape = []
-    l_klas=0
+    class_amount=0
     
-    if dane_wieloplikowe:
-      etap_pliku = etapy_pliku[czy_testowy]
-      zarostek_plikow = "_"+etap_pliku+nazwa_pliku+wybrane_oznaczenie+".npy"
-      parametry_stat = np.load(dataSourcePath+przedrostek_pliku_stat+etap_pliku+wybrane_oznaczenie+".npy")
-      srednia = parametry_stat[0]
+    if multifile_data:
+      current_stage = file_stage[if_test_run]
+      files_postfix = "_"+current_stage+nazwa_file+chosen_mark+".npy"
+      parametry_stat = np.load(dataSourcePath+prefix_file_stat+current_stage+chosen_mark+".npy")
+      mean = parametry_stat[0]
       odch_std = parametry_stat[1]
 
-      srednia = np.transpose(srednia, (0,2,3,1))
+      mean = np.transpose(mean, (0,2,3,1))
       odch_std =  np.transpose(odch_std, (0,2,3,1))
 
-      for nr_plikow in przebiegi[nr_przebiegu]:
-        nx = np.load(dataSourcePath+przedrostek_pliku_danych +str(nr_plikow)+zarostek_plikow, mmap_mode='r')
-        ey = np.load(dataSourcePath+przedrostek_pliku_etykiet+str(nr_plikow)+zarostek_plikow, mmap_mode='r')
+      for nr_plikow in run_no[curr_run_no]:
+        nx = np.load(dataSourcePath+prefix_file_data +str(nr_plikow)+files_postfix, mmap_mode='r')
+        ey = np.load(dataSourcePath+prefix_file_eti+str(nr_plikow)+files_postfix, mmap_mode='r')
 
-        nx = (nx-srednia)/odch_std  #PROBLEMY Z PAMIĘCCIĄ KOPIOWANIE TABLIC UKRYTE W SKRYPCIE
+        nx = (nx-mean)/odch_std  #PROBLEMY Z PAMIĘCCIĄ KOPIOWANIE TABLIC UKRYTE W SKRYPCIE
 
         X.append(nx)
         y_txt.append(ey)
@@ -113,30 +111,30 @@ def wczytaj_dane(nr_przebiegu=0, czy_testowy=False):
 
     labelEnc = LabelEncoder()
     y = labelEnc.fit_transform(y_txt)
-    l_klas = len(labelEnc.classes_)
+    class_amount = len(labelEnc.classes_)
     print(labelEnc.classes_)
 
-    if not dane_wieloplikowe:
+    if not multifile_data:
       X_train_validate, X_test, y_train_validate, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
       X_train, X_validate, y_train, y_validate = train_test_split(X_train_validate, y_train_validate, test_size=0.25, random_state=42)
 
       #Normalizacja - standaryzacja (Z-score)
-      srednia = np.mean(X_train, axis=(0,1,2), keepdims=True) # 0-epoka, 1-czestotliwosc, 2-czas <-Do usrednienia     3-kanal
+      mean = np.mean(X_train, axis=(0,1,2), keepdims=True) # 0-epoka, 1-czestotliwosc, 2-czas <-Do usrednienia     3-kanal
       std = np.std(X_train, axis=(0,1,2), keepdims=True )
 
-      print(srednia.shape)
+      print(mean.shape)
       print("Srednie dla 21 kanalow: \n")
-      print(srednia[0][0][0])
+      print(mean[0][0][0])
 
-      X_train= (X_train - srednia)/std
-      X_validate = (X_validate - srednia)/std
-      X_test = (X_test - srednia)/std
+      X_train= (X_train - mean)/std
+      X_validate = (X_validate - mean)/std
+      X_test = (X_test - mean)/std
     else:
-      if czy_testowy:
+      if if_test_run:
         X_test = X
         y_test = y
         
-def szkol_model(dane_wieloplikowe=False, pierwsze_szkolenie=True):
+def train_model(multifile_data=False, first_training=True):
     global model,hist
     
     model = models.Sequential()
@@ -163,7 +161,7 @@ def szkol_model(dane_wieloplikowe=False, pierwsze_szkolenie=True):
     model.add(layers.BatchNormalization())
     model.add(layers.Activation('relu'))
     model.add(layers.Dropout(0.75)) # (anti-overfitting)
-    model.add(layers.Dense(l_klas, activation='softmax'))
+    model.add(layers.Dense(class_amount, activation='softmax'))
 
     optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
 
@@ -187,8 +185,8 @@ def szkol_model(dane_wieloplikowe=False, pierwsze_szkolenie=True):
           verbose=0,
           mode='min')
 
-    if not pierwsze_szkolenie and dane_wieloplikowe:
-        model.load_weights(dataSourcePath+sciezka_wag)
+    if not first_training and multifile_data:
+        model.load_weights(dataSourcePath+weight_file)
         print("Poprwanie wczytano wagi!")
     else:
         print("Utworzono nowy model!")
@@ -196,7 +194,7 @@ def szkol_model(dane_wieloplikowe=False, pierwsze_szkolenie=True):
     epochs = 70
     batch_size=32  #16 # im mniejsza, tym większa dokładność, ale i więcej czasu
 
-    if dane_wieloplikowe:
+    if multifile_data:
       print("Poczatek treningu")
       hist = model.fit(
           x=X,
@@ -208,7 +206,7 @@ def szkol_model(dane_wieloplikowe=False, pierwsze_szkolenie=True):
           #callbacks=[ReduceLROnPlateau_callback],
           shuffle=True
       )
-      model.save_weights(dataSourcePath+sciezka_wag)
+      model.save_weights(dataSourcePath+weight_file)
       print("Trening zakonczony, model zapisany")
     else:
       print("Poczatek treningu (bez walidacji)")
@@ -224,12 +222,12 @@ def szkol_model(dane_wieloplikowe=False, pierwsze_szkolenie=True):
           shuffle=True
       )
 
-def testuj_model():
+def test_model():
     global model,hist
     
     if len(X_test)>0 and len(y_test)>0:
-      if not os.path.exists("data2/"+folder_wynikowy):
-          os.mkdir("data2/"+folder_wynikowy)
+      if not os.path.exists("data2/"+result_dir):
+          os.mkdir("data2/"+result_dir)
         
       test_loss, test_acc = model.evaluate(X_test, y_test, verbose=0)
       print(f"Skuteczność na danych testowych: {test_acc*100:.2f}%")
@@ -246,12 +244,12 @@ def testuj_model():
       fig, ax = plt.subplots(figsize=(12,12))
       disp.plot(ax=ax, cmap="plasma") #viridis , plasma
       plt.xticks(rotation=45, ha='right')
-      plt.savefig(f"{dataSourcePath}{folder_wynikowy}/MacierzPomyłek{now}.png", dpi=100, bbox_inches="tight")
+      plt.savefig(f"{dataSourcePath}{result_dir}/MacierzPomyłek{now}.png", dpi=100, bbox_inches="tight")
       plt.close()
 
       wyk, (os1,os2) = plt.subplots(1,2, figsize=(20,5))
       os1.plot(hist.history['loss'],label='Strata',color='#AA0000',linewidth=2)
-      if not dane_wieloplikowe:
+      if not multifile_data:
         os1.plot(hist.history['val_loss'],label='StrataVal',color='#FFAA00',linewidth=2)
       os1.set_title('Strata')
       os1.set_xlabel('Epoka',fontsize=10)
@@ -260,7 +258,7 @@ def testuj_model():
       os1.legend(fontsize=10)
 
       os2.plot(hist.history['accuracy'],label='Celność',color='#00AA00',linewidth=2)
-      if not dane_wieloplikowe:
+      if not multifile_data:
         os2.plot(hist.history['val_accuracy'],label='CelnośćVal',color='#AAFF00',linewidth=2)
       os2.set_title('Celnosc')
       os2.set_xlabel('Epoka',fontsize=10)
@@ -268,41 +266,41 @@ def testuj_model():
       os2.grid(True,linestyle='--',alpha=0.6)
       os2.legend(fontsize=10)
       
-      plt.savefig(f"{dataSourcePath}{folder_wynikowy}/RecallAccuracy{now}.png", dpi=100, bbox_inches="tight")
+      plt.savefig(f"{dataSourcePath}{result_dir}/RecallAccuracy{now}.png", dpi=100, bbox_inches="tight")
       plt.close()
 
-def zapisz_koncowy_model():
+def save_model():
     global model
-    if not os.path.exists("data2/"+folder_wynikowy):
-        os.mkdir("data2/"+folder_wynikowy)
-    model.save(dataSourcePath + "/" + folder_wynikowy + "/ModelCNN" + now + ".keras")
+    if not os.path.exists("data2/"+result_dir):
+        os.mkdir("data2/"+result_dir)
+    model.save(dataSourcePath + "/" + result_dir + "/ModelCNN" + now + ".keras")
 
-wczytaj_dane(0, czy_testowy=False)
-szkol_model(dane_wieloplikowe=True,pierwsze_szkolenie=True)
+load_data(0, if_test_run=False)
+train_model(multifile_data=True,first_training=True)
 
-for i in range(1, ilosc_plikow_treningowych):
-    wczytaj_dane(i)
-    szkol_model(dane_wieloplikowe=True,pierwsze_szkolenie=False)
+for i in range(1, train_file_no):
+    load_data(i)
+    train_model(multifile_data=True,first_training=False)
 
-wczytaj_dane(przebieg_testowy, czy_testowy=True)
-testuj_model()
+load_data(test_run, if_test_run=True)
+test_model()
 
-for i in range(0, ilosc_plikow_treningowych):
-    wczytaj_dane(i)
-    szkol_model(dane_wieloplikowe=True,pierwsze_szkolenie=False)
+for i in range(0, train_file_no):
+    load_data(i)
+    train_model(multifile_data=True,first_training=False)
  
-wczytaj_dane(przebieg_testowy, czy_testowy=True)
-testuj_model()
+load_data(test_run, if_test_run=True)
+test_model()
  
-for i in range(0, ilosc_plikow_treningowych):
-    wczytaj_dane(i)
-    szkol_model(dane_wieloplikowe=True,pierwsze_szkolenie=False)
+for i in range(0, train_file_no):
+    load_data(i)
+    train_model(multifile_data=True,first_training=False)
 
-wczytaj_dane(przebieg_testowy, czy_testowy=True)
-testuj_model()
+load_data(test_run, if_test_run=True)
+test_model()
 
 print("Trenowanie Zakonczono")
-zapisz_koncowy_model()
+save_model()
 
 #model.save(dataSourcePath + "Najlepszy3-09-0_44" + ".keras")
 #zaladowany = keras.models.load_model(dataSourcePath+nazwa+".keras")
