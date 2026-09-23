@@ -15,7 +15,7 @@ from pandas.core.indexes import category
 
 now = datetime.now().strftime("%m%d_%H%M")
 
-nicki_badanych = ["abc", "Bear", "fghx", "jt", "mi2", "miguel", "mole", "Reshi", "sapling"]
+patients_nicks = ["abc", "Bear", "fghx", "jt", "mi2", "miguel", "mole", "Reshi", "sapling"]
 csv_eventow = ["abc_EEGBasedVisualRecall_Events_Rep1_2026-05-27_11-04-56",
                "Bear_EEGBasedVisualRecall_Events_Rep1_2026-05-29_10-34-33",
                "fghx_EEGBasedVisualRecall_Events_Rep1_2026-05-27_14-21-40",
@@ -29,7 +29,7 @@ reduction_methods = ["ratio", "logratio", "zlogratio", "mean", "zscore"]
 categories=["abstract","airplane","apple","banana","bird","boat","car","dog","person","train","zebra"]
 
 # Wybór obecnych badanych
-wybrani_badani = [0]
+choosen_patients = [0]
 
 # Opcje edycji epok
 do_morlet = True    #Czy dane po TFA czy surowe?
@@ -54,9 +54,9 @@ do_generate_single_gif_image_order = False
 do_generate_combo_gif = False
 
 # Zmienne globalne
-obecnie_badani = [nicki_badanych[i] for i in wybrani_badani]
-NICK_BADANEGO = nicki_badanych[wybrani_badani[0]]
-CSV_EVENTY =    csv_eventow[wybrani_badani[0]]
+obecnie_badani = [patients_nicks[i] for i in choosen_patients]
+PATIENT = patients_nicks[choosen_patients[0]]
+EVENTS_CSV =    csv_eventow[choosen_patients[0]]
 try:
     current_category = categories.index(chosen_category)
 except ValueError:
@@ -121,7 +121,7 @@ def delete_bad_channels():
 # 1. Kanały z bardzo dużym udziałem Low_SNR oznaczamy jako "bad"
 # 2. Dla pozostałych kanałów tworzymy adnotacje czasowe BAD_*
 #    aby odrzucać tylko fragmenty nagrania o złej jakości
-    df_imp = pd.read_csv(f"assets/{NICK_BADANEGO}_imp.csv", skiprows=6)
+    df_imp = pd.read_csv(f"assets/{PATIENT}_imp.csv", skiprows=6)
 
     bad_channels = []
     annotations = []
@@ -253,7 +253,7 @@ def create_epochs_from_ImageOn_events():
     #----------------------Filtracja eventu IMAGE_ON---------------------------------------------------
     imageOn_events = events[(events[:, 2] == 12)]
 #---------------------Porównanie Ilości znalezionych eventów z dziennikiem w CSV-------------------
-    events_csv = pd.read_csv(f"assets/{CSV_EVENTY}.csv")
+    events_csv = pd.read_csv(f"assets/{EVENTS_CSV}.csv")
     image_events_csv = ( events_csv.query("event_code == 12").reset_index(drop=True) ) #przeszukanie csv za IMAGE_ON
     print( f"Liczba IMAGE_ON w CSV: {len(image_events_csv)}.csv")
 
@@ -278,17 +278,17 @@ def create_epochs_from_ImageOn_events():
         preload=True,
         reject_by_annotation=True # odrzucenie epok z adnotacjami BAD_
     )
-    usuniete = [idx for idx, log in enumerate(epochs.drop_log) if len(log) > 0]
-    print(f"Lista usuniętych epok: {(usuniete)}")
+    deleted = [idx for idx, log in enumerate(epochs.drop_log) if len(log) > 0]
+    print(f"Lista usuniętych epok: {(deleted)}")
 #------------------Analiza w Time-Freq używając falek Morleta-----------------------
 def morlet_wavelet():
     global epochs
     global tfData_float32
 
     if(do_morlet):
-        czestotliwosci = np.arange(4,40, 1)
-        l_cykli = czestotliwosci/4
-        tfa = epochs.compute_tfr(method="morlet", freqs=czestotliwosci, n_cycles=l_cykli,
+        frequencies = np.arange(4,40, 1)
+        n_cycles = frequencies/4
+        tfa = epochs.compute_tfr(method="morlet", freqs=frequencies, n_cycles=n_cycles,
                             decim=1, picks='eeg', return_itc=False, average=False)
 
         if reduct_tfa_using_baseline:       #redukcja sygnału względem funkcji na w odniesieniu do sygnału przed wydarzeniem
@@ -304,8 +304,8 @@ def morlet_wavelet():
             tfData_float32 = tfData.astype(np.float32)
 
         if subtract_mean_baseline:
-            srednia = np.mean(tfData_float32, axis=1, keepdims=True)			#LEKKIE POLEPSZENIE WYNIKOW
-            tfData_float32 = tfData_float32-srednia
+            mean = np.mean(tfData_float32, axis=1, keepdims=True)			
+            tfData_float32 = tfData_float32-mean
     else:
         tfData = epochs.copy().crop(tmin=0.0, tmax=0.5).get_data(picks='eeg')
         tfData_float32 = tfData.astype(np.float32)
@@ -341,32 +341,32 @@ def generate_single_epoche_image():
     global image_epoch
     global image_channel
 
-    jedenWynik = tfData_float32[image_epoch, image_channel, :, :]
+    singleResult = tfData_float32[image_epoch, image_channel, :, :]
 
     fig, ax = plt.subplots(figsize=(8, 6))
-    im = ax.imshow(jedenWynik, cmap="jet", aspect="auto", origin="lower")
+    im = ax.imshow(singleResult, cmap="jet", aspect="auto", origin="lower")
 
     ax.set_title(f"Epoka {image_epoch}, Kanał {image_channel}")
     ax.set_xlabel("Punkty czasu")
     ax.set_ylabel("Indeksy częstotliwości")
     fig.colorbar(im, label="Moc sygnału")
 
-    plt.savefig(f"{visualization_catalogue}/{NICK_BADANEGO}_spektrogram_epoka_{image_epoch}.png", dpi=100, bbox_inches="tight")
+    plt.savefig(f"{visualization_catalogue}/{PATIENT}_spektrogram_epoka_{image_epoch}.png", dpi=100, bbox_inches="tight")
 #    plt.show()
     plt.close()
     print("Obrazek PNG został zapisany!")
 # GIF dla jednego kanału z róznych epok po kolei
 def generate_single_channel_gif_in_chrono_order():
     global tfData_float32
-    nr_kanalu = 14          # GIF dla jednego kanału z róznych epok po kolei
+    channel_no = 14          # GIF dla jednego kanału z róznych epok po kolei
     frames = []
 
-    for nr_epoki in range(200):
+    for epoch_no in range(200):
         fig, ax = plt.subplots(figsize=(8, 6))
 
-        single_spectrogram = tfData_float32[nr_epoki, nr_kanalu, :, :]
+        single_spectrogram = tfData_float32[epoch_no, channel_no, :, :]
         ax.imshow(single_spectrogram, cmap="jet", aspect="auto", origin="lower")
-        ax.set_title(f"Epoka: {nr_epoki}")
+        ax.set_title(f"Epoka: {epoch_no}")
 
         buf = io.BytesIO()
         plt.savefig(buf, format="png", bbox_inches="tight")
@@ -376,7 +376,7 @@ def generate_single_channel_gif_in_chrono_order():
         plt.close(fig)
 
     # duration=1000 sekudna na klatke
-    iio.imwrite(f"{visualization_catalogue}/{NICK_BADANEGO}_animacja_epok_chrono.gif", frames, duration=250, loop=0)
+    iio.imwrite(f"{visualization_catalogue}/{PATIENT}_animacja_epok_chrono.gif", frames, duration=250, loop=0)
     print("GIF utworzony!")
 # GIF dla jednego knału z epok posortowanych według obrazka
 def generate_single_channel_gif_in_image_order():
@@ -384,27 +384,27 @@ def generate_single_channel_gif_in_image_order():
     y_image = epochs.metadata["image_id"]  # Klasyfikacja według pliku
     y_category = epochs.metadata["image_category"]	# Kategoria obrazka
 
-    nr_kanalu = image_channel
+    channel_no = image_channel
     frames = []
 
     y_cat_np = y_category.to_numpy()
     y_img_np = y_image.to_numpy()
     sort_indek = np.argsort(y_img_np)
 
-    warunek_zm = y_cat_np[sort_indek[:-1]] != y_cat_np[sort_indek[1:]]
-    p_zmiany = np.where(warunek_zm)[0] + 1
-    granice = [0] + list(p_zmiany) + [len(sort_indek)]
+    change_condition = y_cat_np[sort_indek[:-1]] != y_cat_np[sort_indek[1:]]
+    section_change = np.where(change_condition)[0] + 1
+    borders = [0] + list(section_change) + [len(sort_indek)]
 
-    for nrKlatki, nr_epoki in enumerate(sort_indek[granice[current_category]:granice[current_category+1]]):
+    for frame_no, epoch_no in enumerate(sort_indek[borders[current_category]:borders[current_category+1]]):
         fig, ax = plt.subplots(figsize=(8, 6))
 
-        single_spectrogram = tfData_float32[nr_epoki, nr_kanalu, :, :]
+        single_spectrogram = tfData_float32[epoch_no, channel_no, :, :]
 
-        obecnyobraz = y_img_np[nr_epoki]
+        current_image = y_img_np[epoch_no]
 
         ax.imshow(single_spectrogram, cmap="jet", aspect="auto", origin="lower")
-        ax.set_title(f"Kanał: {raw_data.ch_names[nr_kanalu]} "
-                     f"Epoka: {nr_epoki} Obraz {obecnyobraz}")
+        ax.set_title(f"Kanał: {raw_data.ch_names[channel_no]} "
+                     f"Epoka: {epoch_no} Obraz {current_image}")
 
         buf = io.BytesIO()
         plt.savefig(buf, format="png", bbox_inches="tight")
@@ -414,7 +414,7 @@ def generate_single_channel_gif_in_image_order():
         plt.close(fig)
 
     # duration=1000 sekudna na klatke
-    iio.imwrite(f"{visualization_catalogue}/{NICK_BADANEGO}_animacja_epok.gif", frames, duration=400, loop=0)
+    iio.imwrite(f"{visualization_catalogue}/{PATIENT}_animacja_epok.gif", frames, duration=400, loop=0)
     print("GIF utworzony!")
 #GIF dla elektrod F3, F4, C3, C4 O1, O2 dla posortoawnych obrazków
 def generate_combo_GIF_image_order():
@@ -427,33 +427,33 @@ def generate_combo_GIF_image_order():
     sort_indek = np.argsort(y_img_np)
 
     frames = []
-    kanalyL = [2,1,14]
-    kanalyP = [4,5,15]
+    left_channels = [2,1,14]
+    right_channels = [4,5,15]
 
-    warunek_zm = y_cat_np[sort_indek[:-1]] != y_cat_np[sort_indek[1:]]
-    p_zmiany = np.where(warunek_zm)[0] + 1
-    granice = [0] + list(p_zmiany) + [len(sort_indek)]
-    #for i in range(0,len(granice)-1):
-      #  print(y_cat_np[sort_indek[granice[i]]] )
+    change_condition = y_cat_np[sort_indek[:-1]] != y_cat_np[sort_indek[1:]]
+    section_change = np.where(change_condition)[0] + 1
+    borders = [0] + list(section_change) + [len(sort_indek)]
+    #for i in range(0,len(borders)-1):
+      #  print(y_cat_np[sort_indek[borders[i]]] )
 
-    for nrKlatki,nr_epoki in enumerate(sort_indek[granice[current_category]:granice[current_category+1]]):
+    for frame_no,epoch_no in enumerate(sort_indek[borders[current_category]:borders[current_category+1]]):
         fig, ax = plt.subplots(3, 2, figsize=(8, 6))
 
-        obecnyobraz= y_img_np[nr_epoki]
+        current_image= y_img_np[epoch_no]
 
-        for idy, nr_kanalu in enumerate(kanalyL):
-            single_spectrogram = tfData_float32[nr_epoki, nr_kanalu, :, :]
+        for idy, channel_no in enumerate(left_channels):
+            single_spectrogram = tfData_float32[epoch_no, channel_no, :, :]
 
             ax[idy,0].imshow(single_spectrogram, cmap="jet", aspect="auto", origin="lower")
-            ax[idy,0].set_title(f"Kanał: {raw_data.ch_names[nr_kanalu]} ")
+            ax[idy,0].set_title(f"Kanał: {raw_data.ch_names[channel_no]} ")
 
-        for idy, nr_kanalu in enumerate(kanalyP):
-            single_spectrogram = tfData_float32[nr_epoki, nr_kanalu, :, :]
+        for idy, channel_no in enumerate(right_channels):
+            single_spectrogram = tfData_float32[epoch_no, channel_no, :, :]
 
             ax[idy,1].imshow(single_spectrogram, cmap="jet", aspect="auto", origin="lower")
-            ax[idy,1].set_title(f"Kanał: {raw_data.ch_names[nr_kanalu]}")
+            ax[idy,1].set_title(f"Kanał: {raw_data.ch_names[channel_no]}")
 
-        fig.suptitle(f"Obraz {obecnyobraz}", fontsize=10, fontweight='bold')
+        fig.suptitle(f"Obraz {current_image}", fontsize=10, fontweight='bold')
         ax[2,1].set_xlabel("Czas")
         ax[1,0].set_ylabel("Częstotliwość")
         buf = io.BytesIO()
@@ -464,18 +464,18 @@ def generate_combo_GIF_image_order():
         plt.close(fig)
 
     # duration=1000 sekudna na klatke
-    iio.imwrite(f"{visualization_catalogue}/{NICK_BADANEGO}_animacja_epokKanalow_{now}.gif", frames, duration=600, loop=0)
+    iio.imwrite(f"{visualization_catalogue}/{PATIENT}_animacja_epokKanalow_{now}.gif", frames, duration=600, loop=0)
     print("Piękny GIF utworzony!")
 
-def generuj_pliki(lista_nr_badanych=[0], do_TFA=True, morlet_log=True, subtract_mean=False, reduct_tfa_baseline = False, red_method=2):
-    global wybrani_badani, do_generate_single_image, do_generate_single_gif_chrono_order, do_generate_single_gif_image_order, do_generate_combo_gif
-    global do_morlet, NICK_BADANEGO, CSV_EVENTY
+def generate_files(patient_number_list=[0], do_TFA=True, morlet_log=True, subtract_mean=False, reduct_tfa_baseline = False, red_method=2):
+    global choosen_patients, do_generate_single_image, do_generate_single_gif_chrono_order, do_generate_single_gif_image_order, do_generate_combo_gif
+    global do_morlet, PATIENT, EVENTS_CSV
     global morlet_log_scale
     global subtract_mean_baseline
     global reduct_tfa_using_baseline
     global chosen_reduction_method
 
-    for nick in nicki_badanych:
+    for nick in patients_nicks:
         if not os.path.exists(f"assets/{nick}_raw.edf"):
             print(f"Nie znaleziono pliku EDF: {nick}_raw.edf")
         if not os.path.exists(f"assets/{nick}_imp.csv"):
@@ -485,7 +485,7 @@ def generuj_pliki(lista_nr_badanych=[0], do_TFA=True, morlet_log=True, subtract_
         os.mkdir("data")
 
     # Wybór obecnych badanych
-    wybrani_badani = lista_nr_badanych
+    choosen_patients = patient_number_list
 
     # Opcje edycji epok
     do_morlet = do_TFA  # Czy dane po TFA czy surowe?
@@ -502,11 +502,11 @@ def generuj_pliki(lista_nr_badanych=[0], do_TFA=True, morlet_log=True, subtract_
         do_generate_combo_gif = False
 
 
-    for i in wybrani_badani:
-        NICK_BADANEGO = nicki_badanych[i]
-        CSV_EVENTY = csv_eventow[i]
+    for i in choosen_patients:
+        PATIENT = patients_nicks[i]
+        EVENTS_CSV = csv_eventow[i]
 
-        load_data(NICK_BADANEGO)
+        load_data(PATIENT)
         change_channel_names()
         change_channel_types()
         change_montage_and_reference()
@@ -517,7 +517,7 @@ def generuj_pliki(lista_nr_badanych=[0], do_TFA=True, morlet_log=True, subtract_
         create_epochs_from_ImageOn_events()
         morlet_wavelet()
         if do_save_to_file:
-            save_to_file(NICK_BADANEGO)
+            save_to_file(PATIENT)
         if do_generate_single_image:
             generate_single_epoche_image()
         if do_generate_single_gif_chrono_order:
@@ -528,4 +528,4 @@ def generuj_pliki(lista_nr_badanych=[0], do_TFA=True, morlet_log=True, subtract_
             generate_combo_GIF_image_order()
 
 if __name__ == "__main__":
-    generuj_pliki()
+    generate_files()
