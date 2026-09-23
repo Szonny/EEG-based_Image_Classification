@@ -24,5 +24,4 @@ Semester project for biologically inspired AI subcject during bachelor studies o
  | Model_Training_EEGInception.py 	| trains an EEGInception based model.									 |
  | EEG_retrieval.py        			| data retrieval using image embedding.									 |
  | Model_Training_EEGNet.py			| trains an EEGnet based model.											 |
- | notebook.ipynb					| testfile for experiments with data preparation.						 |
  | ModelTrainingCNN.py     			| trains CNN model, made using Tensorflow.								 |
