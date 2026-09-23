@@ -4,12 +4,12 @@ import data_randomizer
 import subprocess
 
 from data_preparation import generate_files
-from data_randomizer import generuj_wynikowe
+from data_randomizer import generate_result
 
 do_tfa_morlet = True
-jedenstrzal = True
+one_shot_generate = True
 
-if jedenstrzal:
+if one_shot_generate:
     print("###########################################")
     print("Generuje pliki")
     print("###########################################")
@@ -22,7 +22,7 @@ if jedenstrzal:
     print("###########################################")
 
     #subprocess.run(["python", "data_randomizer.py"])
-    generuj_wynikowe(do_tfa_morlet, czy_redukcja_basln=False, metoda_red = 2, us_sre=False)
+    generate_result(do_tfa_morlet, if_baseline_red=False, reduction_method = 2, mean_del=False)
 
     print("###########################################")
     print("Pomieszalem dane!")
@@ -30,28 +30,28 @@ if jedenstrzal:
 else:           #Hurtowe generowanie danych >100 GB!!
     generate_files([0, 1, 2, 3, 4, 5, 6, 7, 8], do_tfa_morlet, morlet_log=True, subtract_mean=False,
                   reduct_tfa_baseline=False, red_method=2)
-    generuj_wynikowe(do_tfa_morlet, czy_redukcja_basln=False, metoda_red = 2, us_sre=False)
+    generate_result(do_tfa_morlet, if_baseline_red=False, reduction_method = 2, mean_del=False)
 
     generate_files([0, 1, 2, 3, 4, 5, 6, 7, 8], do_tfa_morlet, morlet_log=True, subtract_mean=True,
                   reduct_tfa_baseline=False, red_method=2)
-    generuj_wynikowe(do_tfa_morlet, czy_redukcja_basln=False, metoda_red = 2, us_sre=True)
+    generate_result(do_tfa_morlet, if_baseline_red=False, reduction_method = 2, mean_del=True)
 
     generate_files([0, 1, 2, 3, 4, 5, 6, 7, 8], do_tfa_morlet, morlet_log=True, subtract_mean=False,
                   reduct_tfa_baseline=True, red_method=0)       #"ratio"
-    generuj_wynikowe(do_tfa_morlet, czy_redukcja_basln=True, metoda_red = 0, us_sre=False)
+    generate_result(do_tfa_morlet, if_baseline_red=True, reduction_method = 0, mean_del=False)
 
     generate_files([0, 1, 2, 3, 4, 5, 6, 7, 8], do_tfa_morlet, morlet_log=True, subtract_mean=False,
                   reduct_tfa_baseline=True, red_method=1)           #"logratio"
-    generuj_wynikowe(do_tfa_morlet, czy_redukcja_basln=True, metoda_red = 1, us_sre=False)
+    generate_result(do_tfa_morlet, if_baseline_red=True, reduction_method = 1, mean_del=False)
 
     generate_files([0, 1, 2, 3, 4, 5, 6, 7, 8], do_tfa_morlet, morlet_log=True, subtract_mean=False,
                   reduct_tfa_baseline=True, red_method=2)       #"zlogratio"
-    generuj_wynikowe(do_tfa_morlet, czy_redukcja_basln=True, metoda_red = 2, us_sre=False)
+    generate_result(do_tfa_morlet, if_baseline_red=True, reduction_method = 2, mean_del=False)
 
     generate_files([0, 1, 2, 3, 4, 5, 6, 7, 8], do_tfa_morlet, morlet_log=True, subtract_mean=False,
                   reduct_tfa_baseline=True, red_method=3)           #"mean"
-    generuj_wynikowe(do_tfa_morlet, czy_redukcja_basln=True, metoda_red = 3, us_sre=False)
+    generate_result(do_tfa_morlet, if_baseline_red=True, reduction_method = 3, mean_del=False)
 
     generate_files([0, 1, 2, 3, 4, 5, 6, 7, 8], do_tfa_morlet, morlet_log=True, subtract_mean=False,
                   reduct_tfa_baseline=True, red_method=4)       #"zscore"
-    generuj_wynikowe(do_tfa_morlet, czy_redukcja_basln=True, metoda_red = 4, us_sre=False)
+    generate_result(do_tfa_morlet, if_baseline_red=True, reduction_method = 4, mean_del=False)

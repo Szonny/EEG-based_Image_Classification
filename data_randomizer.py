@@ -3,250 +3,249 @@ import os
 
 from fontTools.varLib.instancer import __main__
 
-PRZYROSTKI_PLIKOW = ["abc", "Bear", "fghx", "jt", "mi2", "miguel", "mole", "Reshi", "sapling"]
+FILE_PREFIXES = ["abc", "Bear", "fghx", "jt", "mi2", "miguel", "mole", "Reshi", "sapling"]
 
-#np.save(f"data/{nick}_Dane32Przetworzone{sub_mean_base_text}{reduct_text}.npy", tfData_float32)
-#np.save(f"data/{nick}_EtykietyDanych.npy{sub_mean_base_text}{reduct_text}", y_category)
+#np.save(f"data/{nick}_data32Przetworzone{sub_mean_base_text}{reduct_text}.npy", tfData_float32)
+#np.save(f"data/{nick}_labelsDanych.npy{sub_mean_base_text}{reduct_text}", y_category)
 
 reduction_methods = ["", "ratio", "logratio", "zlogratio", "mean", "zscore" , "RAW"]
-wrostki_sredniej = ["AVG", "NoAVG"]
+mean_infixes = ["AVG", "NoAVG"]
 
-nazwy_plikow = ["_Dane32Przetworzone"]
-nazwy_plikow_etykiet = ["_EtykietyDanych"]
-przyrostki = ["","TRAIN","TEST","VALIDATE"]
+file_names = ["_data32Przetworzone"]
+file_names_eti = ["_labelsDanych"]
+prefixes = ["","TRAIN","TEST","VALIDATE"]
 
-obecny_typ_pliku = nazwy_plikow[0]
-obecny_typ_pliku_et = nazwy_plikow_etykiet[0]
-obecna_metoda_red = reduction_methods[0]
-czy_us_srednia = wrostki_sredniej[0]
+current_file_type = file_names[0]
+current_file_type_et = file_names_eti[0]
+current_reduction_method = reduction_methods[0]
+if_mean_deleted = mean_infixes[0]
 
-do_morlet=True                      # Czy wykonane zostało TFA, Czy są to surowe dane??
+do_morlet=True                      # Czy wykonane zostało TFA, Czy są to surowe data??
 
 if do_morlet:
-    obecny_typ_pliku = nazwy_plikow[0]
-    obecny_typ_pliku_et = nazwy_plikow_etykiet[0]
+    current_file_type = file_names[0]
+    current_file_type_et = file_names_eti[0]
 else:
-    obecny_typ_pliku = nazwy_plikow[1]
-    obecny_typ_pliku_et = nazwy_plikow_etykiet[1]
+    current_file_type = file_names[1]
+    current_file_type_et = file_names_eti[1]
 
-def przemieszaj_dane(nicki_badanych, przyrostek_wynikowy):
-    zarostek = f"{obecny_typ_pliku}{czy_us_srednia}{obecna_metoda_red}.npy"
-    zarostekET = f"{obecny_typ_pliku_et}{czy_us_srednia}{obecna_metoda_red}.npy"
+def shuffle_data(patients_nicknames, result_postfix):
+    postfix = f"{current_file_type}{if_mean_deleted}{current_reduction_method}.npy"
+    postfixET = f"{current_file_type_et}{if_mean_deleted}{current_reduction_method}.npy"
     
-    poczatki_przedzialow = [0] * (len(nicki_badanych) + 1)
+    sections_beginnings = [0] * (len(patients_nicknames) + 1)
     #--------------------Liczenie sumy dlugosci----------------
-    suma_dlugosci = 0
-    suma_z_kanalow = np.zeros(21, dtype=np.float32)
-    srednia_kanalowa = np.zeros(21, dtype=np.float32)
-    suma_il_el_miedzykan = 0 #suma elementów we wszystkich oobrazkach (kanały-warstwy)
+    length_sum = 0
+    channel_value_sum = np.zeros(21, dtype=np.float32)
+    channel_mean = np.zeros(21, dtype=np.float32)
+    sum_elements_amount_interchannel = 0 #suma elementów we wszystkich oobrazkach (kanały-warstwy)
 
-    for it in range(0, len(nicki_badanych)):
-        tablica = np.load(f"data/{nicki_badanych[it]}{zarostek}", allow_pickle=True)
-        poczatki_przedzialow[it] = suma_dlugosci
-        suma_dlugosci += len(tablica)
-        suma_z_kanalow += np.sum(tablica, axis=(0,2,3))
-        suma_il_el_miedzykan += tablica.shape[0]*tablica.shape[2]*tablica.shape[3]
-        poczatki_przedzialow[len(nicki_badanych)] = suma_dlugosci
-    if suma_il_el_miedzykan > 0:
-        srednia_kanalowa = suma_z_kanalow / suma_il_el_miedzykan
-    #--------------------Tworzenie nowych indeksow-------------
-    indeksy = np.arange(0, suma_dlugosci)
-    np.random.shuffle(indeksy)
-    print("Utworzono indeksy, zaczynam rodzielac dane")
+    for it in range(0, len(patients_nicknames)):
+        array = np.load(f"data/{patients_nicknames[it]}{postfix}", allow_pickle=True)
+        sections_beginnings[it] = length_sum
+        length_sum += len(array)
+        channel_value_sum += np.sum(array, axis=(0,2,3))
+        sum_elements_amount_interchannel += array.shape[0]*array.shape[2]*array.shape[3]
+        sections_beginnings[len(patients_nicknames)] = length_sum
+    if sum_elements_amount_interchannel > 0:
+        channel_mean = channel_value_sum / sum_elements_amount_interchannel
+    #--------------------Tworzenie nowych indexow-------------
+    indicies = np.arange(0, length_sum)
+    np.random.shuffle(indicies)
+    print("Utworzono indicies, zaczynam rodzielac data")
     #--------------------Zapisywanie do plików tymczasowych--------
-    rozwazany_indeks = 0
-    dlugosc_wynikowych = int((suma_dlugosci)/(len(nicki_badanych)))
-    ilosc_wynikowych = len(nicki_badanych)
+    results_length = int((length_sum)/(len(patients_nicknames)))
+    results_amount = len(patients_nicknames)
 
-    for nr_zrodla in range(0,len(nicki_badanych)):              #dla każdego zrodla
-        zrodlo = np.load(f"data/{nicki_badanych[nr_zrodla]}{zarostek}", allow_pickle=True)
-        etykiety = np.load(f"data/{nicki_badanych[nr_zrodla]}{zarostekET}", allow_pickle=True)
+    for source_index in range(0,len(patients_nicknames)):              #dla każdego zrodla
+        source = np.load(f"data/{patients_nicknames[source_index]}{postfix}", allow_pickle=True)
+        labels = np.load(f"data/{patients_nicknames[source_index]}{postfixET}", allow_pickle=True)
 
-        for nr_wynikowego in range(0, ilosc_wynikowych):              #dla kazdego pliku wynikowego
-            dane = []
-            paczka_etykiet = []
-            pocz_indeks_pliku = dlugosc_wynikowych*nr_wynikowego
-            kon_indeks_pliku = dlugosc_wynikowych*(nr_wynikowego+1)
+        for result_no in range(0, results_amount):              #dla kazdego pliku wynikowego
+            data = []
+            label_pack = []
+            beg_file_index = results_length*result_no
+            end_file_index = results_length*(result_no+1)
 
-            for i in range(pocz_indeks_pliku , kon_indeks_pliku):         #dla kazdego elementu w wynikowym
-                czyWZakresieI = poczatki_przedzialow[nr_zrodla] <= indeksy[i] < poczatki_przedzialow[nr_zrodla + 1]
+            for i in range(beg_file_index , end_file_index):         #dla kazdego elementu w wynikowym
+                if_i_in_range = sections_beginnings[source_index] <= indicies[i] < sections_beginnings[source_index + 1]
 
-                if czyWZakresieI:      #jesli element jest z obecnie wczytanego zrodla
-                    indeks_w_pliku = indeksy[i] - poczatki_przedzialow[nr_zrodla]
-                    dane.append(zrodlo[indeks_w_pliku])                                   #to go zapisz
-                    paczka_etykiet.append(etykiety[indeks_w_pliku])
-            if len(dane) > 0:
-                np.save(f"data2/tymczasowy_z{nr_zrodla}-w{nr_wynikowego}.npy", dane)
-                np.save(f"data2/tymczasowyET_z{nr_zrodla}-w{nr_wynikowego}.npy", paczka_etykiet)
+                if if_i_in_range:      #jesli element jest z obecnie wczytanego zrodla
+                    indices_in_file = indicies[i] - sections_beginnings[source_index]
+                    data.append(source[indices_in_file])                                   #to go zapisz
+                    label_pack.append(labels[indices_in_file])
+            if len(data) > 0:
+                np.save(f"data2/tymczasowy_z{source_index}-w{result_no}.npy", data)
+                np.save(f"data2/tymczasowyET_z{source_index}-w{result_no}.npy", label_pack)
 
-        if suma_dlugosci % (len(nicki_badanych)) > 0 and dlugosc_wynikowych*(ilosc_wynikowych)< suma_dlugosci:    #Resztki
-            dane = []
-            paczka_etykiet = []
-            for i in range(dlugosc_wynikowych*(ilosc_wynikowych) , suma_dlugosci):
-                czyWZakresieI = poczatki_przedzialow[nr_zrodla] <= indeksy[i] < poczatki_przedzialow[nr_zrodla + 1]
-                if czyWZakresieI:
-                    dane.append(zrodlo[indeksy[i]- poczatki_przedzialow[nr_zrodla]])
-                    paczka_etykiet.append(etykiety[indeksy[i]- poczatki_przedzialow[nr_zrodla]])
-            if len(dane) > 0:
-                np.save(f"data2/tymczasowy_z{nr_zrodla}-r.npy", dane)
-                np.save(f"data2/tymczasowyET_z{nr_zrodla}-r.npy", paczka_etykiet)
+        if length_sum % (len(patients_nicknames)) > 0 and results_length*(results_amount)< length_sum:    #Resztki
+            data = []
+            label_pack = []
+            for i in range(results_length*(results_amount) , length_sum):
+                if_i_in_range = sections_beginnings[source_index] <= indicies[i] < sections_beginnings[source_index + 1]
+                if if_i_in_range:
+                    data.append(source[indicies[i]- sections_beginnings[source_index]])
+                    label_pack.append(labels[indicies[i]- sections_beginnings[source_index]])
+            if len(data) > 0:
+                np.save(f"data2/tymczasowy_z{source_index}-r.npy", data)
+                np.save(f"data2/tymczasowyET_z{source_index}-r.npy", label_pack)
     #--------------------Zapisywanie do plików wynikowych--------
-    print("Dane poszatkowane, lacze dane na nowo w nowej kolejnosci")
+    print("data poszatkowane, lacze data na nowo w nowej kolejnosci")
 
-    for nr_wynikowego in range(0, ilosc_wynikowych):
-        dane = []
+    for result_no in range(0, results_amount):
+        data = []
         et=[]
-        for fragment in range(0, len(nicki_badanych)):
-            p_zrd = f"data2/tymczasowy_z{fragment}-w{nr_wynikowego}.npy"
-            p_et = f"data2/tymczasowyET_z{fragment}-w{nr_wynikowego}.npy"
-            zrodlo = np.load(f"data2/tymczasowy_z{fragment}-w{nr_wynikowego}.npy")
-            etykiety = np.load(f"data2/tymczasowyET_z{fragment}-w{nr_wynikowego}.npy")
-            dane.append(zrodlo)
-            et.append(etykiety)
-            os.remove(p_zrd)
+        for fragment in range(0, len(patients_nicknames)):
+            p_src = f"data2/tymczasowy_z{fragment}-w{result_no}.npy"
+            p_et = f"data2/tymczasowyET_z{fragment}-w{result_no}.npy"
+            source = np.load(f"data2/tymczasowy_z{fragment}-w{result_no}.npy")
+            labels = np.load(f"data2/tymczasowyET_z{fragment}-w{result_no}.npy")
+            data.append(source)
+            et.append(labels)
+            os.remove(p_src)
             os.remove(p_et)
-        dane = np.concatenate(dane, axis=0)
+        data = np.concatenate(data, axis=0)
         et = np.concatenate(et, axis = 0)
 
-        miniindeksy = np.arange(0,len(dane))
-        np.random.shuffle(miniindeksy)
+        miniindicies = np.arange(0,len(data))
+        np.random.shuffle(miniindicies)
 
-        dane = dane[miniindeksy]
-        et = et[miniindeksy]
+        data = data[miniindicies]
+        et = et[miniindicies]
 
-        np.save(f"data2/plikWynikowy{nr_wynikowego}_{przyrostek_wynikowy}{zarostek}", dane)
-        np.save(f"data2/plikWynikowyET{nr_wynikowego}_{przyrostek_wynikowy}{zarostek}", et)
+        np.save(f"data2/plikWynikowy{result_no}_{result_postfix}{postfix}", data)
+        np.save(f"data2/plikWynikowyET{result_no}_{result_postfix}{postfix}", et)
 
-    if suma_dlugosci % (len(nicki_badanych)) > 0:
-        dane = []
+    if length_sum % (len(patients_nicknames)) > 0:
+        data = []
         et=[]
-        for nr_wynikowego in range(0, ilosc_wynikowych):
-            if os.path.exists(f"data2/tymczasowy_z{nr_wynikowego}-r.npy"):
-                p_zrd= f"data2/tymczasowy_z{nr_wynikowego}-r.npy"
-                p_et = f"data2/tymczasowyET_z{nr_wynikowego}-r.npy"
-                zrodlo =    np.load(p_zrd, allow_pickle=True)
-                etykiety =  np.load(p_et, allow_pickle=True)
-                dane.append(zrodlo)
-                et.append(etykiety)
-                os.remove(p_zrd)
+        for result_no in range(0, results_amount):
+            if os.path.exists(f"data2/tymczasowy_z{result_no}-r.npy"):
+                p_src= f"data2/tymczasowy_z{result_no}-r.npy"
+                p_et = f"data2/tymczasowyET_z{result_no}-r.npy"
+                source =    np.load(p_src, allow_pickle=True)
+                labels =  np.load(p_et, allow_pickle=True)
+                data.append(source)
+                et.append(labels)
+                os.remove(p_src)
                 os.remove(p_et)
-        dane = np.concatenate(dane, axis = 0)
+        data = np.concatenate(data, axis = 0)
         et = np.concatenate(et, axis = 0)
-        np.save(f"data2/plikWynikowy{ilosc_wynikowych}_{przyrostek_wynikowy}{zarostek}",dane)
-        np.save(f"data2/plikWynikowyET{ilosc_wynikowych}_{przyrostek_wynikowy}{zarostek}", et)
+        np.save(f"data2/plikWynikowy{results_amount}_{result_postfix}{postfix}",data)
+        np.save(f"data2/plikWynikowyET{results_amount}_{result_postfix}{postfix}", et)
 
         #--------------------Sprawdzenie-----------------------------------------------
     print("Sprawdzam poprawnosc danych")
 
-    dane = np.load(f"data/{nicki_badanych[0]}{zarostek}", allow_pickle=True)
-    etykiety = np.load(f"data/{nicki_badanych[0]}{zarostekET}", allow_pickle=True)
+    data = np.load(f"data/{patients_nicknames[0]}{postfix}", allow_pickle=True)
+    labels = np.load(f"data/{patients_nicknames[0]}{postfixET}", allow_pickle=True)
 
-    pierwsze100 = dane[0:100]
-    etykiety100 = etykiety[0:100]
-    znalezione = [False] * 100
+    first100 = data[0:100]
+    labels100 = labels[0:100]
+    found = [False] * 100
 
-    suma_kwadratow_roznic = np.zeros(21, dtype=np.float32)
+    sum_of_diff_squared = np.zeros(21, dtype=np.float32)
 
-    for nr_wynikowego in range(0, ilosc_wynikowych):
-        dane = np.load(f"data2/plikWynikowy{nr_wynikowego}_{przyrostek_wynikowy}{zarostek}")
-        etykiety = np.load(f"data2/plikWynikowyET{nr_wynikowego}_{przyrostek_wynikowy}{zarostek}")
+    for result_no in range(0, results_amount):
+        data = np.load(f"data2/plikWynikowy{result_no}_{result_postfix}{postfix}")
+        labels = np.load(f"data2/plikWynikowyET{result_no}_{result_postfix}{postfix}")
 
-        sr_format = srednia_kanalowa.reshape(1,-1,1,1) #Średnie dla kanałów
-        suma_kwadratow_roznic += np.sum((dane - sr_format) ** 2,  axis=(0,2,3))
+        mean_format = channel_mean.reshape(1,-1,1,1) #Średnie dla kanałów
+        sum_of_diff_squared += np.sum((data - mean_format) ** 2,  axis=(0,2,3))
 
-        for indeks in range(0,dlugosc_wynikowych):
+        for index in range(0,results_length):
             for elZ100 in range(0,100):
-                if np.array_equal(dane[indeks], pierwsze100[elZ100]) and np.array_equal(etykiety100[elZ100], etykiety[indeks]):
-                    znalezione[elZ100] = True
+                if np.array_equal(data[index], first100[elZ100]) and np.array_equal(labels100[elZ100], labels[index]):
+                    found[elZ100] = True
 
     #REEEEESZZTTTYYYY
-    if (os.path.exists(f"data2/plikWynikowy{ilosc_wynikowych}_{przyrostek_wynikowy}{zarostek}") and
-            suma_dlugosci % (len(nicki_badanych)) > 0 and dlugosc_wynikowych*(ilosc_wynikowych)< suma_dlugosci):
-        dane = np.load(f"data2/plikWynikowy{ilosc_wynikowych}_{przyrostek_wynikowy}{zarostek}")
-        etykiety = np.load(f"data2/plikWynikowyET{ilosc_wynikowych}_{przyrostek_wynikowy}{zarostek}")
+    if (os.path.exists(f"data2/plikWynikowy{results_amount}_{result_postfix}{postfix}") and
+            length_sum % (len(patients_nicknames)) > 0 and results_length*(results_amount)< length_sum):
+        data = np.load(f"data2/plikWynikowy{results_amount}_{result_postfix}{postfix}")
+        labels = np.load(f"data2/plikWynikowyET{results_amount}_{result_postfix}{postfix}")
         
-        rozmiar_reszty = suma_dlugosci-(ilosc_wynikowych*dlugosc_wynikowych)
+        remains_size = length_sum-(results_amount*results_length)
 
-        sr_format = srednia_kanalowa.reshape(1,-1,1,1) #Średnie dla kanałów
-        suma_kwadratow_roznic += np.sum((dane - sr_format) ** 2, axis=(0,2,3))
+        mean_format = channel_mean.reshape(1,-1,1,1) #Średnie dla kanałów
+        sum_of_diff_squared += np.sum((data - mean_format) ** 2, axis=(0,2,3))
 
-        for indeks in range(0,rozmiar_reszty):
+        for index in range(0,remains_size):
             for elZ100 in range(0,100):
-                if np.array_equal(dane[indeks], pierwsze100[elZ100]) and np.array_equal(etykiety100[elZ100], etykiety[indeks]):
-                    znalezione[elZ100] = True
+                if np.array_equal(data[index], first100[elZ100]) and np.array_equal(labels100[elZ100], labels[index]):
+                    found[elZ100] = True
 
-    if sum(znalezione) == 100:
-        print(f"Udalo sie utworzyc pliki. Znaleziono grupe testowa w wynikowych! Plik data2/plikWynikowy_{przyrostek_wynikowy}{zarostek} poprawny. Przystepuje do normalizacji danych")
+    if sum(found) == 100:
+        print(f"Udalo sie utworzyc pliki. Znaleziono grupe testowa w wynikowych! Plik data2/plikWynikowy_{result_postfix}{postfix} poprawny. Przystepuje do normalizacji danych")
     else:
-        print(f"BLAD. Niezgodnosc etykiet z grupy testowej lub brak niektorych elementow! Znaleziono zgodnych: {sum(znalezione)}")
+        print(f"BLAD. Niezgodnosc etykiet z grupy testowej lub brak niektorych elementow! Znaleziono zgodnych: {sum(found)}")
 
 
-    odchylenie_std = np.sqrt(suma_kwadratow_roznic/suma_il_el_miedzykan)
-    parametry = []
+    std_deviation = np.sqrt(sum_of_diff_squared/sum_elements_amount_interchannel)
+    parameters = []
 
-    sr_format = srednia_kanalowa.reshape(1, -1, 1, 1)
-    std_format = odchylenie_std.reshape(1, -1, 1, 1)
+    mean_format = channel_mean.reshape(1, -1, 1, 1)
+    std_format = std_deviation.reshape(1, -1, 1, 1)
 
-    parametry.append(sr_format)
-    parametry.append(std_format)
-    np.save(f"data2/parametry_{przyrostek_wynikowy}{czy_us_srednia}{obecna_metoda_red}.npy", parametry)
+    parameters.append(mean_format)
+    parameters.append(std_format)
+    np.save(f"data2/parameters_{result_postfix}{if_mean_deleted}{current_reduction_method}.npy", parameters)
     #-------------------Normalizacja (jeli zażadano TFA)------------------------------------------------
-    il_plikow = ilosc_wynikowych
-    if suma_dlugosci % (len(nicki_badanych)) > 0:
-        il_plikow += 1
-    for nr_wynikowego in range(0, il_plikow):
-        dane = np.load(f"data2/plikWynikowy{nr_wynikowego}_{przyrostek_wynikowy}{zarostek}")
+    file_amount = results_amount
+    if length_sum % (len(patients_nicknames)) > 0:
+        file_amount += 1
+    for result_no in range(0, file_amount):
+        data = np.load(f"data2/plikWynikowy{result_no}_{result_postfix}{postfix}")
         
-        if przyrostek_wynikowy == "TRAIN":
+        if result_postfix == "TRAIN":
             print("Paczka Treningowa, normalizuje...")
-            dane = (dane-sr_format)/std_format
+            data = (data-mean_format)/std_format
         else:
             print("Paczka Testowa, normalizuje parametrami z danych treningowych.")
-            if os.path.exists(f"data2/parametry_TRAIN{czy_us_srednia}{obecna_metoda_red}.npy"):
-                parametry=np.load(f"data2/parametry_TRAIN{czy_us_srednia}{obecna_metoda_red}.npy")
-                sr_format = parametry[0]
-                std_format = parametry[1]
-        dane = (dane-sr_format)/std_format
+            if os.path.exists(f"data2/parameters_TRAIN{if_mean_deleted}{current_reduction_method}.npy"):
+                parameters=np.load(f"data2/parameters_TRAIN{if_mean_deleted}{current_reduction_method}.npy")
+                mean_format = parameters[0]
+                std_format = parameters[1]
+        data = (data-mean_format)/std_format
         
-        dane = np.transpose(dane, (0, 2, 3, 1))
-        np.save(f"data2/plikWynikowy{nr_wynikowego}_{przyrostek_wynikowy}{zarostek}",dane)
-        print(f"Dane znormalizowane i zapisane w data2/plikWynikowy{nr_wynikowego}_{przyrostek_wynikowy}{zarostek}")
+        data = np.transpose(data, (0, 2, 3, 1))
+        np.save(f"data2/plikWynikowy{result_no}_{result_postfix}{postfix}",data)
+        print(f"data znormalizowane i zapisane w data2/plikWynikowy{result_no}_{result_postfix}{postfix}")
 
-def generuj_TRAIN():
-    przyrostek_wynikowy = przyrostki[1]
-    nicki_badanych = PRZYROSTKI_PLIKOW[0:7]
-    #nicki_badanych = [PRZYROSTKI_PLIKOW[0]]
-    przemieszaj_dane(nicki_badanych, przyrostek_wynikowy)
+def generate_TRAIN():
+    result_postfix = prefixes[1]
+    patients_nicknames = FILE_PREFIXES[0:7]
+    #patients_nicknames = [FILE_PREFIXES[0]]
+    shuffle_data(patients_nicknames, result_postfix)
 
-def generuj_VALIDATE():
-    przyrostek_wynikowy = przyrostki[3]
-    nicki_badanych = PRZYROSTKI_PLIKOW[5:7]
-    przemieszaj_dane(nicki_badanych, przyrostek_wynikowy)
+def generate_VALIDATE():
+    result_postfix = prefixes[3]
+    patients_nicknames = FILE_PREFIXES[5:7]
+    shuffle_data(patients_nicknames, result_postfix)
 
-def generuj_TEST():
-    przyrostek_wynikowy = przyrostki[2]
-    nicki_badanych = PRZYROSTKI_PLIKOW[7:]
-    przemieszaj_dane(nicki_badanych, przyrostek_wynikowy)
+def generate_TEST():
+    result_postfix = prefixes[2]
+    patients_nicknames = FILE_PREFIXES[7:]
+    shuffle_data(patients_nicknames, result_postfix)
 
-def generuj_wynikowe(do_TFA = True, czy_redukcja_basln=False, metoda_red = 2, us_sre=False):
-    global obecny_typ_pliku, obecny_typ_pliku_et, obecna_metoda_red, czy_us_srednia
+def generate_result(do_TFA = True, if_baseline_red=False, reduction_method = 2, us_sre=False):
+    global current_file_type, current_file_type_et, current_reduction_method, if_mean_deleted
 
     if not os.path.exists("data2"):
         os.mkdir("data2")
 
-    obecny_typ_pliku = nazwy_plikow[0]
-    obecny_typ_pliku_et = nazwy_plikow_etykiet[0]
-    obecna_metoda_red = reduction_methods[metoda_red+1]
+    current_file_type = file_names[0]
+    current_file_type_et = file_names_eti[0]
+    current_reduction_method = reduction_methods[reduction_method+1]
     if not do_TFA:
-        obecna_metoda_red = reduction_methods[6]
-    if not czy_redukcja_basln:
-        obecna_metoda_red = reduction_methods[0]
-    czy_us_srednia = wrostki_sredniej[us_sre]
+        current_reduction_method = reduction_methods[6]
+    if not if_baseline_red:
+        current_reduction_method = reduction_methods[0]
+    if_mean_deleted = mean_infixes[us_sre]
 
     global do_morlet
     do_morlet = do_TFA
-    generuj_TRAIN()
-    generuj_TEST()
+    generate_TRAIN()
+    generate_TEST()
 
 if __name__ == "__main__":
-    generuj_wynikowe(True)
+    generate_result(True)
