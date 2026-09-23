@@ -12,3 +12,15 @@ but because of insufficient data, attempt has been abandoned on early stage.
 
 # Project Background
 Semester project for biologically inspired AI subcject during bachelor studies on Silesian University of Technology.
+
+# File Description
+raport/ 								- mandatory university end-project report, documenting achieved results.
+data_preparation.py  - script that performs basic data processing.
+data_randomizer.py 	 - script that shuffles and transposes processed data.
+dispatch_preparation.py - aggregates data preparation and shuffling.
+EEG_reconstruction.py   - performs image recounstruction.
+Model_Training_EEGInception.py  - trains an EEGInception based model.
+EEG_retrieval.py        - data retrieval using image embedding
+Model_Training_EEGNet.py		- trains an EEGnet based model.
+notebook.ipynb			- testfile for experiments with data preparation.
+ModelTrainingCNN.py     - trains CNN model, made using Tensorflow.
